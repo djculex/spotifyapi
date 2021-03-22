@@ -1,0 +1,85 @@
+@charset "UTF-8";
+/*
+ You may not change or alter any portion of this comment or credits
+ of supporting developers from this source code or any supporting source code
+ which is considered copyrighted (c) material of the original comment or credit authors.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+*/
+
+/**
+ * Lasius module for xoops
+ *
+ * @copyright      2020 XOOPS Project (https://xooops.org)
+ * @license        GPL 2.0 or later
+ * @package        lasius
+ * @since          1.0
+ * @min_xoops      2.5.9
+ * @author         Culex - Email:<culex@culex.dk> - Website:<http://culex.dk>
+ */
+.spotify-table {
+}
+.spotifyholdermain {
+  height: 325px;
+  overflow-y: scroll;
+}
+
+.spotifyholdermain > * {
+  transition: .3s ease-in-out;
+}
+
+.spotify-block-main {
+height: 250px;
+overflow-wrap: normal;
+overflow-y: hidden;
+margin: 0 -29px;
+padding: 0px 10px;
+}
+
+.spotifyholder {
+background-color: #e63e3e40;
+position: relative;
+padding: 5px;
+border-style: solid;
+border-color: #999;
+border-width: thin;
+border-radius: 10px 10px 10px 10px;
+margin: 5% auto;
+}
+
+.spotify-image-top {
+width: 70%;
+/*padding: 2% 20% 2% 71%;*/
+margin-left: auto;
+margin-right: auto;
+margin: 7% 15% 7% 15%;
+}
+
+.spotify-image-body {  
+}
+
+.spotify-image-title {
+}
+
+p.spotify-artist-text {
+font-size: 12px;
+color: black;
+margin: 5%;
+text-align: center;
+}
+
+.spotify-albumname {
+margin: 0 10% 5% 10%;
+font-size: 12px;
+font-style: italic;
+text-align: center;
+}
+
+.spotify-playtime {
+margin: 0 10% 0 10%;
+font-size: 10px;
+font-style: italic;
+font-weight: bold;
+}
