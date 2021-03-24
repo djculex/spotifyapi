@@ -1,8 +1,7 @@
 <link rel="stylesheet" type="text/css" href="<{$xoops_url}>/modules/spotifyapi/assets/css/player.css">
 
-<div class = "spotifyholdermain">
+<div class = "spotifyholdermain owl-carousel owl-theme">
 <{section name=i loop=$block}>
-	<div>
 	<div class="spotifyholder">
 		<p class="spotify-playtime">
 			<{$smarty.const._SPOTIFYAPI_PLAYTIME}><{$block[i].times}>	
@@ -17,7 +16,6 @@
 			
 		</p>
 		</div>
-	</div>
 	</div>
 <{/section}>
 </div>

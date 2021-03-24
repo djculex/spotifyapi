@@ -49,7 +49,31 @@ $.ajax({
 		},
         success: function (data) {
 			$('.spotify-block-main').html(data);
-			
+			$(".spotifyholdermain").owlCarousel({
+				
+				//Basic Speeds
+				slideSpeed : 100,
+				paginationSpeed : 800,
+			 
+				//Autoplay
+				autoPlay : true,
+				goToFirst : true,
+				goToFirstSpeed : 1000,
+			 
+				// Navigation
+				navigation : true,
+				navigationText : ["prev","next"],
+				pagination : false,
+				paginationNumbers: false,
+			 
+				// Responsive
+				responsive: true,
+				items : 1,
+				itemsDesktop : [1199,4],
+				itemsDesktopSmall : [980,3],
+				itemsTablet: [768,2],
+				itemsMobile : [479,1]
+			});
 			// Auto scroll
 			//doSlider();
 			
@@ -117,5 +141,6 @@ $.ajax({
 			});
 		  }, 2000);
 	}
+	
 
 });
