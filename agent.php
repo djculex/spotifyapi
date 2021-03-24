@@ -53,6 +53,7 @@ $GLOBALS['xoopsLogger']->activated = false;
 		
 		//$value = json_encode($calansarki);
 		$value = json_decode(json_encode($calansarki), true);
+		//var_dump("<pre>",$value,"</pre>");
 		//echo $_GET['callback']."(".json_encode($value).");";
 		for ($i=0; $i < count($value['items']); $i++) {		
 				$db->image = $value['items'][$i]['track']["album"]["images"][0]["url"];
