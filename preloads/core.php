@@ -25,7 +25,17 @@ class SpotifyapiCorePreload extends \XoopsPreloadItem
 	
 	public static function eventCoreHeaderAddmeta()
     {
+		
+		
+		//Basic stylesheet -->
+		$GLOBALS['xoTheme']->addStylesheet(XOOPS_URL ."/modules/spotifyapi/assets/css/owl.carousel.css");
+ 
+		//Default Theme -->
+		$GLOBALS['xoTheme']->addStylesheet(XOOPS_URL ."/modules/spotifyapi/assets/css/owl.theme.css");
+		
+		// Js
 		$GLOBALS['xoTheme']->addScript('browse.php?Frameworks/jquery/jquery.js');
+		$GLOBALS['xoTheme']->addScript(XOOPS_URL ."/modules/spotifyapi/assets/js/owl.carousel.js");
 		
 		$url = XOOPS_URL . '/modules/spotifyapi/agent.php';
 		$url2 = XOOPS_URL . '/modules/spotifyapi/request.php';
