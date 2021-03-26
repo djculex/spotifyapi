@@ -12,11 +12,14 @@ class db extends \XoopsPersistableObjectHandler
 	public $helper;
 	
 	public $artist;
+	public $artisturl;
 	public $title;
 	public $albumtitle;
 	public $release_year;
 	public $times;
 	public $image;
+	public $userplaylist;
+	public $popularity;
 	public $numtoshow;
 	
     /**
@@ -48,8 +51,11 @@ class db extends \XoopsPersistableObjectHandler
 		if ($type == 'save') {
 			// INSERT INTO `xoops_spotifyapi_music` (`id`, `artist`, `title`, `album`, `releaseyear`) VALUES (NULL, 'artist', 'titel', 'new album', '2020');
 			$sql = 	'INSERT INTO ' . $this->db->prefix('spotifyapi_music') . 
-					' (id, times, image, artist, title, album, releaseyear) VALUES '.
-					'(null,"'.addslashes($this->times).'", "'.addslashes($this->image).'", "'.addslashes($this->artist).'", "'.addslashes($this->title).'", "'.addslashes($this->albumtitle).'", "'.addslashes($this->release_year).'")';
+					' (id, times, image, artist, title, album, releaseyear, artistlink, playlistlink, popularity) VALUES '.
+					'(null,"' . addslashes($this->times) . '", "' . addslashes($this->image) . '", "'.addslashes($this->artist) . 
+						'", "' . addslashes($this->title) . '", "' . addslashes($this->albumtitle) . '", "' . addslashes($this->release_year) . 
+						'", "' . addslashes($this->artisturl) . '", "' . addslashes($this->userplaylist) . '", "' . addslashes($this->popularity) .
+					'")';
 		} 
 		if ($type == 'update'){
 			//$sql = 'UPDATE ' . $this->db->prefix('lasius_config') . ' SET configname="'.$name.'", configvalue = "'.$value.'" WHERE configname="'.$name.'"';
@@ -76,10 +82,21 @@ class db extends \XoopsPersistableObjectHandler
 			return false;
 		}
 	}
+
 	
+	public function updateurls ()
+	{
+		//mysql_query("UPDATE blogEntry SET content = '$udcontent', title = '$udtitle' WHERE id = '$id'")
+		$sql = "UPDATE " . $this->db->prefix('spotifyapi_music') . 
+			" SET artistlink = '".addslashes($this->artisturl) . "', playlistlink = '" . addslashes($this->userplaylist) . "', popularity = '" . addslashes($this->popularity) .
+			"' WHERE artist = '" . addslashes($this->artist) . "' AND title = '" . addslashes($this->title) . "' AND times = '" . addslashes($this->times) . "'";
+		$result = $this->db->queryF($sql);
+	}
+
 	public function getSongs()
 	{
 		$sql = "Select * From " . $this->db->prefix('spotifyapi_music') . " order by times DESC limit 0,".$this->numtoshow ;
+		//$sql = "Select * From " . $this->db->prefix('spotifyapi_music') . " order by times DESC";
 		$result = $this->db->queryF($sql);
 		while ($row = $this->db->fetchArray($result)) {
 			$arr[] = $row;
