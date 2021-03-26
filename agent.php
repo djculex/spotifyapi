@@ -49,11 +49,12 @@ $GLOBALS['xoopsLogger']->activated = false;
 		];
 
 		//$calansarki = $api->getMyCurrentPlaybackInfo($options);
+		//$calansarki = $api->getMyRecentTracks($options,array('limit'=>$helper->getConfig('spotifyapinumbertoshow')));
 		$calansarki = $api->getMyRecentTracks($options,array('limit'=>$helper->getConfig('spotifyapinumbertoshow')));
 		
 		//$value = json_encode($calansarki);
 		$value = json_decode(json_encode($calansarki), true);
-		//var_dump("<pre>",$value,"</pre>");
+		//print_r($value);
 		//echo $_GET['callback']."(".json_encode($value).");";
 		for ($i=0; $i < count($value['items']); $i++) {		
 				$db->image = $value['items'][$i]['track']["album"]["images"][0]["url"];
@@ -63,6 +64,7 @@ $GLOBALS['xoopsLogger']->activated = false;
 				$db->times = $dta->format('d-m-Y H:i:s');
 				
 				$db->artist = $value['items'][$i]['track']["artists"][0]["name"];
+				$db->artisturl = $value['items'][$i]['track']["artists"][0]["external_urls"]["spotify"];
 				
 				$db->title = $value['items'][$i]['track']["name"];
 				
@@ -71,6 +73,11 @@ $GLOBALS['xoopsLogger']->activated = false;
 				$dt = new DateTime($value['items'][$i]['track']["album"]['release_date']);
 				$dt->format('Y');
 				$db->release_year = $dt->format('Y');
+				$db->popularity = $value['items'][$i]['track']["popularity"];
+				
+				$db->userplaylist = $value['items'][$i]["context"]["external_urls"]["spotify"];
+				
+				//$db->updateurls();
 				
 				if ($db->songexists() == false){
 					$db->loadSave($type='save');
