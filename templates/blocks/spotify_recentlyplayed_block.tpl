@@ -3,13 +3,18 @@
 <div class = "spotifyholdermain">
 <{section name=i loop=$block}>
 	<div class="spotifyholder">
+		
 		<p class = "spotifycounter">
 			<{$smarty.section.i.iteration}> / <{$smarty.section.i.total}>
 		</p>
 		<p class="spotify-playtime">
-			<{$smarty.const._SPOTIFYAPI_PLAYTIME}><{$block[i].times}>	
+			<a href = "<{$block[i].playlistlink}>" target = "_blank">
+				<{$smarty.const._SPOTIFYAPI_PLAYTIME}><{$block[i].times}>
+			</a>
 			</p>
-		<img class="spotify-image-top" src='<{$block[i].image}>'/>
+			<a href = "<{$block[i].artistlink}>" target = "_blank">
+				<img class="spotify-image-top" src='<{$block[i].image}>'/>
+			</a>
 		<div class="spotify-image-body">
 		<p class="spotify-artist-text">
 			<{$block[i].artist}> - <{$block[i].title}>
