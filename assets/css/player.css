@@ -36,8 +36,13 @@ text-align: center;
 
 .spotify-block-main {
 /*height: 250px;*/
-overflow-wrap: normal;
-overflow-y: hidden;
+}
+
+.spotifycounter {
+	text-align: right;
+	margin: 0% 1%;
+	font-size: 0.8em;
+	color: #ab9e845c;
 }
 
 .spotifyholder {
@@ -47,11 +52,12 @@ border-style: solid;
 border-color: #999;
 border-width: thin;
 border-radius: 2% 2% 2% 2%;
+width: 55%;
 }
 
 .spotify-image-top {
-width: 40%;
-margin: 1% 30% 1% 30%;
+width: 50%;
+margin: 1% 25% 1% 25%;
 }
 
 .spotify-image-body {  
@@ -62,9 +68,10 @@ margin: 1% 30% 1% 30%;
 
 p.spotify-artist-text {
 font-size: 1.0em;
-color: black;
+color: #f4ce94;
 margin: 0 0;
 text-align: center;
+text-shadow: 4px 5px 2px #000000;
 }
 
 .spotify-albumname {

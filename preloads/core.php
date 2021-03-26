@@ -16,6 +16,12 @@
  */
 \defined('XOOPS_ROOT_PATH') || die('Restricted access.');
 
+use XoopsModules\Spotifyapi\{
+	Session,
+	SpotifyWebAPI,
+	db
+};
+
 /**
  * Class SpotifyapiCorePreload
  */
@@ -25,25 +31,25 @@ class SpotifyapiCorePreload extends \XoopsPreloadItem
 	
 	public static function eventCoreHeaderAddmeta()
     {
-		
-		
-		//Basic stylesheet -->
-		$GLOBALS['xoTheme']->addStylesheet(XOOPS_URL ."/modules/spotifyapi/assets/css/owl.carousel.css");
+		$db = new db();
  
 		//Default Theme -->
-		$GLOBALS['xoTheme']->addStylesheet(XOOPS_URL ."/modules/spotifyapi/assets/css/owl.theme.css");
+		$GLOBALS['xoTheme']->addStylesheet(XOOPS_URL ."/modules/spotifyapi/assets/css/slick.css");
+		$GLOBALS['xoTheme']->addStylesheet(XOOPS_URL ."/modules/spotifyapi/assets/css/slick-theme.css");
 		
 		// Js
 		$GLOBALS['xoTheme']->addScript('browse.php?Frameworks/jquery/jquery.js');
-		$GLOBALS['xoTheme']->addScript(XOOPS_URL ."/modules/spotifyapi/assets/js/owl.carousel.js");
+		$GLOBALS['xoTheme']->addScript(XOOPS_URL ."/modules/spotifyapi/assets/js/slick.js");
 		
 		$url = XOOPS_URL . '/modules/spotifyapi/agent.php';
 		$url2 = XOOPS_URL . '/modules/spotifyapi/request.php';
 		$script  = "var spotifyagenturl = '" . $url . "';\n";
 		$script2  = "var spotifyagenturl2 = '" . $url2 . "';\n"; 
+		$script3  = "var spotifylastplay = '".$db->getLatestTimeStamp()."';\n";
 		//$GLOBALS['xoTheme']->addScript($script);
 		$GLOBALS['xoTheme']->addScript(null, array( 'type' => 'text/javascript' ), $script, 'spot');
 		$GLOBALS['xoTheme']->addScript(null, array( 'type' => 'text/javascript' ), $script2, 'spot2');
+		$GLOBALS['xoTheme']->addScript(null, array( 'type' => 'text/javascript' ), $script3, 'spot3');
 		$GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/spotifyapi/assets/js/spotifyapi-block.js');
 		//$GLOBALS['xoTheme']->addScript(XOOPS_URL . '/modules/spotifyapi/assets/js/vticker.js');
 	}

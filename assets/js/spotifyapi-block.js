@@ -1,85 +1,71 @@
 $(document).ready(function(){
-	
-	/*alert(spotifyagenturl);
-	*/
-/*	
+
 	$.ajax({
-		type: 'GET',
-        url: spotifyagenturl,
-        dataType : 'jsonp',
-		jsonpCallback: 'callback',
-		xhrFields: {
+			url: spotifyagenturl2,
+			dataType: 'html',
+			async: true,
+			xhrFields: {
 			  withCredentials: true
 			},
-		crossDomain: true,
-		contentType: "application/json; charset=utf-8;",
-		async: false,
-		success: function (response) {
-			console.log('callback success: ', response);
-			getServerResult();
-		},
-		error: function (xhr, status, error) {
-			console.log(status + '; ' + error);
-		}
-    });
-	
+			headers: {
+					"accept": "application/json",
+					"Access-Control-Allow-Origin":"*",
+					"Access-Control-Allow-Headers": "*"
+			},
+			crossDomain: true,
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+				xhr.setRequestHeader('Authorization', '*');
+			},
+			success: function (data) {
+				var index = 0;
+				var count = 0;
+				$('.spotify-block-main').html(data);
+				$('.spotifyholdermain').slick({
+				  slidesToShow: 1,
+				  slidesToScroll: 1,
+				  autoplay: true,
+				  autoplaySpeed: 4000,
+				  //dots:true,
+				  fade:true,
+				  focusOnSelect:true,
+				  pauseOnFocus:true,
+				  pauseOnHover:true,
+				  //vertical:true,
+				  centerMode: true,
+					responsive: [
+					{
 
+					  breakpoint: 1024,
+					  settings: {
+						slidesToShow: 1,
+						infinite: true
+					  }
 
-	function callFunction(data){
-	 //$('.spotifyholder').innerHTML = data;
-	}
-*/
+					}, {
 
-$.ajax({
-        url: spotifyagenturl2,
-        dataType: 'html',
-		async: true,
-		xhrFields: {
-		  withCredentials: true
-		},
-		headers: {
-				"accept": "application/json",
-				"Access-Control-Allow-Origin":"*",
-				"Access-Control-Allow-Headers": "*"
-        },
-		crossDomain: true,
-		beforeSend: function (xhr) {
-			xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-			xhr.setRequestHeader('Authorization', '*');
-		},
-        success: function (data) {
-			$('.spotify-block-main').html(data);
-			$(".spotifyholdermain").owlCarousel({
+					  breakpoint: 600,
+					  settings: {
+						slidesToShow: 1,
+						dots: true
+					  }
+
+					}, {
+
+					  breakpoint: 300,
+					  settings: "unslick" // destroys slick
+
+					}
+					]
+				});		
+			}
+				//var sliderItemsTotal = $('.owl-item').length;
+				//console.log(sliderItemsTotal);
 				
-				//Basic Speeds
-				slideSpeed : 100,
-				paginationSpeed : 800,
-			 
-				//Autoplay
-				autoPlay : true,
-				goToFirst : true,
-				goToFirstSpeed : 1000,
-			 
-				// Navigation
-				navigation : true,
-				navigationText : ["prev","next"],
-				pagination : false,
-				paginationNumbers: false,
-			 
-				// Responsive
-				responsive: true,
-				items : 1,
-				itemsDesktop : [1199,4],
-				itemsDesktopSmall : [980,3],
-				itemsTablet: [768,2],
-				itemsMobile : [479,1]
-			});
-			// Auto scroll
-			//doSlider();
-			
-        }
-
-});
+				// Auto scroll
+				//doSlider();
+				
+	});
 
 
 
@@ -124,22 +110,6 @@ $.ajax({
 			}
 
 		});	
-	}
-	
-	//Scroller recently played
-	function doSlider()
-	{
-		var offset = 0;
-		var count = $(".spotifyholdermain  > * > *").length;
-		//console.log(count);
-		window.setInterval(
-		  function() {
-			offset = (offset - 75) % (count * 75); // 104px div height (incl margin)
-			//offset = $(".spotifyholdermain > * >*").height()
-			$(".spotifyholdermain > *").css({
-			  "transform": "translateY(" + offset + "px)",
-			});
-		  }, 2000);
 	}
 	
 
