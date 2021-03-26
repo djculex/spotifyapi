@@ -147,10 +147,9 @@ $modversion['config'][] = [
 	'name'        => 'spotifyapinumbertoshow',
 	'title'       => '_MI_SPOTIFYAPI_NUMBOFSONGSTOSHOW',
 	'description' => '_MI_SPOTIFYAPI_NUMBOFSONGSTOSHOW_DESC',
-	'formtype'    => 'select',
+	'formtype'    => 'textbox',
 	'valuetype'   => 'int',
 	'default'     => 10,
-	'options'     => [10 => '10', 20 => '20', 30 => '30', 40 => '40'],
 ];
 
 
