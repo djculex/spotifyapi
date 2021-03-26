@@ -149,8 +149,8 @@ $modversion['config'][] = [
 	'description' => '_MI_SPOTIFYAPI_NUMBOFSONGSTOSHOW_DESC',
 	'formtype'    => 'select',
 	'valuetype'   => 'int',
-	'default'     => 3,
-	'options'     => [1 => '1', 2 => '2', 3 => '3', 4 => '4'],
+	'default'     => 10,
+	'options'     => [10 => '10', 20 => '20', 30 => '30', 40 => '40'],
 ];
 
 
