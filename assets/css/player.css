@@ -19,6 +19,14 @@
  * @min_xoops      2.5.9
  * @author         Culex - Email:<culex@culex.dk> - Website:<http://culex.dk>
  */
+
+.spotify-playtime a:link, a:visited, a:hover, a:active {
+	font-size: 1.0em;
+	color: #f4ce94;
+	margin: 0 0;
+	text-align: center; 
+}
+ 
 .spotify-table {
 }
 
