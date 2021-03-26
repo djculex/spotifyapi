@@ -17,6 +17,7 @@ class db extends \XoopsPersistableObjectHandler
 	public $release_year;
 	public $times;
 	public $image;
+	public $numtoshow;
 	
     /**
      * constructor
@@ -27,6 +28,7 @@ class db extends \XoopsPersistableObjectHandler
     {
 		if (null === $helper) {
             $helper = Helper::getInstance();
+			$this->numtoshow = $helper->getConfig('spotifyapinumbertoshow');
         }
 		$this->helper = $helper;
 		if (null === $db) {
@@ -77,12 +79,22 @@ class db extends \XoopsPersistableObjectHandler
 	
 	public function getSongs()
 	{
-		$sql = "Select * From " . $this->db->prefix('spotifyapi_music') . " order by times DESC";
+		$sql = "Select * From " . $this->db->prefix('spotifyapi_music') . " order by times DESC limit 0,".$this->numtoshow ;
 		$result = $this->db->queryF($sql);
 		while ($row = $this->db->fetchArray($result)) {
 			$arr[] = $row;
         }
 		return $arr;
+	}
+	
+	public function getLatestTimeStamp()
+	{
+		$sql = "Select times from ".$this->db->prefix('spotifyapi_music'). " order by times DESC limit 0,1";
+		$result = $this->db->queryF($sql);
+		while($row = $this->db->fetchArray($result)) {
+			$arr[] = $row;
+        }
+		return $arr[0]['times'];
 	}
 	
 
