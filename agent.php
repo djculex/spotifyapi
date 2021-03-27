@@ -47,25 +47,35 @@ $GLOBALS['xoopsLogger']->activated = false;
 				'user-read-recently-played'
 			],
 		];
-
+		//$GLOBALS['xoopsLogger']->activated = true;
 		//$calansarki = $api->getMyCurrentPlaybackInfo($options);
 		//$calansarki = $api->getMyRecentTracks($options,array('limit'=>$helper->getConfig('spotifyapinumbertoshow')));
-		$calansarki = $api->getMyRecentTracks($options,array('limit'=>$helper->getConfig('spotifyapinumbertoshow')));
+		$calansarki = $api->getMyRecentTracks($options,array('limit'=>50));
 		
 		//$value = json_encode($calansarki);
 		$value = json_decode(json_encode($calansarki), true);
-		//print_r($value);
+		print_r($value);
 		//echo $_GET['callback']."(".json_encode($value).");";
 		for ($i=0; $i < count($value['items']); $i++) {		
-				$db->image = $value['items'][$i]['track']["album"]["images"][0]["url"];
+				
+				if ($value['items'][$i]['track']["album"]["images"][0]["url"] != ""){
+					$db->image = $value['items'][$i]['track']["album"]["images"][0]["url"];
+				} else {
+					$db->image = XOOPS_URL . "/modules/spotifyapi/assets/images/defaultalbumcover.png";
+					echo $db->image;
+				}
 
 				$dta = new DateTime($value['items'][$i]['played_at'], new DateTimeZone('UTC'));
 				$dta->setTimezone(new DateTimeZone('Europe/Copenhagen'));
 				$db->times = $dta->format('d-m-Y H:i:s');
 				
 				$db->artist = $value['items'][$i]['track']["artists"][0]["name"];
-				$db->artisturl = $value['items'][$i]['track']["artists"][0]["external_urls"]["spotify"];
 				
+				if (!empty($value['items'][$i]['track']["artists"][0]["external_urls"]["spotify"])) {
+					$db->artisturl = $value['items'][$i]['track']["artists"][0]["external_urls"]["spotify"];
+				} else {
+					$db->artisturl = "";
+				}
 				$db->title = $value['items'][$i]['track']["name"];
 				
 				$db->albumtitle = $value['items'][$i]['track']["album"]["name"];
@@ -73,10 +83,18 @@ $GLOBALS['xoopsLogger']->activated = false;
 				$dt = new DateTime($value['items'][$i]['track']["album"]['release_date']);
 				$dt->format('Y');
 				$db->release_year = $dt->format('Y');
-				$db->popularity = $value['items'][$i]['track']["popularity"];
 				
-				$db->userplaylist = $value['items'][$i]["context"]["external_urls"]["spotify"];
+				if (!empty($value['items'][$i]['track']["popularity"])) {
+					$db->popularity = $value['items'][$i]['track']["popularity"];
+				} else {
+					$db->popularity = 0;
+				}
 				
+				if (!empty($value['items'][$i]["context"]["external_urls"]["spotify"])){
+					$db->userplaylist = $value['items'][$i]["context"]["external_urls"]["spotify"];
+				} else {
+					$db->userplaylist = "";
+				}
 				//$db->updateurls();
 				
 				if ($db->songexists() == false){
