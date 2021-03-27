@@ -29,7 +29,7 @@ $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 // ------------------- Informations ------------------- //
 $modversion = [
 	'name'                => _MI_SPOTIFYAPI_NAME,
-	'version'             => 1.0,
+	'version'             => 1.5,
 	'description'         => _MI_SPOTIFYAPI_DESC,
 	'author'              => 'TDM XOOPS',
 	'author_mail'         => 'culex@culex.com',
@@ -69,7 +69,7 @@ $modversion = [
 	'module_website_url'  => 'www.xoops.org',
 	'module_website_name' => 'XOOPS Project',
 	'release'             => '05/25/2020',
-	'module_status'       => 'Beta 1',
+	'module_status'       => 'Beta 3',
 	'system_menu'         => 1,
 	'hasAdmin'            => 1,
 	'hasMain'             => 1,
