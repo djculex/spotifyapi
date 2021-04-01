@@ -7,7 +7,7 @@
 		<p class = "spotifycounter">
 			<{$smarty.section.i.iteration}> / <{$smarty.section.i.total}>
 		</p>
-		<p class="spotify-playtime">
+		<p id = "spotify-playtime" class="spotify-playtime">
 			<a href = "<{$block[i].playlistlink}>" target = "_blank">
 				<{$smarty.const._SPOTIFYAPI_PLAYTIME}><{$block[i].times}>
 			</a>
