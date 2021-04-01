@@ -22,30 +22,152 @@ declare(strict_types=1);
  * @min_xoops      2.5.9
  * @author         TDM XOOPS - Email:<culex@culex.com> - Website:<http://culex.dk>
  */
-if (!\defined('XOOPS_ICONS32_PATH')) {
-	\define('XOOPS_ICONS32_PATH', XOOPS_ROOT_PATH . '/Frameworks/moduleclasses/icons/32');
+
+/**
+ * Add content as meta tag to template
+ * @param $content
+ * @return void
+ */
+
+function spotifyapiMetaKeywords($content)
+{
+    global $xoopsTpl, $xoTheme;
+    $myts = MyTextSanitizer::getInstance();
+    $content= $myts->undoHtmlSpecialChars($myts->displayTarea($content));
+    if(isset($xoTheme) && \is_object($xoTheme)) {
+        $xoTheme->addMeta( 'meta', 'keywords', \strip_tags($content));
+    } else {    // Compatibility for old Xoops versions
+        $xoopsTpl->assign('xoops_meta_keywords', \strip_tags($content));
+    }
 }
-if (!\defined('XOOPS_ICONS32_URL')) {
-	\define('XOOPS_ICONS32_URL', XOOPS_URL . '/Frameworks/moduleclasses/icons/32');
+
+/**
+ * Add content as meta description to template
+ * @param $content
+ * @return void
+ */
+ 
+function spotifyapiMetaDescription($content)
+{
+    global $xoopsTpl, $xoTheme;
+    $myts = MyTextSanitizer::getInstance();
+    $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
+    if(isset($xoTheme) && \is_object($xoTheme)) {
+        $xoTheme->addMeta( 'meta', 'description', \strip_tags($content));
+    } else {    // Compatibility for old Xoops versions
+        $xoopsTpl->assign('xoops_meta_description', \strip_tags($content));
+    }
 }
-\define('SPOTIFYAPI_DIRNAME', 'spotifyapi');
-\define('SPOTIFYAPI_PATH', XOOPS_ROOT_PATH . '/modules/' . SPOTIFYAPI_DIRNAME);
-\define('SPOTIFYAPI_URL', XOOPS_URL . '/modules/' . SPOTIFYAPI_DIRNAME);
-\define('SPOTIFYAPI_ICONS_PATH', SPOTIFYAPI_PATH . '/assets/icons');
-\define('SPOTIFYAPI_ICONS_URL', SPOTIFYAPI_URL . '/assets/icons');
-\define('SPOTIFYAPI_IMAGE_PATH', SPOTIFYAPI_PATH . '/assets/images');
-\define('SPOTIFYAPI_IMAGE_URL', SPOTIFYAPI_URL . '/assets/images');
-\define('SPOTIFYAPI_UPLOAD_PATH', XOOPS_UPLOAD_PATH . '/' . SPOTIFYAPI_DIRNAME);
-\define('SPOTIFYAPI_UPLOAD_URL', XOOPS_UPLOAD_URL . '/' . SPOTIFYAPI_DIRNAME);
-\define('SPOTIFYAPI_UPLOAD_FILES_PATH', SPOTIFYAPI_UPLOAD_PATH . '/files');
-\define('SPOTIFYAPI_UPLOAD_FILES_URL', SPOTIFYAPI_UPLOAD_URL . '/files');
-\define('SPOTIFYAPI_UPLOAD_IMAGE_PATH', SPOTIFYAPI_UPLOAD_PATH . '/images');
-\define('SPOTIFYAPI_UPLOAD_IMAGE_URL', SPOTIFYAPI_UPLOAD_URL . '/images');
-\define('SPOTIFYAPI_UPLOAD_SHOTS_PATH', SPOTIFYAPI_UPLOAD_PATH . '/images/shots');
-\define('SPOTIFYAPI_UPLOAD_SHOTS_URL', SPOTIFYAPI_UPLOAD_URL . '/images/shots');
-\define('SPOTIFYAPI_ADMIN', SPOTIFYAPI_URL . '/admin/index.php');
-$localLogo = SPOTIFYAPI_IMAGE_URL . '/tdmxoops_logo.png';
-// Module Information
-$copyright = "<a href='http://culex.dk' title='culex DK' target='_blank'><img src='" . $localLogo . "' alt='culex DK' /></a>";
-include_once XOOPS_ROOT_PATH . '/class/xoopsrequest.php';
-include_once SPOTIFYAPI_PATH . '/include/functions.php';
+
+/**
+ * Rewrite all url
+ *
+ * @param string  $module  module name
+ * @param array   $array   array
+ * @param string  $type    type
+ * @return null|string $type    string replacement for any blank case
+ */
+function spotifyapi_RewriteUrl($module, $array, $type = 'content')
+{
+    $comment = '';
+    $helper = \XoopsModules\Spotifyapi\Helper::getInstance();
+    $Handler = $helper->getHandler('');
+    $lenght_id = $helper->getConfig('lenght_id');
+    $rewrite_url = $helper->getConfig('rewrite_url');
+
+    if (0 != $lenght_id) {
+        $id = $array['content_id'];
+        while (\strlen($id) < $lenght_id) {
+            $id = '0' . $id;
+        }
+    } else {
+        $id = $array['content_id'];
+    }
+
+    if (isset($array['topic_alias']) && $array['topic_alias']) {
+        $topic_name = $array['topic_alias'];
+    } else {
+        $topic_name = spotifyapi_Filter(xoops_getModuleOption('static_name', $module));
+    }
+
+    switch ($rewrite_url) {
+
+        case 'none':
+            if($topic_name) {
+                 $topic_name = 'topic=' . $topic_name . '&amp;';
+            }
+            $rewrite_base = '/modules/';
+            $page = 'page=' . $array['content_alias'];
+            return XOOPS_URL . $rewrite_base . $module . '/' . $type . '.php?' . $topic_name . 'id=' . $id . '&amp;' . $page . $comment;
+            break;
+
+        case 'rewrite':
+            if($topic_name) {
+                $topic_name .= '/';
+            }
+            $rewrite_base = xoops_getModuleOption('rewrite_mode', $module);
+            $rewrite_ext = xoops_getModuleOption('rewrite_ext', $module);
+            $module_name = '';
+            if(xoops_getModuleOption('rewrite_name', $module)) {
+                $module_name = xoops_getModuleOption('rewrite_name', $module) . '/';
+            }
+            $page = $array['content_alias'];
+            $type .= '/';
+            $id .= '/';
+            if ('content/' === $type) {
+                $type = '';
+            }
+            if ('comment-edit/' === $type || 'comment-reply/' === $type || 'comment-delete/' === $type) {
+                return XOOPS_URL . $rewrite_base . $module_name . $type . $id . '/';
+            }
+
+            return XOOPS_URL . $rewrite_base . $module_name . $type . $topic_name  . $id . $page . $rewrite_ext;
+            break;
+
+         case 'short':
+            if($topic_name) {
+                $topic_name .= '/';
+            }
+            $rewrite_base = xoops_getModuleOption('rewrite_mode', $module);
+            $rewrite_ext = xoops_getModuleOption('rewrite_ext', $module);
+            $module_name = '';
+            if(xoops_getModuleOption('rewrite_name', $module)) {
+                $module_name = xoops_getModuleOption('rewrite_name', $module) . '/';
+            }
+            $page = $array['content_alias'];
+            $type .= '/';
+            if ('content/' === $type) {
+                $type = '';
+            }
+            if ('comment-edit/' === $type || 'comment-reply/' === $type || 'comment-delete/' === $type) {
+                return XOOPS_URL . $rewrite_base . $module_name . $type . $id . '/';
+            }
+
+            return XOOPS_URL . $rewrite_base . $module_name . $type . $topic_name . $page . $rewrite_ext;
+            break;
+    }
+    return null;
+}
+/**
+ * Replace all escape, character, ... for display a correct url
+ *
+ * @param string $url      string to transform
+ * @param string $type     string replacement for any blank case
+ * @return string $url
+ */
+function spotifyapi_Filter($url, $type = '') {
+
+    // Get regular expression from module setting. default setting is : `[^a-z0-9]`i
+    $helper = \XoopsModules\Spotifyapi\Helper::getInstance();
+    $Handler = $helper->getHandler('');
+    $regular_expression = $helper->getConfig('regular_expression');
+
+    $url = \strip_tags($url);
+    $url .= \preg_replace("`\[.*\]`U", '', $url);
+    $url .= \preg_replace('`&(amp;)?#?[a-z0-9]+;`i', '-', $url);
+    $url .= htmlentities($url, ENT_COMPAT, 'utf-8');
+    $url .= \preg_replace('`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig);`i', "\1", $url);
+    $url .= \preg_replace(array($regular_expression, '`[-]+`'), '-', $url);
+    $url = ($url == '') ? $type : strtolower(	rim($url, '-'));
+    return $url;
+}
