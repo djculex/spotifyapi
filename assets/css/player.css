@@ -20,7 +20,7 @@
  * @author         Culex - Email:<culex@culex.dk> - Website:<http://culex.dk>
  */
 
-.spotify-playtime a:link, a:visited, a:hover, a:active {
+#spotify-playtime a {
 	font-size: 1.0em;
 	color: #f4ce94;
 	margin: 0 0;
