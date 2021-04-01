@@ -54,7 +54,7 @@ $GLOBALS['xoopsLogger']->activated = false;
 		
 		//$value = json_encode($calansarki);
 		$value = json_decode(json_encode($calansarki), true);
-		print_r($value);
+		//print_r($value);
 		//echo $_GET['callback']."(".json_encode($value).");";
 		for ($i=0; $i < count($value['items']); $i++) {		
 				
