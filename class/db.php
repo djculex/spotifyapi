@@ -22,6 +22,10 @@ class db extends \XoopsPersistableObjectHandler
 	public $popularity;
 	public $numtoshow;
 	
+	public $today;
+	public $lastweek;
+	public $selecttoplimit;
+	
     /**
      * constructor
      *
@@ -29,6 +33,10 @@ class db extends \XoopsPersistableObjectHandler
      **/
     public function __construct(\XoopsDatabase $db = null, $helper = null)
     {
+		$this->today = date('d-m-Y 00:00:00');
+		$this->lastweek = date("d-m-Y 00:00:00", strtotime("-1 week"));
+		$this->selecttoplimit = 10;
+		
 		if (null === $helper) {
             $helper = Helper::getInstance();
 			$this->numtoshow = $helper->getConfig('spotifyapinumbertoshow');
@@ -95,7 +103,7 @@ class db extends \XoopsPersistableObjectHandler
 
 	public function getSongs()
 	{
-		$sql = "Select * From " . $this->db->prefix('spotifyapi_music') . " order by times DESC limit 0,".$this->numtoshow ;
+		$sql = "Select * From " . $this->db->prefix('spotifyapi_music') . " order by id DESC limit 0,".$this->numtoshow ;
 		//$sql = "Select * From " . $this->db->prefix('spotifyapi_music') . " order by times DESC";
 		$result = $this->db->queryF($sql);
 		while ($row = $this->db->fetchArray($result)) {
@@ -112,6 +120,90 @@ class db extends \XoopsPersistableObjectHandler
 			$arr[] = $row;
         }
 		return $arr[0]['times'];
+	}
+	
+	/*
+	 * Function to get ranked array of top songs up until now
+	 * @param string $this->today Date(now)
+	 * @param string $this->selecttoplimit How many items to get
+	 * @return array $arr
+	*/
+	public function getTop() {
+		$sql  =  "select @rownum:= @rownum + 1 as pos,";
+		$sql .=  "prequery.id, ";
+		$sql .=  "prequery.times, ";
+		$sql .=  "prequery.image, ";
+		$sql .=  "prequery.artist, ";
+		$sql .=  "prequery.title, ";
+		$sql .=  "prequery.album, ";
+		$sql .=  "prequery.releaseyear, ";
+		$sql .=  "prequery.artistlink, ";
+		$sql .=  "prequery.playlistlink, ";
+		$sql .=  "prequery.popularity from(select @rownum := 0 ) sqlvars, ";
+		$sql .=  "(SELECT count(*) postCount, ";
+		$sql .=  "id, ";
+		$sql .=  "times, ";
+		$sql .=  "image, ";
+		$sql .=  "artist, ";
+		$sql .=  "title, ";
+		$sql .=  "album, ";
+		$sql .=  "releaseyear, ";
+		$sql .=  "artistlink, ";
+		$sql .=  "playlistlink, ";
+		$sql .=  "popularity FROM ".$this->db->prefix('spotifyapi_music')." ";
+		$sql .=  "WHERE STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') <= STR_TO_DATE('".$this->today."', '%d-%m-%Y %H:%i:%s') ";
+		//$sql .=  "AND YEAR(STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s')) = '".$this->selectyear."' ";
+		$sql .=  "group by artist, title ";
+		$sql .=  "order by count(*) desc LIMIT 0,".$this->selecttoplimit.") prequery";
+		$result = $this->db->queryF($sql);
+		//echo $sql;
+		
+		while ($row = $this->db->fetchArray($result)) {
+			$arr[] = $row;
+        }
+		
+		return $arr;
+	}
+	
+	/*
+	 * Function to get ranked array of top songs a week before now
+	 * @param string $this->lastweek Date(now - 1 week)
+	 * @param string $this->selecttoplimit How many items to get
+	 * @return array $arr
+	*/
+	public function getLwTop() {
+		$sql  =  "select @rownum:= @rownum + 1 as pos,";
+		$sql .=  "prequery.id, ";
+		$sql .=  "prequery.times, ";
+		$sql .=  "prequery.image, ";
+		$sql .=  "prequery.artist, ";
+		$sql .=  "prequery.title, ";
+		$sql .=  "prequery.album, ";
+		$sql .=  "prequery.releaseyear, ";
+		$sql .=  "prequery.artistlink, ";
+		$sql .=  "prequery.playlistlink, ";
+		$sql .=  "prequery.popularity from(select @rownum := 0 ) sqlvars, ";
+		$sql .=  "(SELECT count(*) postCount, ";
+		$sql .=  "id, ";
+		$sql .=  "times, ";
+		$sql .=  "image, ";
+		$sql .=  "artist, ";
+		$sql .=  "title, ";
+		$sql .=  "album, ";
+		$sql .=  "releaseyear, ";
+		$sql .=  "artistlink, ";
+		$sql .=  "playlistlink, ";
+		$sql .=  "popularity FROM ".$this->db->prefix('spotifyapi_music')." ";
+		$sql .=  "WHERE STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') <= STR_TO_DATE('".$this->lastweek."', '%d-%m-%Y %H:%i:%s') ";
+		//$sql .=  "AND STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') <= '".$this->today."' ";
+		$sql .=  "group by artist, title ";
+		$sql .=  "order by count(*) desc LIMIT 0,".$this->selecttoplimit.") prequery";
+		$result = $this->db->queryF($sql);
+		//echo "<br><br>".$sql;
+		while ($row = $this->db->fetchArray($result)) {
+			$arr[] = $row;
+        }
+		return $arr;
 	}
 	
 
