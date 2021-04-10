@@ -171,3 +171,12 @@ function spotifyapi_Filter($url, $type = '') {
     $url = ($url == '') ? $type : strtolower(	rim($url, '-'));
     return $url;
 }
+
+function spotifyapi_gettimeZones() {
+	$timez = timezone_identifiers_list();
+	$arr = [];
+	foreach ($timez as $key => $val) {
+		$arr[$val] = $val;
+	}
+	return $arr;
+}
