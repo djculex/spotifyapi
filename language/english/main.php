@@ -23,3 +23,13 @@
 
 /*------------ General items -------- */
 define('_SPOTIFYAPI_PLAYTIME', 'Time played: ');
+define('_SPOTIFYAPI_NEWCHARTENTRY', 'New');
+
+define('_SPOTIFYAPI_CHARTTITLE', 'Most playe last 7 days');
+define('_SPOTIFYAPI_CHARTSUBTITLE', 'Messuring from %s to %s');
+define('_SPOTIFYAPI_CHARTTHISWEEK', 'This week');
+define('_SPOTIFYAPI_CHARTLASTWEEK', 'Last week');
+define('_SPOTIFYAPI_CHARTALBUMCOVER', 'Album cover');
+define('_SPOTIFYAPI_CHARTARTISTTITLE', 'Artist - title');
+define('_SPOTIFYAPI_CHARTALBUMNAME', 'Album name');
+define('_SPOTIFYAPI_CHARTRELEASEYEAR', 'Release year');
