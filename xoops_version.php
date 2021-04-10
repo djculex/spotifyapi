@@ -26,10 +26,11 @@ declare(strict_types=1);
 // 
 $moduleDirName      = \basename(__DIR__);
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
+require_once XOOPS_ROOT_PATH .'/modules/spotifyapi/include/functions.php';
 // ------------------- Informations ------------------- //
 $modversion = [
 	'name'                => _MI_SPOTIFYAPI_NAME,
-	'version'             => 1.5,
+	'version'             => 1.07,
 	'description'         => _MI_SPOTIFYAPI_DESC,
 	'author'              => 'TDM XOOPS',
 	'author_mail'         => 'culex@culex.com',
@@ -62,7 +63,7 @@ $modversion = [
 	'sysicons32'          => '../../Frameworks/moduleclasses/icons/32',
 	'modicons16'          => 'assets/icons/16',
 	'modicons32'          => 'assets/icons/32',
-	'demo_site_url'       => 'not yet',
+	'demo_site_url'       => 'www.culex.dk',
 	'demo_site_name'      => '---',
 	'support_url'         => 'https://xoops.org/modules/newbb',
 	'support_name'        => 'Support Forum',
@@ -91,6 +92,7 @@ $modversion['templates'] = [
 	['file' => 'spotifyapi_index.tpl', 'description' => ''],
 	['file' => 'spotifyapi_breadcrumbs.tpl', 'description' => ''],
 	['file' => 'spotifyapi_footer.tpl', 'description' => ''],
+	['file' => 'spotifyapi_indexfile.tpl', 'description' => ''],
 	//blocks
 	//['file'	=>	'spotify_recentlyplayed_block.tpl', 'description' => ''],
 	//['file'	=>	'spotify_block.tpl', 'description' => ''],
@@ -140,6 +142,15 @@ $modversion['config'][] = [
 	'formtype'    => 'textbox',
 	'valuetype'   => '',
 	'default'     => XOOPS_URL . '/modules/spotifyapi/agent.php',
+];
+
+$modversion['config'][] = [
+	'name'        => 'spotifyapitimezones',
+	'title'       => '_MI_SPOTIFYAPI_USERTIMEZONE',
+	'description' => '_MI_SPOTIFYAPI_USERTIMEZONE_DESC',
+	'formtype'    => 'select',
+	'valuetype'   => 'text',
+	'options'	  => spotifyapi_gettimeZones(),
 ];
 
 // Number of songs to show

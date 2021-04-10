@@ -67,4 +67,6 @@ include_once 'common.php';
 \define('_MI_SPOTIFYAPI_FACEBOOK_COMMENTS_DESC', 'Allow Facebook comments in the single page');
 \define('_MI_SPOTIFYAPI_DISQUS_COMMENTS', 'Disqus comments');
 \define('_MI_SPOTIFYAPI_DISQUS_COMMENTS_DESC', 'Allow Disqus comments in the single page');
+\define('_MI_SPOTIFYAPI_USERTIMEZONE','Set user timezone');
+\define('_MI_SPOTIFYAPI_USERTIMEZONE_DESC','Adjust your time here. If the date & time in the block is off compared with your time. Set the apropiate timezone here');
 // ---------------- End ----------------
