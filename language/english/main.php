@@ -25,8 +25,8 @@
 define('_SPOTIFYAPI_PLAYTIME', 'Time played: ');
 define('_SPOTIFYAPI_NEWCHARTENTRY', 'New');
 
-define('_SPOTIFYAPI_CHARTTITLE', 'Most playe last 7 days');
-define('_SPOTIFYAPI_CHARTSUBTITLE', 'Messuring from %s to %s');
+define('_SPOTIFYAPI_CHARTTITLE', 'Weekly top 10');
+define('_SPOTIFYAPI_CHARTSUBTITLE', 'Messuring from saturday %s to saturday %s');
 define('_SPOTIFYAPI_CHARTTHISWEEK', 'This week');
 define('_SPOTIFYAPI_CHARTLASTWEEK', 'Last week');
 define('_SPOTIFYAPI_CHARTALBUMCOVER', 'Album cover');
