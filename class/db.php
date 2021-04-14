@@ -103,7 +103,7 @@ class db extends \XoopsPersistableObjectHandler
 
 	public function getSongs()
 	{
-		$sql = "Select * From " . $this->db->prefix('spotifyapi_music') . " order by id DESC limit 0,".$this->numtoshow ;
+		$sql = "Select * From " . $this->db->prefix('spotifyapi_music') . " order by STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') DESC limit 0,".$this->numtoshow ;
 		//$sql = "Select * From " . $this->db->prefix('spotifyapi_music') . " order by times DESC";
 		$result = $this->db->queryF($sql);
 		while ($row = $this->db->fetchArray($result)) {
