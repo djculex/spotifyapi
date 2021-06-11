@@ -101,7 +101,7 @@ $GLOBALS['xoopsLogger']->activated = false;
 					$db->loadSave($type='save');
 				}
 		}
-		header("Content-Type: application/json; charset=UTF-8");
+		header("Content-type: application/javascript; charset=UTF-8");
 		die();
 	} else {
 		$options = [
