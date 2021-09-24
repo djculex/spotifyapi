@@ -1,6 +1,6 @@
 <div class="table-responsive">
 	<div class="mw-100 p-3 mb-2 bg-danger text-white">
-		<h1 class="text-center"><{$smarty.const._SPOTIFYAPI_CHARTTITLE}></h1>
+		<h1 class="text-center"><{$title}></h1>
 		<p class="text-center"><b><{$subtitle}></b></p>
 	</div>
 	<table class="table ">
