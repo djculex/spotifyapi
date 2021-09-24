@@ -141,7 +141,7 @@ $modversion['config'][] = [
 	'description' => '_MI_SPOTIFYAPI_REDIRECTURI_DESC',
 	'formtype'    => 'textbox',
 	'valuetype'   => '',
-	'default'     => XOOPS_URL . '/modules/spotifyapi/agent.php',
+	'default'     => XOOPS_URL . '/modules/spotifyapi/callback.php',
 ];
 
 $modversion['config'][] = [
