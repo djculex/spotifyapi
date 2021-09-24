@@ -1,9 +1,14 @@
 $(document).ready(function(){
-
+	jQuery.support.cors = true;
+	var mytoken = getToken();
+	var accesscode;
+	
+	
+	
 	$.ajax({
 			url: spotifyagenturl2,
 			dataType: 'html',
-			async: true,
+			async: false,
 			xhrFields: {
 			  withCredentials: true
 			},
@@ -12,6 +17,7 @@ $(document).ready(function(){
 					"Access-Control-Allow-Origin":"*",
 					"Access-Control-Allow-Headers": "*"
 			},
+			cache: false,
 			crossDomain: true,
 			beforeSend: function (xhr) {
 				xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
@@ -80,33 +86,45 @@ $(document).ready(function(){
 	});
 
 
-
+	
 	var settings = {
           'cache': false,
           'dataType': "jsonp",
           "async": true,
           "crossDomain": true,
+		  "crossOrigin": true,
+		  "beforeSend": function (xhr) {
+				xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+				xhr.setRequestHeader('Authorization', '*');
+			},
           "url": spotifyagenturl,
           "method": "GET",
-          headers : {'Access-Control-Allow-Origin':'accounts.spotify.com'},
+          "headers": {
+              //"accept": "application/json",
+              "Access-Control-Allow-Origin":"*"
+          }
 	}
 	
     $.ajax(settings).done(function (response) {
 		//console.log(response);
-        //getServerResult();
+        getServerResult();
 	});	
-
+	
+	//getOAuthToken();
+	getSongsAll(mytoken);
+	
 	function getServerResult() 
 	{
 		return $.ajax({
 			url: spotifyagenturl2,
 			dataType: 'jsonp',
 			async: true,
+			cache: false,
 			xhrFields: {
 			  withCredentials: true
 			},
 			headers: {
-					"accept": "application/json",
+					"accept": "text/plain",
 					"Access-Control-Allow-Origin":"*",
 					"Access-Control-Allow-Headers": "*"
 			},
@@ -124,5 +142,56 @@ $(document).ready(function(){
 		});	
 	}
 	
+	function getOAuthToken()
+	{
+		$.ajax({
+		  url: spotifyagenturl21 + "?op=OAuth",
+		  dataType: 'json',
+		  method: "GET",
+		})
+		.then( function(oData) {
+		  accesscode = oData;
+		  runUpdate(accesscode);
+		})
+	}
+	
+	function getToken()
+	{
+		// Use your own token (this is just an example)
+		var token;
+
+		$.ajax({
+		  url: spotifyagenturl21 + "?op=token",
+		  dataType: 'json',
+		  method: "GET",
+		})
+		.then( function(oData) {
+		  getSongsAll(oData);
+		})
+	}
+	
+	function runUpdate(accesscode)
+	{
+		$.ajax({
+		  url: spotifyagenturl + "?code=" + accesscode,
+		  dataType: 'json',
+		  method: "GET",
+		})
+		.then( function(oData) {
+		  alert(oData);
+		})
+	}
+	
+	function getSongsAll(mytoken)
+	{
+		$.ajax({
+		  url: spotifyagenturl21 + "?op=getList&token=" + mytoken,
+		  dataType: 'json',
+		  method: "GET",
+		})
+		.then( function(oData) {
+		  console.log(oData);
+		})
+	}
 
 });
