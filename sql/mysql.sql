@@ -12,3 +12,12 @@ CREATE TABLE `spotifyapi_music` (
   UNIQUE KEY `id` (`id`),
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `spotifyapi_config` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `code` text NOT NULL,
+  `accessToken` text NOT NULL,
+  `refreshToken` text NOT NULL,
+  UNIQUE KEY `id` (`id`),
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
