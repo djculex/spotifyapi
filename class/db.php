@@ -26,6 +26,10 @@ class db extends \XoopsPersistableObjectHandler
 	public $lastweek;
 	public $selecttoplimit;
 	
+	public $code;
+	public $AccessToken;
+	public $RefreshToken;
+	
     /**
      * constructor
      *
@@ -33,9 +37,11 @@ class db extends \XoopsPersistableObjectHandler
      **/
     public function __construct(\XoopsDatabase $db = null, $helper = null)
     {
-		$this->today = date('d-m-Y 00:00:00');
-		$this->lastweek = date("d-m-Y 00:00:00", strtotime("-1 week"));
-		$this->selecttoplimit = 10;
+		//$this->today = date('d-m-Y 00:00:00');
+		$this->today = date('d-m-Y 00:00:00', strtotime("last Saturday"));
+		//$this->lastweek = date("d-m-Y 00:00:00", strtotime("-1 week"));
+		$this->lastweek = date("d-m-Y 00:00:00", strtotime($this->today." -1 week"));
+		$this->selecttoplimit = 20;
 		
 		if (null === $helper) {
             $helper = Helper::getInstance();
@@ -120,6 +126,88 @@ class db extends \XoopsPersistableObjectHandler
 			$arr[] = $row;
         }
 		return $arr[0]['times'];
+	}
+	
+	
+	public function getConfig($value)
+	{
+		$t = "";
+		switch ($value) {
+			case 'refreshToken' :
+				$type = 'refreshToken';
+				break;
+			case 'accessToken' :
+				$type = 'accessToken';
+				break;
+			case 'code' :
+				$type = 'code';
+				break;
+		}
+		$sql = "Select ".$type." from ".$this->db->prefix('spotifyapi_config'). " order by id DESC limit 0,1";
+		$result = $this->db->queryF($sql);
+		while($row = $this->db->fetchArray($result)) {
+			$arr[] = $row;
+        }
+		return $arr[0][$type];
+	}
+	
+	
+	public function setConfig($value)
+	{
+		$t = "";
+		switch ($value) {
+			case 'refreshToken' :
+				$v = $this->refreshToken;
+				$t = 'refreshToken';
+				break;
+			case 'accessToken' :
+				$v = $this->accessToken;
+				$t = 'accessToken';
+				break;
+			case 'code' :
+				$v = $this->code;
+				$t = 'code';
+				break;
+		}
+		$r = $this->cExists($t);
+		if ($r == false) {
+			$sql = "INSERT INTO  ".$this->db->prefix('spotifyapi_config'). " (".$t.") values ('".$v."')";
+		} else {
+			$sql = "UPDATE ".$this->db->prefix('spotifyapi_config'). " SET ".$t." = '".$v."' where id = 1";
+		}
+		
+		$result = $this->db->queryF($sql);
+		while($row = $this->db->fetchArray($result)) {
+			$arr[] = $row;
+        }
+		return $arr[0][$t];
+	}
+	
+	public function cExists($value)
+	{
+		$t = "";
+		switch ($value) {
+			case 'refreshToken' :
+				$v = $this->refreshToken;
+				$t = 'refreshToken';
+				break;
+			case 'accessToken' :
+				$v = $this->accessToken;
+				$t = 'accessToken';
+				break;
+			case 'code' :
+				$v = $this->code;
+				$t = 'code';
+				break;
+		}
+		$sql = "Select ".$t." From " . $this->db->prefix('spotifyapi_config') . " where id = 1";
+		$result = $this->db->queryF($sql);
+		$numrows = $this->db->getRowsNum($result);
+		if ($numrows > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/*
