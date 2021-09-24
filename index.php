@@ -15,7 +15,7 @@ require_once __DIR__ . '/include/common.php';
 
 $GLOBALS['xoopsOption']['template_main'] = 'spotifyapi_indexfile.tpl';
 
-$GLOBALS['xoopsLogger']->activated = false;
+$GLOBALS['xoopsLogger']->activated = true;
 
 include __DIR__ . '/header.php';
 include XOOPS_ROOT_PATH.'/header.php';
@@ -24,8 +24,8 @@ $helper = \XoopsModules\Spotifyapi\Helper::getInstance();
 $timez = $helper->getConfig('spotifyapitimezones');
 
 // Bootstrap CSS
-$GLOBALS['xoTheme']->addStylesheet($helper->url('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'));
-$GLOBALS['xoTheme']->addScript($helper->url('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'));
+//$GLOBALS['xoTheme']->addStylesheet('https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css');
+$GLOBALS['xoTheme']->addScript('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js');
 
 $d = new db();
 date_default_timezone_set($timez);
@@ -56,12 +56,13 @@ foreach($td as $tv) {
 }
 
 
-
+$tit = sprintf(_SPOTIFYAPI_CHARTTITLE, $d->selecttoplimit);
 $sub = sprintf(
 	_SPOTIFYAPI_CHARTSUBTITLE, 
 	date_format(date_create_from_format('d-m-Y H:i:s', $d->lastweek), 'd-m-Y'), 
 	date_format(date_create_from_format('d-m-Y H:i:s', $d->today), 'd-m-Y')
 );
+$GLOBALS['xoopsTpl']->assign('title',$tit);
 $GLOBALS['xoopsTpl']->assign('subtitle',$sub);
 $GLOBALS['xoopsTpl']->assign('chart', $chart);	
 include XOOPS_ROOT_PATH.'/footer.php';
