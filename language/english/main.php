@@ -25,7 +25,7 @@
 define('_SPOTIFYAPI_PLAYTIME', 'Time played: ');
 define('_SPOTIFYAPI_NEWCHARTENTRY', 'New');
 
-define('_SPOTIFYAPI_CHARTTITLE', 'Weekly top 10');
+define('_SPOTIFYAPI_CHARTTITLE', 'Weekly top %s');
 define('_SPOTIFYAPI_CHARTSUBTITLE', 'Messuring from saturday %s to saturday %s');
 define('_SPOTIFYAPI_CHARTTHISWEEK', 'This week');
 define('_SPOTIFYAPI_CHARTLASTWEEK', 'Last week');
