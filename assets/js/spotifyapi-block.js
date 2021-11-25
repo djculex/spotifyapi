@@ -8,7 +8,7 @@ $(document).ready(function(){
 	$.ajax({
 			url: spotifyagenturl2,
 			dataType: 'html',
-			async: false,
+			async: true,
 			xhrFields: {
 			  withCredentials: true
 			},
