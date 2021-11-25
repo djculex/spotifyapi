@@ -62,7 +62,7 @@ $GLOBALS['xoopsLogger']->activated = false;
 					$db->image = $value['items'][$i]['track']["album"]["images"][0]["url"];
 				} else {
 					$db->image = XOOPS_URL . "/modules/spotifyapi/assets/images/defaultalbumcover.png";
-					echo $db->image;
+					//echo $db->image;
 				}
 
 				$dta = new DateTime($value['items'][$i]['played_at'], new DateTimeZone('UTC'));
@@ -101,7 +101,15 @@ $GLOBALS['xoopsLogger']->activated = false;
 					$db->loadSave($type='save');
 				}
 		}
-		header("Content-type: application/javascript; charset=UTF-8");
+		/*
+		header("Access-Control-Allow-Origin: *");
+		header("Access-Control-Allow-Credentials: true");
+		header("Access-Control-Max-Age: 1000");
+		header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Cache-Control, Pragma, Authorization, Accept, Accept-Encoding");
+		header("Access-Control-Allow-Methods: PUT, POST, GET, OPTIONS, DELETE");
+		*/
+		//header("Content-type: application/javascript");
+		//echo json_encode($value, true);
 		die();
 	} else {
 		$options = [
@@ -113,13 +121,14 @@ $GLOBALS['xoopsLogger']->activated = false;
 			],
 		];
 		//header("Content-Type: application/json; charset=UTF-8");
+		/*
 		header("Access-Control-Allow-Origin: *");
 		header("Access-Control-Allow-Credentials: true");
 		header("Access-Control-Max-Age: 1000");
 		header("Access-Control-Allow-Headers: X-Requested-With, Content-Type, Origin, Cache-Control, Pragma, Authorization, Accept, Accept-Encoding");
 		header("Access-Control-Allow-Methods: PUT, POST, GET, OPTIONS, DELETE");
-		header('Content-type: application/json');
-
+		header("Content-type: application/javascript");
+		*/
 		header('Location: ' . $session->getAuthorizeUrl($options)."&origin=*&callback=".$_GET['callback']);
 		die();
 		
