@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta name="generator" content="HTML Tidy for HTML5 (experimental) for Windows https://github.com/w3c/tidy-html5/tree/c63cc39" />
+		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <title></title>
+    </head>
+    <body></body>
+	<script type = "text/javascript">
+		$.ajax(
+		{
+			method: "POST",
+			url: "https://accounts.spotify.com/api/token",
+			data: {
+				"grant_type": "authorization_code",
+				"code": code,
+				"redirect_uri": myurl,
+				"client_secret": mysecret,
+				"client_id": myid,
+		},
+			success: function(result) {
+			// handle result...
+			},
+		});
+	</script>
+</html>
