@@ -96,6 +96,24 @@ class db extends \XoopsPersistableObjectHandler
 			return false;
 		}
 	}
+	
+	/*
+	Array ( [0] => Array ( [id] => 3394 [times] => 26-11-2021 22:50:44 [image] => https://i.scdn.co/image/ab67616d0000b2739badf5c755ac2398203a8860 [artist] => Captain Hollywood Project [title] => Only With You - Radio Mix [album] => Love Is Not Sex [releaseyear] => 1993 [artistlink] => https://open.spotify.com/artist/3El2sJgqTWkg1kkyHHAEu4 [playlistlink] => [popularity] => 46 ) ) 
+	*/
+	public function songdublicate()
+	{
+		$sql = "Select * From " . $this->db->prefix('spotifyapi_music') . " ORDER BY id DESC LIMIT 0, 1";
+		$result = $this->db->queryF($sql);
+		$numrows = $this->db->getRowsNum($result);
+		while ($row = $this->db->fetchArray($result)) {
+			$arr[] = $row;
+        }
+		if (addslashes($arr[0]['artist']) == addslashes($this->artist) AND addslashes($arr[0]['title']) == addslashes($this->title)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	
 	public function updateurls ()
