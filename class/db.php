@@ -24,6 +24,10 @@ class db extends \XoopsPersistableObjectHandler
 	
 	public $today;
 	public $lastweek;
+	public $thisweek_start;
+	public $thisweek_end;
+	public $lastweek_start;
+	public $lastweek_end;
 	public $selecttoplimit;
 	
 	public $code;
@@ -39,6 +43,12 @@ class db extends \XoopsPersistableObjectHandler
     {
 		//$this->today = date('d-m-Y 00:00:00');
 		$this->today = date('d-m-Y 00:00:00', strtotime("last Saturday"));
+		$this->thisweek_start = date('d-m-Y 00:00:00', strtotime("last Saturday - 1 week"));
+		$this->thisweek_end = date("d-m-Y 00:00:00", strtotime("last Saturday"));
+		
+		$this->lastweek_start = date('d-m-Y 00:00:00', strtotime($this->thisweek_start." -1 week"));
+		$this->lastweek_end = $this->thisweek_start;
+		
 		//$this->lastweek = date("d-m-Y 00:00:00", strtotime("-1 week"));
 		$this->lastweek = date("d-m-Y 00:00:00", strtotime($this->today." -1 week"));
 		$this->selecttoplimit = 20;
@@ -301,6 +311,92 @@ class db extends \XoopsPersistableObjectHandler
 		$sql .=  "playlistlink, ";
 		$sql .=  "popularity FROM ".$this->db->prefix('spotifyapi_music')." ";
 		$sql .=  "WHERE STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') <= STR_TO_DATE('".$this->lastweek."', '%d-%m-%Y %H:%i:%s') ";
+		//$sql .=  "AND STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') <= '".$this->today."' ";
+		$sql .=  "group by artist, title ";
+		$sql .=  "order by count(*) desc LIMIT 0,".$this->selecttoplimit.") prequery";
+		$result = $this->db->queryF($sql);
+		//echo "<br><br>".$sql;
+		while ($row = $this->db->fetchArray($result)) {
+			$arr[] = $row;
+        }
+		return $arr;
+	}
+	
+		/*
+	 * Function to get ranked array of top songs up until now
+	 * @param string $this->today Date(now)
+	 * @param string $this->selecttoplimit How many items to get
+	 * @return array $arr
+	*/
+	public function getTopSingleWeek() {
+		$sql  =  "select @rownum:= @rownum + 1 as pos,";
+		$sql .=  "prequery.id, ";
+		$sql .=  "prequery.times, ";
+		$sql .=  "prequery.image, ";
+		$sql .=  "prequery.artist, ";
+		$sql .=  "prequery.title, ";
+		$sql .=  "prequery.album, ";
+		$sql .=  "prequery.releaseyear, ";
+		$sql .=  "prequery.artistlink, ";
+		$sql .=  "prequery.playlistlink, ";
+		$sql .=  "prequery.popularity from(select @rownum := 0 ) sqlvars, ";
+		$sql .=  "(SELECT count(*) postCount, ";
+		$sql .=  "id, ";
+		$sql .=  "times, ";
+		$sql .=  "image, ";
+		$sql .=  "artist, ";
+		$sql .=  "title, ";
+		$sql .=  "album, ";
+		$sql .=  "releaseyear, ";
+		$sql .=  "artistlink, ";
+		$sql .=  "playlistlink, ";
+		$sql .=  "popularity FROM ".$this->db->prefix('spotifyapi_music')." ";
+		$sql .=  "WHERE STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') BETWEEN STR_TO_DATE('".$this->thisweek_start."', '%d-%m-%Y %H:%i:%s') ";
+		$sql .=  "AND STR_TO_DATE('".$this->thisweek_end."', '%d-%m-%Y %H:%i:%s') ";
+		//$sql .=  "AND YEAR(STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s')) = '".$this->selectyear."' ";
+		$sql .=  "group by artist, title ";
+		$sql .=  "order by count(*) desc LIMIT 0,".$this->selecttoplimit.") prequery";
+		$result = $this->db->queryF($sql);
+		//echo $sql;
+		
+		while ($row = $this->db->fetchArray($result)) {
+			$arr[] = $row;
+        }
+		
+		return $arr;
+	}
+	
+	/*
+	 * Function to get ranked array of top songs a week before now
+	 * @param string $this->lastweek Date(now - 1 week)
+	 * @param string $this->selecttoplimit How many items to get
+	 * @return array $arr
+	*/
+	public function getLwTopSingleWeek() {
+		$sql  =  "select @rownum:= @rownum + 1 as pos,";
+		$sql .=  "prequery.id, ";
+		$sql .=  "prequery.times, ";
+		$sql .=  "prequery.image, ";
+		$sql .=  "prequery.artist, ";
+		$sql .=  "prequery.title, ";
+		$sql .=  "prequery.album, ";
+		$sql .=  "prequery.releaseyear, ";
+		$sql .=  "prequery.artistlink, ";
+		$sql .=  "prequery.playlistlink, ";
+		$sql .=  "prequery.popularity from(select @rownum := 0 ) sqlvars, ";
+		$sql .=  "(SELECT count(*) postCount, ";
+		$sql .=  "id, ";
+		$sql .=  "times, ";
+		$sql .=  "image, ";
+		$sql .=  "artist, ";
+		$sql .=  "title, ";
+		$sql .=  "album, ";
+		$sql .=  "releaseyear, ";
+		$sql .=  "artistlink, ";
+		$sql .=  "playlistlink, ";
+		$sql .=  "popularity FROM ".$this->db->prefix('spotifyapi_music')." ";
+		$sql .=  "WHERE STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') BETWEEN STR_TO_DATE('".$this->lastweek_start."', '%d-%m-%Y %H:%i:%s') ";
+		$sql .=  "AND STR_TO_DATE('".$this->lastweek_end."', '%d-%m-%Y %H:%i:%s') ";
 		//$sql .=  "AND STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') <= '".$this->today."' ";
 		$sql .=  "group by artist, title ";
 		$sql .=  "order by count(*) desc LIMIT 0,".$this->selecttoplimit.") prequery";
