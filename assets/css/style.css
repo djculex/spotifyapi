@@ -40,3 +40,31 @@ ul.menu > li + li:before {
 img {
 	max-width: 300px;
 }
+
+#spotifyapisubmitbutton {
+}
+
+#spotifyalltimechartR {
+	font-size: smaller;
+	color: gold;
+	text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
+	position: relative;
+	left: 1%;
+}
+
+#spotifyalltimechartL {
+	font-size: smaller;
+	color: gold;
+	text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
+	position: relative;
+	right: 1%;
+}
+
+.spotifyapigg {
+	display: block;
+	margin: 10px 0 0px -40px;
+	text-align: center;
+	text-shadow: 0 0 1px red, 0 0 1px gold;
+	color: black;
+	font-size: x-small;
+}

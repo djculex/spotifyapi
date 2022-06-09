@@ -1,6 +1,16 @@
+/*!     spotifyapi-block.js for Xoops SpotifyApi
+ *
+ *      (c) 2022 Michael Albertsen
+ *	    Website: https://culex.dk
+ *		profile: https://github.com/djculex
+ *	    Docs: https://github.com/djculex/spotifyapi#readme
+ *	    Repo: https://github.com/djculex/spotifyapi
+ *		Issues: https://github.com/djculex/spotifyapi/issues
+ */
+ 
 $(document).ready(function(){
 	jQuery.support.cors = true;
-	var mytoken = getToken();
+	//var mytoken = getToken();
 	var accesscode;
 	
 	
@@ -106,12 +116,9 @@ $(document).ready(function(){
 	}
 	
     $.ajax(settings).done(function (response) {
-		//console.log(response);
         getServerResult();
 	});	
 	
-	//getOAuthToken();
-	getSongsAll(mytoken);
 	
 	function getServerResult() 
 	{
