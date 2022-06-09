@@ -39,13 +39,29 @@
 		<thead class="table-dark">
 			<tr>
 				<{if $weekly == 1}>
-				<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTTHISWEEK}></th>
+					<{if $monthly == true}>
+						<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTTHISMONTH}></th>
+						<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTLASTMONTH}></th>
+						<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTALBUMCOVER}></th>
+						<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTARTISTTITLE}></th>
+						<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTALBUMNAME}></th>
+						<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTRELEASEYEAR}></th>
+					<{else}>
+						<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTTHISWEEK}></th>
+						<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTLASTWEEK}></th>
+						<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTALBUMCOVER}></th>
+						<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTARTISTTITLE}></th>
+						<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTALBUMNAME}></th>
+						<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTRELEASEYEAR}></th>
+					<{/if}>	
 				<{/if}>
-				<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTLASTWEEK}></th>
-				<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTALBUMCOVER}></th>
-				<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTARTISTTITLE}></th>
-				<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTALBUMNAME}></th>
-				<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTRELEASEYEAR}></th>
+				<{if $weekly == 0}>
+					<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTTHISWEEK}></th>
+					<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTALBUMCOVER}></th>
+					<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTARTISTTITLE}></th>
+					<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTALBUMNAME}></th>
+					<th scope="col"><{$smarty.const._SPOTIFYAPI_CHARTRELEASEYEAR}></th>
+				<{/if}>
 			</tr>
 		</thead>
 		<tbody>
