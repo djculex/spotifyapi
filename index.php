@@ -37,45 +37,6 @@ $greatestgainerid = 0;
 	
 $td = $d->getTopSingleWeek();
 $yd = $d->getLwTopSingleWeek();
-	
-foreach($td as $tv) {
-	$chart[$i]['lw'] = _SPOTIFYAPI_NEWCHARTENTRY;
-	foreach ($yd as $yv) {
-		$chart[$i]['tw'] = (int) $tv['pos'];
-				
-		if ($tv['artist'] == $yv['artist'] AND $tv['title'] == $yv['title']){
-			$chart[$i]['lw'] = (int) $yv['pos']; 
-		} 
-		if ($yv['pos'] - $tv['pos'] > $greatestgainer) {
-			$greatestgainer = $yv['pos'] - $tv['pos'];
-			$greatestgainerid = $i;
-		}
-		if ($tv['pos'] > $yv['pos']) {
-			$chart[$i]['dir'] = "&#8595;";
-		}
-		if ($tv['pos'] < $yv['pos']) {
-			$chart[$i]['dir'] = "&#8593;";
-		}
-		if ($tv['pos'] == $yv['pos']) {
-			$chart[$i]['dir'] = "&#183;";
-		}
-		$chart[$i]['artist'] = $tv['artist']; 
-		$chart[$i]['title'] = $tv['title']; 
-		$chart[$i]['image'] = $tv['image']; 
-		$chart[$i]['album'] = $tv['album']; 
-		$chart[$i]['year'] = (int) $tv['releaseyear']; 
-		$chart[$i]['artlink'] = $tv['artistlink'];
-		$chart[$i]['pop'] = (int) $tv['popularity']; 
-		$chart[$i]['ggn'] = $chart[$i]['lw'] - $chart[$i]['tw'];
-		if ($chart[$i]['ggn'] > $greatestgainer) {
-			$greatestgainer = $chart[$i]['ggn'];
-			$greatestgainerid = $i;
-		}
-		$chart[$i]['gg'] = false;
-	}
-	$i += 1;
-}
-$chart[$greatestgainerid]['gg'] = true;
 
 $tit = sprintf(_SPOTIFYAPI_CHARTTITLE, $d->selecttoplimit);
 
@@ -88,7 +49,6 @@ $sub = sprintf(
 	date_format(date_create_from_format('d-m-Y', $d->thisweek_end), 'd-m-Y')
 );
 		
-
 $dropstart = $form->dropdown('startingDate', $d->parseDistinctDates($d->getDistinctYears(),$arg='year') , $selected = null, $sep = '');
 $dropend = $form->dropdown('endDate', array('',''));
 $radiobtn = $form->radiobutton('charttype', 'charttype', _SPOTIFYAPI_CHARTACCUMUM);
@@ -99,7 +59,7 @@ $GLOBALS['xoopsTpl']->assign('dropstart',$dropstart);
 $GLOBALS['xoopsTpl']->assign('dropend',$dropend);
 $GLOBALS['xoopsTpl']->assign('radiobutton',$radiobtn); 
 $GLOBALS['xoopsTpl']->assign('sbmit',$form->submitBtn('spotifyapisubmitbutton', _SPOTIFYAPI_FILTER_TITLE, $sep = '<br>'));
-$GLOBALS['xoopsTpl']->assign('chart', $chart);
+$GLOBALS['xoopsTpl']->assign('chart', $d->parseArrayDouble($td, $yd));
 
 $GLOBALS['xoopsTpl']->assign('lastweek_text', _SPOTIFYAPI_STARTTIME);
 $GLOBALS['xoopsTpl']->assign('weeklyLink', XOOPS_URL . "/modules/spotifyapi/week.php");	
