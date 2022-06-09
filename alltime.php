@@ -30,12 +30,10 @@ $d = new db();
 $form = new form();
 date_default_timezone_set($timez);
 $weekly = 0;
-$chart = [];
-$i = 0;
+
 	
-		$d->thisweek_start = $d->getMinMaxDate($type='min');
-		
-		$td = $d->getTopSingleWeek();
+	$d->thisweek_start = $d->getMinMaxDate($type='min');	
+	$td = $d->getTopSingleWeek();
 		
 	foreach($td as $tv) {
 		$chart[$i]['tw'] = (int) $tv['pos'];
@@ -49,7 +47,7 @@ $i = 0;
 		$i += 1;
 	}
  
-$tit = sprintf(_SPOTIFYAPI_CHARTTITLE, $d->selecttoplimit);
+$tit = sprintf(_SPOTIFYAPI_CHARTTITLEALL, $d->selecttoplimit);
 
 
 		$weekly = 0;
@@ -72,7 +70,7 @@ $GLOBALS['xoopsTpl']->assign('dropstart',$dropstart);
 $GLOBALS['xoopsTpl']->assign('dropend',$dropend);
 $GLOBALS['xoopsTpl']->assign('radiobutton',$radiobtn); 
 $GLOBALS['xoopsTpl']->assign('sbmit',$form->submitBtn('spotifyapisubmitbutton', _SPOTIFYAPI_FILTER_TITLE, $sep = '<br>'));
-$GLOBALS['xoopsTpl']->assign('chart', $chart);
+$GLOBALS['xoopsTpl']->assign('chart', $d->parseArraySingle($td));
 
 $GLOBALS['xoopsTpl']->assign('lastweek_text', _SPOTIFYAPI_STARTTIME);
 $GLOBALS['xoopsTpl']->assign('weeklyLink', XOOPS_URL . "/modules/spotifyapi/week.php");	
