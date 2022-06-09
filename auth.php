@@ -37,6 +37,6 @@ $GLOBALS['xoopsLogger']->activated = false;
 		],
 		'state' => $state,
 	];
-
+	header("Content-type: application/javascript");
 	header('Location: ' . $session->getAuthorizeUrl($options));
 	die();

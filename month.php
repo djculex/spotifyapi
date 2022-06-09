@@ -32,62 +32,34 @@ date_default_timezone_set($timez);
 $weekly = 0;
 $chart = [];
 $i = 0;
-$greatestgainer = 0;
-$greatestgainerid = 0;
-	
+
+$d->lastweek_end = date('d-m-Y', strtotime($d->thisweek_end . " -30 days"));
 $td = $d->getTopSingleWeek();
-$yd = $d->getLwTopSingleWeek();
 	
 foreach($td as $tv) {
-	$chart[$i]['lw'] = _SPOTIFYAPI_NEWCHARTENTRY;
-	foreach ($yd as $yv) {
-		$chart[$i]['tw'] = (int) $tv['pos'];
-				
-		if ($tv['artist'] == $yv['artist'] AND $tv['title'] == $yv['title']){
-			$chart[$i]['lw'] = (int) $yv['pos']; 
-		} 
-		if ($yv['pos'] - $tv['pos'] > $greatestgainer) {
-			$greatestgainer = $yv['pos'] - $tv['pos'];
-			$greatestgainerid = $i;
-		}
-		if ($tv['pos'] > $yv['pos']) {
-			$chart[$i]['dir'] = "&#8595;";
-		}
-		if ($tv['pos'] < $yv['pos']) {
-			$chart[$i]['dir'] = "&#8593;";
-		}
-		if ($tv['pos'] == $yv['pos']) {
-			$chart[$i]['dir'] = "&#183;";
-		}
-		$chart[$i]['artist'] = $tv['artist']; 
-		$chart[$i]['title'] = $tv['title']; 
-		$chart[$i]['image'] = $tv['image']; 
-		$chart[$i]['album'] = $tv['album']; 
-		$chart[$i]['year'] = (int) $tv['releaseyear']; 
-		$chart[$i]['artlink'] = $tv['artistlink'];
-		$chart[$i]['pop'] = (int) $tv['popularity']; 
-		$chart[$i]['ggn'] = $chart[$i]['lw'] - $chart[$i]['tw'];
-		if ($chart[$i]['ggn'] > $greatestgainer) {
-			$greatestgainer = $chart[$i]['ggn'];
-			$greatestgainerid = $i;
-		}
-		$chart[$i]['gg'] = false;
-	}
+	$chart[$i]['tw'] = (int) $tv['pos'];
+	$chart[$i]['artist'] = $tv['artist']; 
+	$chart[$i]['title'] = $tv['title']; 
+	$chart[$i]['image'] = $tv['image']; 
+	$chart[$i]['album'] = $tv['album']; 
+	$chart[$i]['year'] = (int) $tv['releaseyear']; 
+	$chart[$i]['artlink'] = $tv['artistlink'];
+	$chart[$i]['pop'] = (int) $tv['popularity']; 		
 	$i += 1;
 }
-$chart[$greatestgainerid]['gg'] = true;
 
+ 
 $tit = sprintf(_SPOTIFYAPI_CHARTTITLE, $d->selecttoplimit);
 
-$weekly = 1;
+$weekly = 0;
+		
 $sub = sprintf(
 	_SPOTIFYAPI_CHARTSUBTITLE, 
 	$d->chart_day_count,
-	date_format(date_create_from_format('d-m-Y', $d->thisweek_start), 'd-m-Y'), 
+	date_format(date_create_from_format('d-m-Y', $d->lastweek_end), 'd-m-Y'), 
 	$d->chart_day_count,
 	date_format(date_create_from_format('d-m-Y', $d->thisweek_end), 'd-m-Y')
 );
-		
 
 $dropstart = $form->dropdown('startingDate', $d->parseDistinctDates($d->getDistinctYears(),$arg='year') , $selected = null, $sep = '');
 $dropend = $form->dropdown('endDate', array('',''));

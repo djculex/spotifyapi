@@ -45,20 +45,20 @@ foreach($td as $tv) {
 				
 		if ($tv['artist'] == $yv['artist'] AND $tv['title'] == $yv['title']){
 			$chart[$i]['lw'] = (int) $yv['pos']; 
+			if ($yv['pos'] - $tv['pos'] > $greatestgainer) {
+				$greatestgainer = $yv['pos'] - $tv['pos'];
+				$greatestgainerid = $i;
+			}
+			if ($tv['pos'] > $yv['pos']) {
+				$chart[$i]['dir'] = "&#8595;";
+			}
+			if ($tv['pos'] < $yv['pos']) {
+				$chart[$i]['dir'] = "&#8593;";
+			}
+			if ($tv['pos'] == $yv['pos']) {
+				$chart[$i]['dir'] = "&#183;";
+			}
 		} 
-		if ($yv['pos'] - $tv['pos'] > $greatestgainer) {
-			$greatestgainer = $yv['pos'] - $tv['pos'];
-			$greatestgainerid = $i;
-		}
-		if ($tv['pos'] > $yv['pos']) {
-			$chart[$i]['dir'] = "&#8595;";
-		}
-		if ($tv['pos'] < $yv['pos']) {
-			$chart[$i]['dir'] = "&#8593;";
-		}
-		if ($tv['pos'] == $yv['pos']) {
-			$chart[$i]['dir'] = "&#183;";
-		}
 		$chart[$i]['artist'] = $tv['artist']; 
 		$chart[$i]['title'] = $tv['title']; 
 		$chart[$i]['image'] = $tv['image']; 
@@ -71,7 +71,7 @@ foreach($td as $tv) {
 			$greatestgainer = $chart[$i]['ggn'];
 			$greatestgainerid = $i;
 		}
-		$chart[$i]['gg'] = false;
+		$chart[$i]['gg'] = false;		
 	}
 	$i += 1;
 }

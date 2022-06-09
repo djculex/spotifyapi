@@ -48,7 +48,7 @@ $modversion = [
 	'min_php'             => '7.0',
 	'min_xoops'           => '2.5.9',
 	'min_admin'           => '1.2',
-	'min_db'              => ['mysql' => '5.6', 'mysqli' => '5.6'],
+	'min_db'              => ['mysql' => '5.5', 'mysqli' => '5.5'],
 	'image'               => 'assets/images/logoModule.png',
 	'dirname'             => \basename(__DIR__),
 	'dirmoduleadmin'      => 'Frameworks/moduleclasses/moduleadmin',
@@ -133,6 +133,16 @@ $modversion['config'][] = [
 	'default'     => '',
 ];
 
+// Refresh link
+$modversion['config'][] = [
+	'name'        => 'spotifyapirefreshauth',
+	'title'       => '_MI_SPOTIFYAPI_REFRESHAUTH',
+	'description' => '_MI_SPOTIFYAPI_REFRESHAUTH_DESC',
+	'formtype'    => 'textbox',
+	'valuetype'   => 'text',
+	'default'     => XOOPS_URL . '/modules/spotifyapi/auth.php',
+];
+
 // Redirect URI
 
 $modversion['config'][] = [
@@ -163,85 +173,35 @@ $modversion['config'][] = [
 	'default'     => 10,
 ];
 
-
-
-/* Keywords
+// Number of songs to show in charts
 $modversion['config'][] = [
-	'name'        => 'keywords',
-	'title'       => '_MI_SPOTIFYAPI_KEYWORDS',
-	'description' => '_MI_SPOTIFYAPI_KEYWORDS_DESC',
+	'name'        => 'spotifyapinumshowcharts',
+	'title'       => '_MI_SPOTIFYAPI_NUMBOFSONGSTOSHOWCHART',
+	'description' => '_MI_SPOTIFYAPI_NUMBOFSONGSTOSHOWCHART_DESC',
 	'formtype'    => 'textbox',
-	'valuetype'   => 'text',
-	'default'     => 'spotifyapi, ',
+	'valuetype'   => 'int',
+	'default'     => 20,
 ];
-// Number column
+
+// Weekday to start / stop counting.
 $modversion['config'][] = [
-	'name'        => 'numb_col',
-	'title'       => '_MI_SPOTIFYAPI_NUMB_COL',
-	'description' => '_MI_SPOTIFYAPI_NUMB_COL_DESC',
+	'name'        => 'spotifyapidaytostartc',
+	'title'       => '_MI_SPOTIFYAPI_DAYTOSTARTC',
+	'description' => '_MI_SPOTIFYAPI_DAYTOSTARTC_DESC',
 	'formtype'    => 'select',
 	'valuetype'   => 'int',
-	'default'     => 1,
-	'options'     => [1 => '1', 2 => '2', 3 => '3', 4 => '4'],
+	'default'     => _MI_SPOTIFYAPI_SATURDAY,
+	'options'	  => [ 
+			_MI_SPOTIFYAPI_MONDAY 		=> 1,
+			_MI_SPOTIFYAPI_TUESDAY 		=> 2,
+			_MI_SPOTIFYAPI_WEDNESDAY 	=> 3,
+			_MI_SPOTIFYAPI_THURSDAY 	=> 4,
+			_MI_SPOTIFYAPI_FRIDAY 		=> 5,
+			_MI_SPOTIFYAPI_SATURDAY 	=> 6,
+			_MI_SPOTIFYAPI_SUNDAY 		=> 7
+		],
 ];
-// Divide by
-$modversion['config'][] = [
-	'name'        => 'divideby',
-	'title'       => '_MI_SPOTIFYAPI_DIVIDEBY',
-	'description' => '_MI_SPOTIFYAPI_DIVIDEBY_DESC',
-	'formtype'    => 'select',
-	'valuetype'   => 'int',
-	'default'     => 1,
-	'options'     => [1 => '1', 2 => '2', 3 => '3', 4 => '4'],
-];
-// Table type
-$modversion['config'][] = [
-	'name'        => 'table_type',
-	'title'       => '_MI_SPOTIFYAPI_TABLE_TYPE',
-	'description' => '_MI_SPOTIFYAPI_DIVIDEBY_DESC',
-	'formtype'    => 'select',
-	'valuetype'   => 'int',
-	'default'     => 'bordered',
-	'options'     => ['bordered' => 'bordered', 'striped' => 'striped', 'hover' => 'hover', 'condensed' => 'condensed'],
-];
-// Panel by
-$modversion['config'][] = [
-	'name'        => 'panel_type',
-	'title'       => '_MI_SPOTIFYAPI_PANEL_TYPE',
-	'description' => '_MI_SPOTIFYAPI_PANEL_TYPE_DESC',
-	'formtype'    => 'select',
-	'valuetype'   => 'text',
-	'default'     => 'default',
-	'options'     => ['default' => 'default', 'primary' => 'primary', 'success' => 'success', 'info' => 'info', 'warning' => 'warning', 'danger' => 'danger'],
-];
-// Advertise
-$modversion['config'][] = [
-	'name'        => 'advertise',
-	'title'       => '_MI_SPOTIFYAPI_ADVERTISE',
-	'description' => '_MI_SPOTIFYAPI_ADVERTISE_DESC',
-	'formtype'    => 'textarea',
-	'valuetype'   => 'text',
-	'default'     => '',
-];
-// Bookmarks
-$modversion['config'][] = [
-	'name'        => 'bookmarks',
-	'title'       => '_MI_SPOTIFYAPI_BOOKMARKS',
-	'description' => '_MI_SPOTIFYAPI_BOOKMARKS_DESC',
-	'formtype'    => 'yesno',
-	'valuetype'   => 'int',
-	'default'     => 0,
-];
-// Make Sample button visible?
-$modversion['config'][] = [
-	'name'        => 'displaySampleButton',
-	'title'       => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON',
-	'description' => 'CO_' . $moduleDirNameUpper . '_' . 'SHOW_SAMPLE_BUTTON_DESC',
-	'formtype'    => 'yesno',
-	'valuetype'   => 'int',
-	'default'     => 1,
-];
-*/
+
 // Maintained by
 $modversion['config'][] = [
 	'name'        => 'maintainedby',

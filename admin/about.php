@@ -25,6 +25,6 @@ declare(strict_types=1);
 require __DIR__ . '/header.php';
 $templateMain = 'spotifyapi_admin_about.tpl';
 $GLOBALS['xoopsTpl']->assign('navigation', $adminObject->displayNavigation('about.php'));
-$adminObject->setPaypal('6KJ7RW5DR3VTJ');
+$adminObject->setPaypal('8Z2GHQWG3ENNS');
 $GLOBALS['xoopsTpl']->assign('about', $adminObject->renderAbout(false));
 require __DIR__ . '/footer.php';

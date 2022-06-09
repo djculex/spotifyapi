@@ -36,11 +36,15 @@ include_once 'common.php';
 // Blocks
 \define('_MI_SPOTIFYAPI_BLOCK_RECELTLYPLAYED_NAME', 'Spotify recent played');
 \define('_MI_SPOTIFYAPI_NUMBOFSONGSTOSHOW', 'Number of songs to show');
-\define('_MI_SPOTIFYAPI_NUMBOFSONGSTOSHOW_DESC', 'Display a list of songs from you spotify');
+\define('_MI_SPOTIFYAPI_NUMBOFSONGSTOSHOW_DESC', 'Display a list of songs from your spotify');
+\define('_MI_SPOTIFYAPI_NUMBOFSONGSTOSHOWCHART', 'Songs in chart');
+\define('_MI_SPOTIFYAPI_NUMBOFSONGSTOSHOWCHART_DESC', 'Display a chart of your played songs');
 \define('_MI_SPOTIFYAPI_CLIENTSECRET', 'Spotify client secret');
 \define('_MI_SPOTIFYAPI_CLIENTSECRET_DESC', 'When you register your application, Spotify provides you a Client Secret.');
 \define('_MI_SPOTIFYAPI_CLIENTID', 'Spotify client id');
 \define('_MI_SPOTIFYAPI_CLIENTID_DESC', 'When you register your application, Spotify provides you a Client ID.');
+\define('_MI_SPOTIFYAPI_REFRESHAUTH', 'Renew OAuth for spotify');
+\define('_MI_SPOTIFYAPI_REFRESHAUTH_DESC', 'At times the OAuth needs to be renewed. Tell sign is that the block latest played is not updating. Click the link and sign in, and you\'re good to go.');
 \define('_MI_SPOTIFYAPI_REDIRECTURI','Spotify redirect uri');
 \define('_MI_SPOTIFYAPI_REDIRECTURI_DESC','<br><strong>**** Default value is the file you need to set on https://developer.spotify.com/dashboard/applications/ as your rediret uri ****</strong> <br><br>The URI to redirect to after the user grants or denies permission. This URI needs to have been entered in the Redirect URI whitelist that you specified when you registered your application. The value of redirect_uri here must exactly match one of the values you entered when you registered your application, including upper or lowercase, terminating slashes, and such.');
 
@@ -69,4 +73,16 @@ include_once 'common.php';
 \define('_MI_SPOTIFYAPI_DISQUS_COMMENTS_DESC', 'Allow Disqus comments in the single page');
 \define('_MI_SPOTIFYAPI_USERTIMEZONE','Set user timezone');
 \define('_MI_SPOTIFYAPI_USERTIMEZONE_DESC','Adjust your time here. If the date & time in the block is off compared with your time. Set the apropiate timezone here');
+\define('_MI_SPOTIFYAPI_DAYTOSTARTC','Start of chart week');
+\define('_MI_SPOTIFYAPI_DAYTOSTARTC_DESC','Day to start counting. F.I. The chart runs from saturday to saturdat, monday - monday');
+
+// --- GLOBALS --- 
+\define('_MI_SPOTIFYAPI_MONDAY', 'Monday');
+\define('_MI_SPOTIFYAPI_TUESDAY', 'Tuesday');
+\define('_MI_SPOTIFYAPI_WEDNESDAY', 'Wednesday');
+\define('_MI_SPOTIFYAPI_THURSDAY', 'Thursday');
+\define('_MI_SPOTIFYAPI_FRIDAY', 'Friday');
+\define('_MI_SPOTIFYAPI_SATURDAY', 'Saturday');
+\define('_MI_SPOTIFYAPI_SUNDAY', 'Sunday');
+
 // ---------------- End ----------------

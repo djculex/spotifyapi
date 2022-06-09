@@ -22,6 +22,9 @@ class db extends \XoopsPersistableObjectHandler
 	public $popularity;
 	public $numtoshow;
 	
+	public $firstentry;
+	public $lastentry;
+	
 	public $today;
 	public $lastweek;
 	public $thisweek_start;
@@ -29,6 +32,8 @@ class db extends \XoopsPersistableObjectHandler
 	public $lastweek_start;
 	public $lastweek_end;
 	public $selecttoplimit;
+	
+	public $chart_day_count;
 	
 	public $code;
 	public $AccessToken;
@@ -41,27 +46,37 @@ class db extends \XoopsPersistableObjectHandler
      **/
     public function __construct(\XoopsDatabase $db = null, $helper = null)
     {
-		//$this->today = date('d-m-Y 00:00:00');
-		$this->today = date('d-m-Y 00:00:00', strtotime("last Saturday"));
-		$this->thisweek_start = date('d-m-Y 00:00:00', strtotime("last Saturday - 1 week"));
-		$this->thisweek_end = date("d-m-Y 00:00:00", strtotime("last Saturday"));
-		
-		$this->lastweek_start = date('d-m-Y 00:00:00', strtotime($this->thisweek_start." -1 week"));
-		$this->lastweek_end = $this->thisweek_start;
-		
-		//$this->lastweek = date("d-m-Y 00:00:00", strtotime("-1 week"));
-		$this->lastweek = date("d-m-Y 00:00:00", strtotime($this->today." -1 week"));
-		$this->selecttoplimit = 20;
-		
 		if (null === $helper) {
             $helper = Helper::getInstance();
-			$this->numtoshow = $helper->getConfig('spotifyapinumbertoshow');
         }
 		$this->helper = $helper;
+		
+		if (null == $this->chart_day_count) {
+			$this->chart_day_count = $this->chartdaycounter($helper->getConfig('spotifyapidaytostartc'));
+		}
+		
+		$this->today = date('d-m-Y', strtotime("last " . $this->chart_day_count . ""));
+		
+		$this->thisweek_start = date('d-m-Y', strtotime("last " . $this->chart_day_count . " - 1 week"));
+		$this->thisweek_end = date("d-m-Y", strtotime("last " . $this->chart_day_count . ""));
+		
+		$this->lastweek_start = date('d-m-Y', strtotime($this->thisweek_start." -1 week"));
+		$this->lastweek_end = $this->thisweek_start;
+		
+		$this->lastweek = date("d-m-Y", strtotime($this->today." -1 week"));
+		$this->selecttoplimit = $helper->getConfig('spotifyapinumshowcharts');
+		
+		$this->numtoshow = $helper->getConfig('spotifyapinumbertoshow');
+		
+		
 		if (null === $db) {
             $db = \XoopsDatabaseFactory::getDatabaseConnection();
         }
+		
         $this->db = $db;
+		
+		$this->firstentry = $this->getMinMaxDate($type='min');
+		$this->lastentry = $this->getMinMaxDate($type='max');
     }
 	
 	/**
@@ -73,7 +88,6 @@ class db extends \XoopsPersistableObjectHandler
 	public function loadSave($type='save')
 	{
 		if ($type == 'save') {
-			// INSERT INTO `xoops_spotifyapi_music` (`id`, `artist`, `title`, `album`, `releaseyear`) VALUES (NULL, 'artist', 'titel', 'new album', '2020');
 			$sql = 	'INSERT INTO ' . $this->db->prefix('spotifyapi_music') . 
 					' (id, times, image, artist, title, album, releaseyear, artistlink, playlistlink, popularity) VALUES '.
 					'(null,"' . addslashes($this->times) . '", "' . addslashes($this->image) . '", "'.addslashes($this->artist) . 
@@ -82,10 +96,8 @@ class db extends \XoopsPersistableObjectHandler
 					'")';
 		} 
 		if ($type == 'update'){
-			//$sql = 'UPDATE ' . $this->db->prefix('lasius_config') . ' SET configname="'.$name.'", configvalue = "'.$value.'" WHERE configname="'.$name.'"';
 		}
 		if ($type == 'delete') {
-			//$sql = 'DELETE FROM ' . $this->db->prefix('lasius_config') . ' WHERE configname="'.$name.'"';
 		}
 		
 		if (!$result = $this->db->queryF($sql)) {
@@ -107,9 +119,6 @@ class db extends \XoopsPersistableObjectHandler
 		}
 	}
 	
-	/*
-	Array ( [0] => Array ( [id] => 3394 [times] => 26-11-2021 22:50:44 [image] => https://i.scdn.co/image/ab67616d0000b2739badf5c755ac2398203a8860 [artist] => Captain Hollywood Project [title] => Only With You - Radio Mix [album] => Love Is Not Sex [releaseyear] => 1993 [artistlink] => https://open.spotify.com/artist/3El2sJgqTWkg1kkyHHAEu4 [playlistlink] => [popularity] => 46 ) ) 
-	*/
 	public function songdublicate()
 	{
 		$sql = "Select * From " . $this->db->prefix('spotifyapi_music') . " ORDER BY id DESC LIMIT 0, 1";
@@ -128,7 +137,6 @@ class db extends \XoopsPersistableObjectHandler
 	
 	public function updateurls ()
 	{
-		//mysql_query("UPDATE blogEntry SET content = '$udcontent', title = '$udtitle' WHERE id = '$id'")
 		$sql = "UPDATE " . $this->db->prefix('spotifyapi_music') . 
 			" SET artistlink = '".addslashes($this->artisturl) . "', playlistlink = '" . addslashes($this->userplaylist) . "', popularity = '" . addslashes($this->popularity) .
 			"' WHERE artist = '" . addslashes($this->artist) . "' AND title = '" . addslashes($this->title) . "' AND times = '" . addslashes($this->times) . "'";
@@ -138,7 +146,6 @@ class db extends \XoopsPersistableObjectHandler
 	public function getSongs()
 	{
 		$sql = "Select * From " . $this->db->prefix('spotifyapi_music') . " order by STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') DESC limit 0,".$this->numtoshow ;
-		//$sql = "Select * From " . $this->db->prefix('spotifyapi_music') . " order by times DESC";
 		$result = $this->db->queryF($sql);
 		while ($row = $this->db->fetchArray($result)) {
 			$arr[] = $row;
@@ -268,11 +275,9 @@ class db extends \XoopsPersistableObjectHandler
 		$sql .=  "playlistlink, ";
 		$sql .=  "popularity FROM ".$this->db->prefix('spotifyapi_music')." ";
 		$sql .=  "WHERE STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') <= STR_TO_DATE('".$this->today."', '%d-%m-%Y %H:%i:%s') ";
-		//$sql .=  "AND YEAR(STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s')) = '".$this->selectyear."' ";
 		$sql .=  "group by artist, title ";
 		$sql .=  "order by count(*) desc LIMIT 0,".$this->selecttoplimit.") prequery";
 		$result = $this->db->queryF($sql);
-		//echo $sql;
 		
 		while ($row = $this->db->fetchArray($result)) {
 			$arr[] = $row;
@@ -311,11 +316,9 @@ class db extends \XoopsPersistableObjectHandler
 		$sql .=  "playlistlink, ";
 		$sql .=  "popularity FROM ".$this->db->prefix('spotifyapi_music')." ";
 		$sql .=  "WHERE STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') <= STR_TO_DATE('".$this->lastweek."', '%d-%m-%Y %H:%i:%s') ";
-		//$sql .=  "AND STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') <= '".$this->today."' ";
 		$sql .=  "group by artist, title ";
 		$sql .=  "order by count(*) desc LIMIT 0,".$this->selecttoplimit.") prequery";
 		$result = $this->db->queryF($sql);
-		//echo "<br><br>".$sql;
 		while ($row = $this->db->fetchArray($result)) {
 			$arr[] = $row;
         }
@@ -329,6 +332,7 @@ class db extends \XoopsPersistableObjectHandler
 	 * @return array $arr
 	*/
 	public function getTopSingleWeek() {
+		$arr = array();
 		$sql  =  "select @rownum:= @rownum + 1 as pos,";
 		$sql .=  "prequery.id, ";
 		$sql .=  "prequery.times, ";
@@ -351,14 +355,12 @@ class db extends \XoopsPersistableObjectHandler
 		$sql .=  "artistlink, ";
 		$sql .=  "playlistlink, ";
 		$sql .=  "popularity FROM ".$this->db->prefix('spotifyapi_music')." ";
-		$sql .=  "WHERE STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') BETWEEN STR_TO_DATE('".$this->thisweek_start."', '%d-%m-%Y %H:%i:%s') ";
-		$sql .=  "AND STR_TO_DATE('".$this->thisweek_end."', '%d-%m-%Y %H:%i:%s') ";
-		//$sql .=  "AND YEAR(STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s')) = '".$this->selectyear."' ";
+		$sql .=  "WHERE STR_TO_DATE(times, '%d-%m-%Y') BETWEEN STR_TO_DATE('".$this->thisweek_start."', '%d-%m-%Y') ";
+		$sql .=  "AND STR_TO_DATE('".$this->thisweek_end."', '%d-%m-%Y') ";
 		$sql .=  "group by artist, title ";
 		$sql .=  "order by count(*) desc LIMIT 0,".$this->selecttoplimit.") prequery";
 		$result = $this->db->queryF($sql);
-		//echo $sql;
-		
+
 		while ($row = $this->db->fetchArray($result)) {
 			$arr[] = $row;
         }
@@ -373,6 +375,7 @@ class db extends \XoopsPersistableObjectHandler
 	 * @return array $arr
 	*/
 	public function getLwTopSingleWeek() {
+		$arr = array();
 		$sql  =  "select @rownum:= @rownum + 1 as pos,";
 		$sql .=  "prequery.id, ";
 		$sql .=  "prequery.times, ";
@@ -395,18 +398,165 @@ class db extends \XoopsPersistableObjectHandler
 		$sql .=  "artistlink, ";
 		$sql .=  "playlistlink, ";
 		$sql .=  "popularity FROM ".$this->db->prefix('spotifyapi_music')." ";
-		$sql .=  "WHERE STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') BETWEEN STR_TO_DATE('".$this->lastweek_start."', '%d-%m-%Y %H:%i:%s') ";
-		$sql .=  "AND STR_TO_DATE('".$this->lastweek_end."', '%d-%m-%Y %H:%i:%s') ";
-		//$sql .=  "AND STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') <= '".$this->today."' ";
+		$sql .=  "WHERE STR_TO_DATE(times, '%d-%m-%Y') BETWEEN STR_TO_DATE('".$this->lastweek_start."', '%d-%m-%Y') ";
+		$sql .=  "AND STR_TO_DATE('".$this->lastweek_end."', '%d-%m-%Y') ";
 		$sql .=  "group by artist, title ";
 		$sql .=  "order by count(*) desc LIMIT 0,".$this->selecttoplimit.") prequery";
+		//$sql .=  "order by count(*) desc LIMIT 0,1000) prequery";
 		$result = $this->db->queryF($sql);
-		//echo "<br><br>".$sql;
 		while ($row = $this->db->fetchArray($result)) {
 			$arr[] = $row;
         }
 		return $arr;
 	}
 	
+	/*
+	 * Function to get distinct dates from mysql and
+	 * return them as date of previous saturday
+	 * @return array $res
+	*/
+	public function getDistinctStartDates()
+	{
+		$res = array();
+		$sql = "SELECT DISTINCT str_to_date(times, '%d-%m-%Y') as dato FROM ".$this->db->prefix('spotifyapi_music')." ORDER BY dato ASC ";
+		$result = $this->db->queryF($sql);
+		while ($row = $this->db->fetchArray($result)) {
+			$res[] = $row['dato'];
+		}
+		
+		return $res;
+	}
+
+	/*
+	 * Function to get distinct Years from mysql and
+	 * @return array $res
+	*/
+	public function getDistinctYears()
+	{
+		$res = array();
+		$sql = "SELECT DISTINCT YEAR(str_to_date(times,'%d-%m-%Y')) as dato FROM ".$this->db->prefix('spotifyapi_music')." ORDER BY dato ASC ";
+		$result = $this->db->queryF($sql);
+		while ($row = $this->db->fetchArray($result)) {
+			$res[] = $row['dato'];
+		}
+		return $res;
+	}
+	
+	public function getWeeks($year)
+	{
+		$res = array();
+		$sql = "SELECT DISTINCT WEEK(str_to_date(times, '%d-%m-%Y')) as weeks FROM ".$this->db->prefix('spotifyapi_music')." WHERE YEAR(str_to_date(times, '%d-%m-%Y %H:%i:%s')) = '" . $year . "' ORDER BY weeks ASC";
+		$result = $this->db->queryF($sql);
+		while ($row = $this->db->fetchArray($result)) {
+			$res[] = $row['weeks'];
+		}
+		return $res;
+	}
+	
+	/*
+	 * Function to get distinct reduced dates from mysql where
+	 * start date is bigger than $ startand
+	 * return them as date
+	 * @return array $res
+	*/
+	public function getDistinctReducedStartDates($start)
+	{
+		$res = array();
+		$sql = "SELECT DISTINCT str_to_date(times, '%d-%m-%Y') as dato FROM ".$this->db->prefix('spotifyapi_music')." WHERE str_to_date(times, '%d-%m-%Y') > str_to_date('" . $start . "', '%d-%m-%Y') ORDER BY dato ASC";
+		$result = $this->db->queryF($sql);
+		while ($row = $this->db->fetchArray($result)) {
+			$res[] = $row['dato'];
+		}
+		return $res;
+	}
+	
+	/*
+	 * Function to get min / max date stanmp from mysql
+	 * @param type min or max date
+	 * @return array $res
+	*/
+	public function getMinMaxDate($type)
+	{
+		$srt = ($type == 'min') ? 'ASC' : 'DESC';
+		$res = array();
+		$sql = "SELECT times FROM ".$this->db->prefix('spotifyapi_music')." ORDER BY id " . $srt . " LIMIT 1";
+		$result = $this->db->queryF($sql);
+		while ($row = $this->db->fetchArray($result)) {
+			$res[] = $row['times'];
+		}
+		$val = date_create_from_format("d-m-Y H:i:s", $res[0])->format("d-m-Y");
+		return $val;
+	}
+	
+	/*
+	 * Function to parse distinct dates from mysql and
+	 * return them as date of previous / previous saturday - 7 days 
+	 * @param array $array mysql dates
+	 * @param string $arg start or end
+	 * @return array $d reindexed
+	*/
+	public function parseDistinctDates($array, $arg='start')
+	{
+		$d = array();
+		$dato = array();
+		if ($arg == 'start') {
+		}
+		$s = 0;
+		foreach ($array as $arr) {
+			if ($arg == 'start') {
+				$d[] = date('d-m-Y', strtotime("last " . $this->chart_day_count . " - 1 week", strtotime($arr)));
+			} if ($arg == 'year') {
+				$d[] = $arr;
+			} else {
+				$d[] = date('d-m-Y', strtotime("last " . $this->chart_day_count . "", strtotime($arr)));
+			}
+		}
+		$d = array_unique($d);
+		return array_values($d);
+	}
+
+	
+	public function chartdaycounter($num) {
+		switch ($num) {
+			case 1:
+				return 'Monday';
+				break;
+			case 2:
+				return 'Tuesday';
+				break;
+			case 3:
+				return 'Wednesday';
+				break;
+			case 4:
+				return 'Thursday';
+				break;
+			case 5:
+				return 'Friday';
+				break;
+			case 6:
+				return 'Saturday';
+				break;
+			case 7:
+				return 'Sunday';
+				break;
+			default:
+				return 'Saturday';
+		}
+	}
+	
+	/*
+	 *
+	 *
+	 *
+	 */
+	function getStartAndEndDate($week,$year)
+	{
+		$dateTime = new \DateTime();
+		$dateTime->setISODate($year,$week);
+		$result['start_date'] = $dateTime->format('d-m-Y H:i:s');
+		$dateTime->modify('+6 days');
+		$result['end_date'] = $dateTime->format('d-m-Y H:i:s');
+		return $result;
+	}
 
 }

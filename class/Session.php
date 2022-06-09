@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace XoopsModules\Spotifyapi;
 
 class Session
@@ -28,7 +30,7 @@ class Session
         $this->setClientSecret($clientSecret);
         $this->setRedirectUri($redirectUri);
 
-        $this->request = $request ?: new Request();
+        $this->request = $request ?? new Request();
     }
 
     /**
@@ -102,10 +104,8 @@ class Session
 
         // Set some extra parameters for PKCE flows
         if (isset($options['code_challenge'])) {
-            $challengeMethod = isset($options['code_challenge_method']) ? $options['code_challenge_method'] : 'S256';
-
             $parameters['code_challenge'] = $options['code_challenge'];
-            $parameters['code_challenge_method'] = $challengeMethod;
+            $parameters['code_challenge_method'] = $options['code_challenge_method'] ?? 'S256';
         }
 
         return Request::ACCOUNT_URL . '/authorize?' . http_build_query($parameters, '', '&');
@@ -188,18 +188,21 @@ class Session
      *
      * @return bool Whether the access token was successfully refreshed.
      */
-    public function refreshAccessToken($refreshToken = '')
+    public function refreshAccessToken($refreshToken = null)
     {
-        $payload = base64_encode($this->getClientId() . ':' . $this->getClientSecret());
-
         $parameters = [
             'grant_type' => 'refresh_token',
-            'refresh_token' => $refreshToken ?: $this->refreshToken,
+            'refresh_token' => $refreshToken ?? $this->refreshToken,
         ];
 
-        $headers = [
-            'Authorization' => 'Basic ' . $payload,
-        ];
+        $headers = [];
+        if ($this->getClientSecret()) {
+            $payload = base64_encode($this->getClientId() . ':' . $this->getClientSecret());
+
+            $headers = [
+                'Authorization' => 'Basic ' . $payload,
+            ];
+        }
 
         $response = $this->request->account('POST', '/api/token', $parameters, $headers);
         $response = $response['body'];

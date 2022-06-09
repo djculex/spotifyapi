@@ -56,5 +56,6 @@ $GLOBALS['xoopsLogger']->activated = false;
 	$db->setConfig('refreshToken');
 
 	// Send the user along and fetch some data!
+	header("Content-type: application/javascript");
 	header('Location: app.php');
 	die();
