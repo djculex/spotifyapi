@@ -26,9 +26,13 @@ define('_SPOTIFYAPI_PLAYTIME', 'Time played: ');
 define('_SPOTIFYAPI_NEWCHARTENTRY', 'New');
 
 define('_SPOTIFYAPI_CHARTTITLE', 'Weekly top %s'); // weekly top 50
+define('_SPOTIFYAPI_CHARTTITLEM', 'Monthly top %s'); // Monthly top 50
+define('_SPOTIFYAPI_CHARTTITLEALL', 'All time top %s'); // All time top 50
 define('_SPOTIFYAPI_CHARTSUBTITLE', 'Messuring from %s %s to %s %s'); // 'messuring from Saturday 01-01-2021 to Saturday 07-01-2021'
 define('_SPOTIFYAPI_CHARTTHISWEEK', 'This week');
 define('_SPOTIFYAPI_CHARTLASTWEEK', 'Last week');
+define('_SPOTIFYAPI_CHARTTHISMONTH', 'This month');
+define('_SPOTIFYAPI_CHARTLASTMONTH', 'Month before');
 define('_SPOTIFYAPI_CHARTALBUMCOVER', 'Album cover');
 define('_SPOTIFYAPI_CHARTARTISTTITLE', 'Artist - title');
 define('_SPOTIFYAPI_CHARTALBUMNAME', 'Album name');
