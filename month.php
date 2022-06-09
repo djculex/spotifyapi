@@ -30,28 +30,18 @@ $d = new db();
 $form = new form();
 date_default_timezone_set($timez);
 $weekly = 0;
-$chart = [];
-$i = 0;
 
-$d->lastweek_end = date('d-m-Y', strtotime($d->thisweek_end . " -30 days"));
+$d->thisweek_start = date('d-m-Y', strtotime($d->thisweek_start . " -30 days"));
+$d->thisweek_end = date('d-m-Y', strtotime($d->thisweek_start . " +30 days"));
+$d->lastweek_start = date('d-m-Y', strtotime($d->thisweek_start . " -30 days"));
+$d->lastweek_end = $d->thisweek_start;
+
 $td = $d->getTopSingleWeek();
-	
-foreach($td as $tv) {
-	$chart[$i]['tw'] = (int) $tv['pos'];
-	$chart[$i]['artist'] = $tv['artist']; 
-	$chart[$i]['title'] = $tv['title']; 
-	$chart[$i]['image'] = $tv['image']; 
-	$chart[$i]['album'] = $tv['album']; 
-	$chart[$i]['year'] = (int) $tv['releaseyear']; 
-	$chart[$i]['artlink'] = $tv['artistlink'];
-	$chart[$i]['pop'] = (int) $tv['popularity']; 		
-	$i += 1;
-}
+$yd = $d->getLwTopSingleWeek();
 
- 
-$tit = sprintf(_SPOTIFYAPI_CHARTTITLE, $d->selecttoplimit);
+$tit = sprintf(_SPOTIFYAPI_CHARTTITLEM, $d->selecttoplimit);
 
-$weekly = 0;
+$weekly = 1;
 		
 $sub = sprintf(
 	_SPOTIFYAPI_CHARTSUBTITLE, 
@@ -71,11 +61,11 @@ $GLOBALS['xoopsTpl']->assign('dropstart',$dropstart);
 $GLOBALS['xoopsTpl']->assign('dropend',$dropend);
 $GLOBALS['xoopsTpl']->assign('radiobutton',$radiobtn); 
 $GLOBALS['xoopsTpl']->assign('sbmit',$form->submitBtn('spotifyapisubmitbutton', _SPOTIFYAPI_FILTER_TITLE, $sep = '<br>'));
-$GLOBALS['xoopsTpl']->assign('chart', $chart);
-
+$GLOBALS['xoopsTpl']->assign('chart', $d->parseArrayDouble($td, $yd));
 $GLOBALS['xoopsTpl']->assign('lastweek_text', _SPOTIFYAPI_STARTTIME);
 $GLOBALS['xoopsTpl']->assign('weeklyLink', XOOPS_URL . "/modules/spotifyapi/week.php");	
-$GLOBALS['xoopsTpl']->assign('weekly', $weekly);	
+$GLOBALS['xoopsTpl']->assign('weekly', $weekly);
+$GLOBALS['xoopsTpl']->assign('monthly', true);	
 
 $GLOBALS['xoopsTpl']->assign('alltime', _SPOTIFYAPI_ALLTIME_TOP);
 $GLOBALS['xoopsTpl']->assign('alltimeLink', XOOPS_URL . "/modules/spotifyapi/alltime.php");
