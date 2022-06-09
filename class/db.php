@@ -410,6 +410,91 @@ class db extends \XoopsPersistableObjectHandler
 		return $arr;
 	}
 	
+	/* calculates gain of 2 numbers
+	 * @param int tw current number
+	 * @param int lw last week number
+	 * @return int diff
+	 *
+	 */
+	 function gain($tw, $lw) {
+		$diff = ( (int) $lw - (int) $tw );
+		return $diff;
+	 }
+	
+	/* Method to merge the this week, last week into one 
+	 * @param array tw // This week array
+	 * @param array lw // Last week array
+	 * @return array val // Merged and manipulated chart array
+	 */
+	 function parseArrayDouble($tw, $lw) {
+		$chart = [];
+		$i = 0;
+		$greatestgainer = 0;
+		$greatestgainerid = 0;
+		foreach($tw as $tv) {
+			$chart[$i]['lw'] = _SPOTIFYAPI_NEWCHARTENTRY;
+			foreach ($lw as $yv) {
+				$chart[$i]['tw'] = (int) $tv['pos'];
+						
+				if ($tv['artist'] == $yv['artist'] AND $tv['title'] == $yv['title']){
+					$chart[$i]['lw'] = (is_numeric($yv['pos'])) ? (int) $yv['pos'] : ""; 
+				} 
+				//$chart[$i]['avg'] = $this->gain($chart[$i]['tw'], $chart[$i]['lw']);
+				if ($this->gain($chart[$i]['tw'], $chart[$i]['lw']) > $greatestgainer) {
+					$greatestgainer = (int) $this->gain($chart[$i]['tw'], $chart[$i]['lw']);
+					$greatestgainerid = $i;
+				}
+				if ($chart[$i]['tw'] > $chart[$i]['lw']) {
+					$chart[$i]['dir'] = "&#8595;";
+				}
+				if ($chart[$i]['tw'] < $chart[$i]['lw']) {
+					$chart[$i]['dir'] = "&#8593;";
+				}
+				if ($chart[$i]['tw'] == $chart[$i]['lw']) {
+					$chart[$i]['dir'] = "&#183;";
+				}
+				$chart[$i]['artist'] = $tv['artist']; 
+				$chart[$i]['title'] = $tv['title']; 
+				$chart[$i]['image'] = $tv['image']; 
+				$chart[$i]['album'] = $tv['album']; 
+				$chart[$i]['year'] = (int) $tv['releaseyear']; 
+				$chart[$i]['artlink'] = $tv['artistlink'];
+				$chart[$i]['pop'] = (int) $tv['popularity']; 
+				$chart[$i]['ggn'] = (int) $this->gain($chart[$i]['tw'], $chart[$i]['lw']);
+				if ($chart[$i]['ggn'] > $greatestgainer) {
+					$greatestgainer = $chart[$i]['ggn'];
+					$greatestgainerid = $i;
+				}
+				
+			}
+			$chart[$i]['gg'] = false;
+			$i += 1;
+		}
+		$chart[$greatestgainerid]['gg'] = ($chart[$greatestgainerid]['ggn'] > 0) ? true : false;
+		return $chart;
+	 }
+	 
+	/* Method to merge the this week, last week into one 
+	 * @param array tw // This week array
+	 * @return array val // Merged and manipulated chart array
+	 */
+	 function parseArraySingle($tw) {
+		 $chart = [];
+		 $i = 0;
+		 foreach($tw as $tv) {
+			$chart[$i]['tw'] = (int) $tv['pos'];
+			$chart[$i]['artist'] = $tv['artist']; 
+			$chart[$i]['title'] = $tv['title']; 
+			$chart[$i]['image'] = $tv['image']; 
+			$chart[$i]['album'] = $tv['album']; 
+			$chart[$i]['year'] = (int) $tv['releaseyear']; 
+			$chart[$i]['artlink'] = $tv['artistlink'];
+			$chart[$i]['pop'] = (int) $tv['popularity']; 		
+			$i += 1;
+		}
+		return $chart;
+	 }
+	
 	/*
 	 * Function to get distinct dates from mysql and
 	 * return them as date of previous saturday
