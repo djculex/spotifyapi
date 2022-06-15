@@ -29,7 +29,7 @@ $GLOBALS['xoTheme']->addScript('https://cdnjs.cloudflare.com/ajax/libs/popper.js
 $d = new db();
 $form = new form();
 date_default_timezone_set($timez);
-$weekly = 0;
+$weekly = 1;
 $chart = [];
 $i = 0;
 $greatestgainer = 0;
@@ -59,6 +59,7 @@ $GLOBALS['xoopsTpl']->assign('dropstart',$dropstart);
 $GLOBALS['xoopsTpl']->assign('dropend',$dropend);
 $GLOBALS['xoopsTpl']->assign('radiobutton',$radiobtn); 
 $GLOBALS['xoopsTpl']->assign('sbmit',$form->submitBtn('spotifyapisubmitbutton', _SPOTIFYAPI_FILTER_TITLE, $sep = '<br>'));
+$GLOBALS['xoopsTpl']->assign('charttype',"classic");
 $GLOBALS['xoopsTpl']->assign('chart', $d->parseArrayDouble($td, $yd));
 
 $GLOBALS['xoopsTpl']->assign('lastweek_text', _SPOTIFYAPI_STARTTIME);
