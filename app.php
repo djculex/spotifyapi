@@ -95,5 +95,5 @@ $GLOBALS['xoopsLogger']->activated = false;
 		header("Access-Control-Allow-Methods: PUT, POST, GET, OPTIONS, DELETE");
 		
 		//header("Content-type: application/javascript");
-		echo json_encode($value, true); 
+		//echo json_encode($value, true); 
 		die();

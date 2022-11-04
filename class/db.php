@@ -103,7 +103,7 @@ class db extends \XoopsPersistableObjectHandler
 		if (!$result = $this->db->queryF($sql)) {
 			return false;
 		}
-		$numrows = $this->db->getRowsNum($result);
+		//$numrows = $this->db->getRowsNum($result);
 		return $result;
 	}
 	
@@ -209,13 +209,15 @@ class db extends \XoopsPersistableObjectHandler
 			$sql = "INSERT INTO  ".$this->db->prefix('spotifyapi_config'). " (".$t.") values ('".$v."')";
 		} else {
 			$sql = "UPDATE ".$this->db->prefix('spotifyapi_config'). " SET ".$t." = '".$v."' where id = 1";
-		}
-		
+		}		
 		$result = $this->db->queryF($sql);
+		//$num = $this->db->getRowsNum($result);
+		/*
 		while($row = $this->db->fetchArray($result)) {
 			$arr[] = $row;
         }
 		return $arr[0][$t];
+		*/
 	}
 	
 	public function cExists($value)

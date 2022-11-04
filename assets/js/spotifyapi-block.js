@@ -10,7 +10,7 @@
  
 $(document).ready(function(){
 	jQuery.support.cors = true;
-	//var mytoken = getToken();
+	var mytoken = getToken();
 	var accesscode;
 	
 	
@@ -110,13 +110,14 @@ $(document).ready(function(){
           "url": spotifyagenturl,
           "method": "GET",
           "headers": {
-              //"accept": "application/json",
+              "accept": "application/nosniff",
               "Access-Control-Allow-Origin":"*"
           }
 	}
 	
     $.ajax(settings).done(function (response) {
-        getServerResult();
+        getServerResult2();
+		getServerResult();
 	});	
 	
 	
@@ -141,7 +142,36 @@ $(document).ready(function(){
 				xhr.setRequestHeader('Authorization', '*');
 			},
 			success: function (data) {
-				console.log(data);
+				//console.log(data);
+				//Data from the server in the in the variable "data"
+				//In the form of an array
+			}
+
+		});	
+	}
+	
+	function getServerResult2() 
+	{
+		return $.ajax({
+			url: spotifyagenturl,
+			dataType: 'json',
+			async: true,
+			cache: false,
+			xhrFields: {
+			  withCredentials: true
+			},
+			headers: {
+					"accept": "text/plain",
+					"Access-Control-Allow-Origin":"*",
+					"Access-Control-Allow-Headers": "*"
+			},
+			crossDomain: true,
+			beforeSend: function (xhr) {
+				xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+				xhr.setRequestHeader('Authorization', '*');
+			},
+			success: function (data) {
+				//console.log(data);
 				//Data from the server in the in the variable "data"
 				//In the form of an array
 			}
