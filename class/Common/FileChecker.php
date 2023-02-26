@@ -21,12 +21,11 @@ namespace XoopsModules\Spotifyapi\Common;
  */
 
 use Xmf\Request;
-use XoopsModules\Spotifyapi;
 
 //\defined('XOOPS_ROOT_PATH') || die('XOOPS root path not defined');
 
 require_once \dirname(\dirname(\dirname(\dirname(__DIR__)))) . '/mainfile.php';
-$moduleDirName      = \basename(\dirname(\dirname(__DIR__)));
+$moduleDirName = \basename(\dirname(\dirname(__DIR__)));
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 \xoops_loadLanguage('filechecker', $moduleDirName);
 
@@ -37,9 +36,9 @@ $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 class FileChecker
 {
     /**
-     * @param string      $file_path
+     * @param string $file_path
      * @param string|null $original_file_path
-     * @param string      $redirectFile
+     * @param string $redirectFile
      * @return bool|string
      */
     public static function getFileStatus($file_path, $original_file_path = null, $redirectFile)
@@ -52,7 +51,7 @@ class FileChecker
         if (null === $redirectFile) {
             $redirectFile = $_SERVER['SCRIPT_NAME'];
         }
-        $moduleDirName      = \basename(\dirname(\dirname(__DIR__)));
+        $moduleDirName = \basename(\dirname(\dirname(__DIR__)));
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
         if (null === $original_file_path) {
             if (self::fileExists($file_path)) {
@@ -83,17 +82,13 @@ class FileChecker
     }
 
     /**
-     * @param   $source_path
-     * @param   $destination_path
+     * @param   $file_path
      *
      * @return bool
      */
-    public static function copyFile($source_path, $destination_path)
+    public static function fileExists($file_path)
     {
-        $source_path      = \str_replace('..', '', $source_path);
-        $destination_path = \str_replace('..', '', $destination_path);
-
-        return @\copy($source_path, $destination_path);
+        return is_file($file_path);
     }
 
     /**
@@ -120,13 +115,17 @@ class FileChecker
     }
 
     /**
-     * @param   $file_path
+     * @param   $source_path
+     * @param   $destination_path
      *
      * @return bool
      */
-    public static function fileExists($file_path)
+    public static function copyFile($source_path, $destination_path)
     {
-        return is_file($file_path);
+        $source_path = \str_replace('..', '', $source_path);
+        $destination_path = \str_replace('..', '', $destination_path);
+
+        return @\copy($source_path, $destination_path);
     }
 
     /**

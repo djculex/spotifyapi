@@ -10,19 +10,17 @@
  * @min_xoops  2.5.9
  */
 
-use XoopsModules\Spotifyapi\{Session, Spotifyapi_Helper, SpotifyWebAPI, Spotifyapi_db, Spotifyapi_form};
-
-use XoopsModules\Spotifyapi;
+use XoopsModules\Spotifyapi\{Spotifyapi_db, Spotifyapi_form, Spotifyapi_Helper};
 use XoopsModules\Spotifyapi\Constants;
 
-require_once dirname(__DIR__,2) . '/mainfile.php';
+require_once dirname(__DIR__, 2) . '/mainfile.php';
 include __DIR__ . '/preloads/autoloader.php';
 require_once __DIR__ . '/include/common.php';
 
 $GLOBALS['xoopsLogger']->activated = false;
 
 //include __DIR__ . '/header.php';
-include XOOPS_ROOT_PATH.'/header.php';
+include XOOPS_ROOT_PATH . '/header.php';
 
 $helper = Spotifyapi_Helper::getInstance();
 $timez = $helper->getConfig('spotifyapitimezones');

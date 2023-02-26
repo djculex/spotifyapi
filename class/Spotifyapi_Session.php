@@ -107,7 +107,7 @@ class Session
      */
     public function getAuthorizeUrl($options = []): string
     {
-        $options = (array) $options;
+        $options = (array)$options;
 
         $parameters = [
             'client_id' => $this->getClientId(),
@@ -128,16 +128,6 @@ class Session
     }
 
     /**
-     * Get the access token.
-     *
-     * @return string The access token.
-     */
-    public function getAccessToken(): string
-    {
-        return $this->accessToken;
-    }
-
-    /**
      * Get the client ID.
      *
      * @return string The client ID.
@@ -148,23 +138,15 @@ class Session
     }
 
     /**
-     * Get the client secret.
+     * Set the client ID.
      *
-     * @return string The client secret.
-     */
-    public function getClientSecret(): string
-    {
-        return $this->clientSecret;
-    }
-
-    /**
-     * Get the access token expiration time.
+     * @param string $clientId The client ID.
      *
-     * @return int A Unix timestamp indicating the token expiration time.
+     * @return void
      */
-    public function getTokenExpiration(): int
+    public function setClientId($clientId): void
     {
-        return $this->expirationTime;
+        $this->clientId = $clientId;
     }
 
     /**
@@ -178,6 +160,50 @@ class Session
     }
 
     /**
+     * Set the client's redirect URI.
+     *
+     * @param string $redirectUri The redirect URI.
+     *
+     * @return void
+     */
+    public function setRedirectUri($redirectUri): void
+    {
+        $this->redirectUri = $redirectUri;
+    }
+
+    /**
+     * Get the access token.
+     *
+     * @return string The access token.
+     */
+    public function getAccessToken(): string
+    {
+        return $this->accessToken;
+    }
+
+    /**
+     * Set the access token.
+     *
+     * @param string $accessToken The access token
+     *
+     * @return void
+     */
+    public function setAccessToken($accessToken): void
+    {
+        $this->accessToken = $accessToken;
+    }
+
+    /**
+     * Get the access token expiration time.
+     *
+     * @return int A Unix timestamp indicating the token expiration time.
+     */
+    public function getTokenExpiration(): int
+    {
+        return $this->expirationTime;
+    }
+
+    /**
      * Get the refresh token.
      *
      * @return string The refresh token.
@@ -185,6 +211,18 @@ class Session
     public function getRefreshToken(): string
     {
         return $this->refreshToken;
+    }
+
+    /**
+     * Set the session's refresh token.
+     *
+     * @param string $refreshToken The refresh token.
+     *
+     * @return void
+     */
+    public function setRefreshToken($refreshToken): void
+    {
+        $this->refreshToken = $refreshToken;
     }
 
     /**
@@ -240,6 +278,28 @@ class Session
         }
 
         return false;
+    }
+
+    /**
+     * Get the client secret.
+     *
+     * @return string The client secret.
+     */
+    public function getClientSecret(): string
+    {
+        return $this->clientSecret;
+    }
+
+    /**
+     * Set the client secret.
+     *
+     * @param string $clientSecret The client secret.
+     *
+     * @return void
+     */
+    public function setClientSecret($clientSecret): void
+    {
+        $this->clientSecret = $clientSecret;
     }
 
     /**
@@ -314,65 +374,5 @@ class Session
         }
 
         return false;
-    }
-
-    /**
-     * Set the access token.
-     *
-     * @param string $accessToken The access token
-     *
-     * @return void
-     */
-    public function setAccessToken($accessToken): void
-    {
-        $this->accessToken = $accessToken;
-    }
-
-    /**
-     * Set the client ID.
-     *
-     * @param string $clientId The client ID.
-     *
-     * @return void
-     */
-    public function setClientId($clientId): void
-    {
-        $this->clientId = $clientId;
-    }
-
-    /**
-     * Set the client secret.
-     *
-     * @param string $clientSecret The client secret.
-     *
-     * @return void
-     */
-    public function setClientSecret($clientSecret): void
-    {
-        $this->clientSecret = $clientSecret;
-    }
-
-    /**
-     * Set the client's redirect URI.
-     *
-     * @param string $redirectUri The redirect URI.
-     *
-     * @return void
-     */
-    public function setRedirectUri($redirectUri): void
-    {
-        $this->redirectUri = $redirectUri;
-    }
-
-    /**
-     * Set the session's refresh token.
-     *
-     * @param string $refreshToken The refresh token.
-     *
-     * @return void
-     */
-    public function setRefreshToken($refreshToken): void
-    {
-        $this->refreshToken = $refreshToken;
     }
 }

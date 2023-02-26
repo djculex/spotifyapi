@@ -25,7 +25,6 @@ declare(strict_types=1);
  */
 
 use Xmf\Module\Admin;
-use XoopsModules\Spotifyapi;
 
 require_once \dirname(__DIR__) . '/preloads/autoloader.php';
 require __DIR__ . '/header.php';

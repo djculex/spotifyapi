@@ -14,13 +14,12 @@
 namespace XoopsModules\Spotifyapi;
 
 use RuntimeException;
+use Xmf\Module\admin;
 use Xmf\Module\Helper;
 use XoopsDatabaseFactory;
 use XoopsMySQLDatabase;
 use XoopsObjectHandler;
 use XoopsPersistableObjectHandler;
-use Xmf\Module\admin;
-
 use function basename;
 use function class_exists;
 use function dirname;
@@ -38,24 +37,9 @@ class Spotifyapi_Helper extends Helper
      */
     public function __construct($debug = false)
     {
-        $this->debug   = $debug;
+        $this->debug = $debug;
         $moduleDirName = basename(dirname(__DIR__));
         parent::__construct($moduleDirName);
-    }
-
-    /**
-     * @param bool $debug
-     *
-     * @return Spotifyapi_Helper
-     */
-    public static function getInstance($debug = false)
-    {
-        static $instance;
-        if (null === $instance) {
-            $instance = new static($debug);
-        }
-
-        return $instance;
     }
 
     /**
@@ -80,11 +64,26 @@ class Spotifyapi_Helper extends Helper
             throw new RuntimeException("Class '$class' not found");
         }
         /** @var XoopsMySQLDatabase $db */
-        $db     = XoopsDatabaseFactory::getDatabaseConnection();
+        $db = XoopsDatabaseFactory::getDatabaseConnection();
         $helper = self::getInstance();
-        $ret    = new $class($db, $helper);
+        $ret = new $class($db, $helper);
         $this->addLog("Getting handler '$name'");
 
         return $ret;
+    }
+
+    /**
+     * @param bool $debug
+     *
+     * @return Spotifyapi_Helper
+     */
+    public static function getInstance($debug = false)
+    {
+        static $instance;
+        if (null === $instance) {
+            $instance = new static($debug);
+        }
+
+        return $instance;
     }
 }

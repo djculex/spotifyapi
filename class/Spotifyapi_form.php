@@ -14,7 +14,6 @@
 namespace XoopsModules\Spotifyapi;
 
 use XoopsDatabase;
-use XoopsModules\Spotifyapi;
 use XoopsModules\Spotifyapi\Constants;
 
 class Spotifyapi_form
@@ -42,11 +41,11 @@ class Spotifyapi_form
         $this->db = $db;
     }
 
-     /**
+    /**
      * Create a dropdown select
      *
      * @param string $name
-     * @param array  $options
+     * @param array $options
      * @param string $selected (optional)
      * @param string $sep (optional)
      * @return string
@@ -55,7 +54,7 @@ class Spotifyapi_form
     {
         $dropdown = "<select name='{$name}' id='{$name}'>\n";
         foreach ($options as $key => $option) {
-            $select    = $selected == $key ? ' selected' : '';
+            $select = $selected == $key ? ' selected' : '';
             $dropdown .= "<option value='{$key}'{$selected}>{$option}</option>\n";
         }
         $dropdown .= "</select>{$sep}";
@@ -74,7 +73,7 @@ class Spotifyapi_form
      */
     public function radiobutton($id, $name, $text, optional|string $sep = '<br>'): string
     {
-        $string  = '<div class="form-check"><input class="form-check-input" type="checkbox" value="" id="' . $id . '">';
+        $string = '<div class="form-check"><input class="form-check-input" type="checkbox" value="" id="' . $id . '">';
         $string .= '<label class="' . $name . '" for="' . $name . '">' . $text . '</label></div>';
         return $string;
     }

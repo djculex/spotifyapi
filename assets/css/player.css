@@ -21,17 +21,17 @@
  */
 
 #spotify-playtime a {
-	font-size: 1.0em;
-	color: #f4ce94;
-	margin: 0 0;
-	text-align: center; 
+    font-size: 1.0em;
+    color: #f4ce94;
+    margin: 0 0;
+    text-align: center;
 }
- 
+
 .spotify-table {
 }
 
 .spotify-block-title-h3 {
-text-align: center;
+    text-align: center;
 }
 
 .spotifyholdermain {
@@ -39,59 +39,59 @@ text-align: center;
 }
 
 .spotifyholdermain > * {
-  transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
 }
 
 .spotify-block-main {
-/*height: 250px;*/
+    /*height: 250px;*/
 }
 
 .spotifycounter {
-	text-align: right;
-	margin: 0% 1%;
-	font-size: 0.8em;
-	color: #ab9e845c;
+    text-align: right;
+    margin: 0% 1%;
+    font-size: 0.8em;
+    color: #ab9e845c;
 }
 
 .spotifyholder {
-background-color: #e63e3e40;
-position: relative;
-border-style: solid;
-border-color: #999;
-border-width: thin;
-border-radius: 2% 2% 2% 2%;
-width: 55%;
+    background-color: #e63e3e40;
+    position: relative;
+    border-style: solid;
+    border-color: #999;
+    border-width: thin;
+    border-radius: 2% 2% 2% 2%;
+    width: 55%;
 }
 
 .spotify-image-top {
-width: 50%;
-margin: 1% 25% 1% 25%;
+    width: 50%;
+    margin: 1% 25% 1% 25%;
 }
 
-.spotify-image-body {  
+.spotify-image-body {
 }
 
 .spotify-image-title {
 }
 
 p.spotify-artist-text {
-font-size: 1.0em;
-color: #f4ce94;
-margin: 0 0;
-text-align: center;
-text-shadow: 4px 5px 2px #000000;
+    font-size: 1.0em;
+    color: #f4ce94;
+    margin: 0 0;
+    text-align: center;
+    text-shadow: 4px 5px 2px #000000;
 }
 
 .spotify-albumname {
-margin: 0 10% 0% 10%;
-font-size: 0.84em;
-font-style: italic;
-text-align: center;
+    margin: 0 10% 0% 10%;
+    font-size: 0.84em;
+    font-style: italic;
+    text-align: center;
 }
 
 .spotify-playtime {
-margin: 0 28% 0 28%;
-font-size: 0.9em;
-font-style: normal;
-font-weight: bold;
+    margin: 0 28% 0 28%;
+    font-size: 0.9em;
+    font-style: normal;
+    font-weight: bold;
 }

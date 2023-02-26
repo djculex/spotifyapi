@@ -19,13 +19,13 @@ use XoopsModules\Spotifyapi\Spotifyapi_Helper;
 require dirname(__DIR__, 3) . '/include/cp_header.php';
 require_once \dirname(__DIR__) . '/include/common.php';
 
-$sysPathIcon16   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons16');
-$sysPathIcon32   = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons32');
+$sysPathIcon16 = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons16');
+$sysPathIcon32 = '../' . $GLOBALS['xoopsModule']->getInfo('sysicons32');
 $pathModuleAdmin = $GLOBALS['xoopsModule']->getInfo('dirmoduleadmin');
-$modPathIcon16   = SPOTIFYAPI_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons16') . '/';
-$modPathIcon32   = SPOTIFYAPI_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons32') . '/';
-$myts            = MyTextSanitizer::getInstance();
-$helper          = Spotifyapi_Helper::getInstance();
+$modPathIcon16 = SPOTIFYAPI_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons16') . '/';
+$modPathIcon32 = SPOTIFYAPI_URL . '/' . $GLOBALS['xoopsModule']->getInfo('modicons32') . '/';
+$myts = MyTextSanitizer::getInstance();
+$helper = Spotifyapi_Helper::getInstance();
 if (!isset($xoopsTpl) || !\is_object($xoopsTpl)) {
     include_once XOOPS_ROOT_PATH . '/class/template.php';
     $xoopsTpl = new \XoopsTpl();
@@ -51,4 +51,4 @@ $GLOBALS['xoopsTpl']->assign('modPathIcon16', $modPathIcon16);
 $GLOBALS['xoopsTpl']->assign('modPathIcon32', $modPathIcon32);
 
 $adminObject = \Xmf\Module\Admin::getInstance();
-$style       = SPOTIFYAPI_URL . '/assets/css/admin/style.css';
+$style = SPOTIFYAPI_URL . '/assets/css/admin/style.css';

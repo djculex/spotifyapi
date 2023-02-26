@@ -45,6 +45,6 @@ define('_SPOTIFYAPI_ALLTIME_TOP', 'All time hits');
 define('_SPOTIFYAPI_LASTMONTH_TOP', 'Last 30 days hits');
 define('_SPOTIFYAPI_FILTER_TITLE', 'Filter entries');
 define('_SPOTIFYAPI_FILTER_DATEFROM', 'Year');
-define('_SPOTIFYAPI_FILTER_DATETO','Week');
-define('_SPOTIFYAPI_GREATGAIN','--== Greatest gainer ==--');
+define('_SPOTIFYAPI_FILTER_DATETO', 'Week');
+define('_SPOTIFYAPI_GREATGAIN', '--== Greatest gainer ==--');
 

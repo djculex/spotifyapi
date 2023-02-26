@@ -35,9 +35,9 @@ function spotifyapiMetaKeywords($content)
 {
     global $xoopsTpl, $xoTheme;
     $myts = MyTextSanitizer::getInstance();
-    $content= $myts->undoHtmlSpecialChars($myts->displayTarea($content));
-    if(isset($xoTheme) && \is_object($xoTheme)) {
-        $xoTheme->addMeta( 'meta', 'keywords', \strip_tags($content));
+    $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
+    if (isset($xoTheme) && \is_object($xoTheme)) {
+        $xoTheme->addMeta('meta', 'keywords', \strip_tags($content));
     } else {    // Compatibility for old Xoops versions
         $xoopsTpl->assign('xoops_meta_keywords', \strip_tags($content));
     }
@@ -48,14 +48,14 @@ function spotifyapiMetaKeywords($content)
  * @param $content
  * @return void
  */
- 
+
 function spotifyapiMetaDescription($content)
 {
     global $xoopsTpl, $xoTheme;
     $myts = MyTextSanitizer::getInstance();
     $content = $myts->undoHtmlSpecialChars($myts->displayTarea($content));
-    if(isset($xoTheme) && \is_object($xoTheme)) {
-        $xoTheme->addMeta( 'meta', 'description', \strip_tags($content));
+    if (isset($xoTheme) && \is_object($xoTheme)) {
+        $xoTheme->addMeta('meta', 'description', \strip_tags($content));
     } else {    // Compatibility for old Xoops versions
         $xoopsTpl->assign('xoops_meta_description', \strip_tags($content));
     }
@@ -64,9 +64,9 @@ function spotifyapiMetaDescription($content)
 /**
  * Rewrite all url
  *
- * @param string  $module  module name
- * @param array   $array   array
- * @param string  $type    type
+ * @param string $module module name
+ * @param array $array array
+ * @param string $type type
  * @return null|string $type    string replacement for any blank case
  */
 function spotifyapi_RewriteUrl($module, $array, $type = 'content')
@@ -95,8 +95,8 @@ function spotifyapi_RewriteUrl($module, $array, $type = 'content')
     switch ($rewrite_url) {
 
         case 'none':
-            if($topic_name) {
-                 $topic_name = 'topic=' . $topic_name . '&amp;';
+            if ($topic_name) {
+                $topic_name = 'topic=' . $topic_name . '&amp;';
             }
             $rewrite_base = '/modules/';
             $page = 'page=' . $array['content_alias'];
@@ -104,13 +104,13 @@ function spotifyapi_RewriteUrl($module, $array, $type = 'content')
             break;
 
         case 'rewrite':
-            if($topic_name) {
+            if ($topic_name) {
                 $topic_name .= '/';
             }
             $rewrite_base = xoops_getModuleOption('rewrite_mode', $module);
             $rewrite_ext = xoops_getModuleOption('rewrite_ext', $module);
             $module_name = '';
-            if(xoops_getModuleOption('rewrite_name', $module)) {
+            if (xoops_getModuleOption('rewrite_name', $module)) {
                 $module_name = xoops_getModuleOption('rewrite_name', $module) . '/';
             }
             $page = $array['content_alias'];
@@ -123,17 +123,17 @@ function spotifyapi_RewriteUrl($module, $array, $type = 'content')
                 return XOOPS_URL . $rewrite_base . $module_name . $type . $id . '/';
             }
 
-            return XOOPS_URL . $rewrite_base . $module_name . $type . $topic_name  . $id . $page . $rewrite_ext;
+            return XOOPS_URL . $rewrite_base . $module_name . $type . $topic_name . $id . $page . $rewrite_ext;
             break;
 
-         case 'short':
-            if($topic_name) {
+        case 'short':
+            if ($topic_name) {
                 $topic_name .= '/';
             }
             $rewrite_base = xoops_getModuleOption('rewrite_mode', $module);
             $rewrite_ext = xoops_getModuleOption('rewrite_ext', $module);
             $module_name = '';
-            if(xoops_getModuleOption('rewrite_name', $module)) {
+            if (xoops_getModuleOption('rewrite_name', $module)) {
                 $module_name = xoops_getModuleOption('rewrite_name', $module) . '/';
             }
             $page = $array['content_alias'];
@@ -150,14 +150,16 @@ function spotifyapi_RewriteUrl($module, $array, $type = 'content')
     }
     return null;
 }
+
 /**
  * Replace all escape, character, ... for display a correct url
  *
- * @param string $url      string to transform
- * @param string $type     string replacement for any blank case
+ * @param string $url string to transform
+ * @param string $type string replacement for any blank case
  * @return string $url
  */
-function spotifyapi_Filter($url, $type = '') {
+function spotifyapi_Filter($url, $type = '')
+{
 
     // Get regular expression from module setting. default setting is : `[^a-z0-9]`i
     $helper = Helper::getInstance();
@@ -170,16 +172,17 @@ function spotifyapi_Filter($url, $type = '') {
     $url .= htmlentities($url, ENT_COMPAT, 'utf-8');
     $url .= \preg_replace('`&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig);`i', "\1", $url);
     $url .= \preg_replace(array($regular_expression, '`[-]+`'), '-', $url);
-    return ($url == '') ? $type : strtolower(	rim($url, '-'));
+    return ($url == '') ? $type : strtolower(rim($url, '-'));
 }
 
-function spotifyapi_gettimeZones() {
-	$timez = timezone_identifiers_list();
-	$arr = [];
-	foreach ($timez as $key => $val) {
-		$arr[$val] = $val;
-	}
-	return $arr;
+function spotifyapi_gettimeZones()
+{
+    $timez = timezone_identifiers_list();
+    $arr = [];
+    foreach ($timez as $key => $val) {
+        $arr[$val] = $val;
+    }
+    return $arr;
 }
 
 /**
@@ -193,8 +196,9 @@ function spotifyapi_gettimeZones() {
  *  - https://fetch.spec.whatwg.org/#http-cors-protocol
  *
  */
-function spotifyapi_cors() {
-    
+function spotifyapi_cors()
+{
+
     // Allow from any origin
     if (isset($_SERVER['HTTP_ORIGIN'])) {
         // Decide if the origin in $_SERVER['HTTP_ORIGIN'] is one
@@ -203,19 +207,19 @@ function spotifyapi_cors() {
         header('Access-Control-Allow-Credentials: true');
         header('Access-Control-Max-Age: 86400');    // cache for 1 day
     }
-    
+
     // Access-Control headers are received during OPTIONS requests
     if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-        
+
         if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']))
             // may also be using PUT, PATCH, HEAD etc
-            header("Access-Control-Allow-Methods: GET, POST, OPTIONS");         
-        
+            header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+
         if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']))
             header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
-    
+
         exit(0);
     }
-    
+
     //echo "You have CORS!";
 }

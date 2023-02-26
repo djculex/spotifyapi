@@ -23,10 +23,10 @@ declare(strict_types=1);
  * @author         TDM XOOPS - Email:<culex@culex.com> - Website:<http://culex.dk>
  */
 if (!\defined('XOOPS_ICONS32_PATH')) {
-	\define('XOOPS_ICONS32_PATH', XOOPS_ROOT_PATH . '/Frameworks/moduleclasses/icons/32');
+    \define('XOOPS_ICONS32_PATH', XOOPS_ROOT_PATH . '/Frameworks/moduleclasses/icons/32');
 }
 if (!\defined('XOOPS_ICONS32_URL')) {
-	\define('XOOPS_ICONS32_URL', XOOPS_URL . '/Frameworks/moduleclasses/icons/32');
+    \define('XOOPS_ICONS32_URL', XOOPS_URL . '/Frameworks/moduleclasses/icons/32');
 }
 \define('SPOTIFYAPI_DIRNAME', 'spotifyapi');
 \define('SPOTIFYAPI_PATH', XOOPS_ROOT_PATH . '/modules/' . SPOTIFYAPI_DIRNAME);

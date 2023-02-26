@@ -59,8 +59,8 @@ function xoops_module_install_spotifyapi(\XoopsModule $module)
     /** @var Spotifyapi\Spotifyapi_Helper $helper */
     /** @var Spotifyapi\Spotifyapi_Utility $utility */
     /** @var Common\Configurator $configurator */
-    $helper       = Spotifyapi\Spotifyapi_Helper::getInstance();
-    $utility      = new Spotifyapi\Spotifyapi_Utility();
+    $helper = Spotifyapi\Spotifyapi_Helper::getInstance();
+    $utility = new Spotifyapi\Spotifyapi_Utility();
     $configurator = new Common\Configurator();
 
     // Load language files
@@ -83,7 +83,7 @@ function xoops_module_install_spotifyapi(\XoopsModule $module)
             $dest = $configurator->copyBlankFiles[$i] . '/blank.gif';
             $utility::copyFile($file, $dest);
         }
-		$file = \dirname(__DIR__) . '/assets/images/blank.png';
+        $file = \dirname(__DIR__) . '/assets/images/blank.png';
         foreach (\array_keys($configurator->copyBlankFiles) as $i) {
             $dest = $configurator->copyBlankFiles[$i] . '/blank.png';
             $utility::copyFile($file, $dest);

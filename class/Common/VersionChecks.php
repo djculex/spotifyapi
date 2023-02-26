@@ -29,7 +29,7 @@ trait VersionChecks
      */
     public static function checkVerXoops(\XoopsModule $module = null, $requiredVer = null)
     {
-        $moduleDirName      = \basename(dirname(__DIR__, 2));
+        $moduleDirName = \basename(dirname(__DIR__, 2));
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
         if (null === $module) {
             $module = \XoopsModule::getByDirname($moduleDirName);
@@ -61,7 +61,7 @@ trait VersionChecks
      */
     public static function checkVerPhp(\XoopsModule $module = null)
     {
-        $moduleDirName      = \basename(dirname(__DIR__, 2));
+        $moduleDirName = \basename(dirname(__DIR__, 2));
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
         if (null === $module) {
             $module = \XoopsModule::getByDirname($moduleDirName);
@@ -87,19 +87,19 @@ trait VersionChecks
      * compares current module version with latest GitHub release
      * @static
      * @param \Xmf\Module\Helper $helper
-     * @param string|null        $source
-     * @param string|null        $default
+     * @param string|null $source
+     * @param string|null $default
      *
      * @return string|array info about the latest module version, if newer
      */
     public static function checkVerModule($helper, $source = 'github', $default = 'master')
     {
-        $moduleDirName      = \basename(dirname(__DIR__, 2));
+        $moduleDirName = \basename(dirname(__DIR__, 2));
         $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-        $update             = '';
-        $repository         = 'XoopsModules25x/' . $moduleDirName;
+        $update = '';
+        $repository = 'XoopsModules25x/' . $moduleDirName;
         //        $repository         = 'XoopsModules25x/publisher'; //for testing only
-        $ret             = '';
+        $ret = '';
         $infoReleasesUrl = "https://api.github.com/repos/$repository/releases";
         if ('github' === $source) {
             if (\function_exists('curl_init') && false !== ($curlHandle = \curl_init())) {
@@ -113,10 +113,10 @@ trait VersionChecks
                 } elseif (mb_strpos($curlReturn, 'Not Found')) {
                     \trigger_error('Repository Not Found: ' . $infoReleasesUrl);
                 } else {
-                    $file              = \json_decode($curlReturn, false);
+                    $file = \json_decode($curlReturn, false);
                     $latestVersionLink = \sprintf("https://github.com/$repository/archive/%s.zip", $file ? reset($file)->tag_name : $default);
-                    $latestVersion     = $file[0]->tag_name;
-                    $prerelease        = $file[0]->prerelease;
+                    $latestVersion = $file[0]->tag_name;
+                    $prerelease = $file[0]->prerelease;
                     if ('master' !== $latestVersionLink) {
                         $update = \constant('CO_' . $moduleDirNameUpper . '_' . 'NEW_VERSION') . $latestVersion;
                     }
@@ -132,7 +132,7 @@ trait VersionChecks
                     //                    $moduleVersion = '1.0'; //for testing only
                     //                    $moduleDirName = 'publisher'; //for testing only
                     if (!$prerelease && \version_compare($moduleVersion, $latestVersion, '<')) {
-                        $ret   = [];
+                        $ret = [];
                         $ret[] = $update;
                         $ret[] = $latestVersionLink;
                     }

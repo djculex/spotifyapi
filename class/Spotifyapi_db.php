@@ -14,7 +14,6 @@
 namespace XoopsModules\Spotifyapi;
 
 use XoopsDatabase;
-use XoopsModules\Spotifyapi;
 use XoopsModules\Spotifyapi\Constants;
 
 /**
@@ -174,12 +173,12 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
         $this->today = date('d-m-Y', strtotime('last ' . $this->chart_day_count));
 
         $this->thisweek_start = date('d-m-Y', strtotime('last ' . $this->chart_day_count . ' - 1 week'));
-        $this->thisweek_end   = date('d-m-Y', strtotime('last ' . $this->chart_day_count));
+        $this->thisweek_end = date('d-m-Y', strtotime('last ' . $this->chart_day_count));
 
         $this->lastweek_start = date('d-m-Y', strtotime($this->thisweek_start . ' -1 week'));
-        $this->lastweek_end   = $this->thisweek_start;
+        $this->lastweek_end = $this->thisweek_start;
 
-        $this->lastweek       = date('d-m-Y', strtotime($this->today . ' -1 week'));
+        $this->lastweek = date('d-m-Y', strtotime($this->today . ' -1 week'));
         $this->selecttoplimit = $helper->getConfig('spotifyapinumshowcharts');
 
         $this->numtoshow = $helper->getConfig('spotifyapinumbertoshow');
@@ -191,9 +190,78 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
         $this->db = $db;
 
         $this->firstentry = $this->getMinMaxDate($type = 'min');
-        $this->lastentry  = $this->getMinMaxDate($type = 'max');
+        $this->lastentry = $this->getMinMaxDate($type = 'max');
     }
 
+    /**
+     * Return int weekday to weekday name
+     *
+     * @param int $num
+     * @return string
+     */
+    public function chartdaycounter($num): string
+    {
+        return match ($num) {
+            1 => 'Monday',
+            2 => 'Tuesday',
+            3 => 'Wednesday',
+            4 => 'Thursday',
+            5 => 'Friday',
+            7 => 'Sunday',
+            default => 'Saturday',
+        };
+    }
+
+    /**
+     * Get configs from database
+     *
+     * @param string $value
+     * @return array
+     */
+    public function getConfig($value): array
+    {
+        $arr = [];
+        $t = '';
+        switch ($value) {
+            case 'refreshToken':
+                $type = 'refreshToken';
+                break;
+
+            case 'accessToken':
+                $type = 'accessToken';
+                break;
+
+            case 'code':
+                $type = 'code';
+                break;
+        }
+
+        $sql = 'Select ' . $type . ' from ' . $this->db->prefix('spotifyapi_config') . ' order by id DESC limit 0,1';
+        $result = $this->db->queryF($sql);
+        while ($row = $this->db->fetchArray($result)) {
+            $arr[] = $row;
+        }
+        return $arr[0][$type];
+    }
+
+    /**
+     * Function to get min / max date stanmp from mysql
+     *
+     * @param string $type
+     * @return string $val
+     */
+    public function getMinMaxDate($type): string
+    {
+        $srt = ($type == 'min') ? 'ASC' : 'DESC';
+        $res = [];
+        $sql = 'SELECT times FROM ' . $this->db->prefix('spotifyapi_music') . ' ORDER BY id ' . $srt . ' LIMIT 1';
+        $result = $this->db->queryF($sql);
+        while ($row = $this->db->fetchArray($result)) {
+            $res[] = $row['times'];
+        }
+
+        return date_create_from_format('d-m-Y H:i:s', $res[0])->format('d-m-Y');
+    }
 
     /**
      * Insert config values to table
@@ -223,7 +291,6 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
         return $result;
     }
 
-
     /**
      * Check if song exists in database
      *
@@ -231,12 +298,12 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
      */
     public function songexists(): bool
     {
-        $sql     = 'Select * From ' .
+        $sql = 'Select * From ' .
             $this->db->prefix('spotifyapi_music') .
             " where artist = '" . addslashes($this->artist) .
             "' AND title = '" . addslashes($this->title) .
             "' AND times = '" . addslashes($this->times) . "'";
-        $result  = $this->db->queryF($sql);
+        $result = $this->db->queryF($sql);
         $numrows = $this->db->getRowsNum($result);
         if ($numrows > 0) {
             return true;
@@ -245,7 +312,6 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
         }
     }
 
-
     /**
      * Check if last entered song is the same as new song
      *
@@ -253,10 +319,10 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
      */
     public function songdublicate(): bool
     {
-        $sql     = 'Select * From ' .
+        $sql = 'Select * From ' .
             $this->db->prefix('spotifyapi_music') .
             ' ORDER BY id DESC LIMIT 0, 1';
-        $result  = $this->db->queryF($sql);
+        $result = $this->db->queryF($sql);
         $numrows = $this->db->getRowsNum($result);
         while ($row = $this->db->fetchArray($result)) {
             $arr[] = $row;
@@ -272,7 +338,6 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
         }
     }
 
-
     /**
      * Update urls in database
      *
@@ -280,10 +345,9 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
      */
     public function updateurls(): void
     {
-        $sql    = 'UPDATE ' . $this->db->prefix('spotifyapi_music') . " SET artistlink = '" . addslashes($this->artisturl) . "', playlistlink = '" . addslashes($this->userplaylist) . "', popularity = '" . addslashes($this->popularity) . "' WHERE artist = '" . addslashes($this->artist) . "' AND title = '" . addslashes($this->title) . "' AND times = '" . addslashes($this->times) . "'";
+        $sql = 'UPDATE ' . $this->db->prefix('spotifyapi_music') . " SET artistlink = '" . addslashes($this->artisturl) . "', playlistlink = '" . addslashes($this->userplaylist) . "', popularity = '" . addslashes($this->popularity) . "' WHERE artist = '" . addslashes($this->artist) . "' AND title = '" . addslashes($this->title) . "' AND times = '" . addslashes($this->times) . "'";
         $result = $this->db->queryF($sql);
     }
-
 
     /**
      * Get all songs
@@ -293,7 +357,7 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
     public function getSongs(): array
     {
         $arr = [];
-        $sql    = 'Select * From ' .
+        $sql = 'Select * From ' .
             $this->db->prefix('spotifyapi_music') .
             " order by STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') DESC limit 0," .
             $this->numtoshow;
@@ -304,7 +368,6 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
         return $arr;
     }
 
-
     /**
      * Get the latest timestamp from database.
      *
@@ -313,7 +376,7 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
     public function getLatestTimeStamp(): string
     {
         $arr = [];
-        $sql    = 'Select times from ' .
+        $sql = 'Select times from ' .
             $this->db->prefix('spotifyapi_music') .
             ' order by times DESC limit 0,1';
         $result = $this->db->queryF($sql);
@@ -322,40 +385,6 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
         }
         return $arr[0]['times'];
     }
-
-
-    /**
-     * Get configs from database
-     *
-     * @param string $value
-     * @return array
-     */
-    public function getConfig($value): array
-    {
-        $arr = [];
-        $t = '';
-        switch ($value) {
-            case 'refreshToken':
-                $type = 'refreshToken';
-                break;
-
-            case 'accessToken':
-                $type = 'accessToken';
-                break;
-
-            case 'code':
-                $type = 'code';
-                break;
-        }
-
-        $sql    = 'Select ' . $type . ' from ' . $this->db->prefix('spotifyapi_config') . ' order by id DESC limit 0,1';
-        $result = $this->db->queryF($sql);
-        while ($row = $this->db->fetchArray($result)) {
-            $arr[] = $row;
-        }
-        return $arr[0][$type];
-    }
-
 
     /**
      * Set config in database
@@ -395,7 +424,6 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
         }
     }
 
-
     /**
      * Does a config value already exist in database
      *
@@ -422,8 +450,8 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
                 break;
         }
 
-        $sql     = 'Select ' . $t . ' From ' . $this->db->prefix('spotifyapi_config') . ' where id = 1';
-        $result  = $this->db->queryF($sql);
+        $sql = 'Select ' . $t . ' From ' . $this->db->prefix('spotifyapi_config') . ' where id = 1';
+        $result = $this->db->queryF($sql);
         $numrows = $this->db->getRowsNum($result);
         if ($numrows > 0) {
             return true;
@@ -440,31 +468,31 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
     public function getTop(): array
     {
         $arr = [];
-        $sql    = 'select @rownum:= @rownum + 1 as pos,';
-        $sql   .= 'prequery.id, ';
-        $sql   .= 'prequery.times, ';
-        $sql   .= 'prequery.image, ';
-        $sql   .= 'prequery.artist, ';
-        $sql   .= 'prequery.title, ';
-        $sql   .= 'prequery.album, ';
-        $sql   .= 'prequery.releaseyear, ';
-        $sql   .= 'prequery.artistlink, ';
-        $sql   .= 'prequery.playlistlink, ';
-        $sql   .= 'prequery.popularity from(select @rownum := 0 ) sqlvars, ';
-        $sql   .= '(SELECT count(*) postCount, ';
-        $sql   .= 'id, ';
-        $sql   .= 'times, ';
-        $sql   .= 'image, ';
-        $sql   .= 'artist, ';
-        $sql   .= 'title, ';
-        $sql   .= 'album, ';
-        $sql   .= 'releaseyear, ';
-        $sql   .= 'artistlink, ';
-        $sql   .= 'playlistlink, ';
-        $sql   .= 'popularity FROM ' . $this->db->prefix('spotifyapi_music') . ' ';
-        $sql   .= "WHERE STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') <= STR_TO_DATE('" . $this->today . "', '%d-%m-%Y %H:%i:%s') ";
-        $sql   .= 'group by artist, title ';
-        $sql   .= 'order by count(*) desc LIMIT 0,' . $this->selecttoplimit . ') prequery';
+        $sql = 'select @rownum:= @rownum + 1 as pos,';
+        $sql .= 'prequery.id, ';
+        $sql .= 'prequery.times, ';
+        $sql .= 'prequery.image, ';
+        $sql .= 'prequery.artist, ';
+        $sql .= 'prequery.title, ';
+        $sql .= 'prequery.album, ';
+        $sql .= 'prequery.releaseyear, ';
+        $sql .= 'prequery.artistlink, ';
+        $sql .= 'prequery.playlistlink, ';
+        $sql .= 'prequery.popularity from(select @rownum := 0 ) sqlvars, ';
+        $sql .= '(SELECT count(*) postCount, ';
+        $sql .= 'id, ';
+        $sql .= 'times, ';
+        $sql .= 'image, ';
+        $sql .= 'artist, ';
+        $sql .= 'title, ';
+        $sql .= 'album, ';
+        $sql .= 'releaseyear, ';
+        $sql .= 'artistlink, ';
+        $sql .= 'playlistlink, ';
+        $sql .= 'popularity FROM ' . $this->db->prefix('spotifyapi_music') . ' ';
+        $sql .= "WHERE STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') <= STR_TO_DATE('" . $this->today . "', '%d-%m-%Y %H:%i:%s') ";
+        $sql .= 'group by artist, title ';
+        $sql .= 'order by count(*) desc LIMIT 0,' . $this->selecttoplimit . ') prequery';
         $result = $this->db->queryF($sql);
 
         while ($row = $this->db->fetchArray($result)) {
@@ -472,7 +500,6 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
         }
         return $arr;
     }
-
 
     /**
      * Get last weeks ranking
@@ -482,31 +509,31 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
     public function getLwTop(): array
     {
         $arr = [];
-        $sql    = 'select @rownum:= @rownum + 1 as pos,';
-        $sql   .= 'prequery.id, ';
-        $sql   .= 'prequery.times, ';
-        $sql   .= 'prequery.image, ';
-        $sql   .= 'prequery.artist, ';
-        $sql   .= 'prequery.title, ';
-        $sql   .= 'prequery.album, ';
-        $sql   .= 'prequery.releaseyear, ';
-        $sql   .= 'prequery.artistlink, ';
-        $sql   .= 'prequery.playlistlink, ';
-        $sql   .= 'prequery.popularity from(select @rownum := 0 ) sqlvars, ';
-        $sql   .= '(SELECT count(*) postCount, ';
-        $sql   .= 'id, ';
-        $sql   .= 'times, ';
-        $sql   .= 'image, ';
-        $sql   .= 'artist, ';
-        $sql   .= 'title, ';
-        $sql   .= 'album, ';
-        $sql   .= 'releaseyear, ';
-        $sql   .= 'artistlink, ';
-        $sql   .= 'playlistlink, ';
-        $sql   .= 'popularity FROM ' . $this->db->prefix('spotifyapi_music') . ' ';
-        $sql   .= "WHERE STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') <= STR_TO_DATE('" . $this->lastweek . "', '%d-%m-%Y %H:%i:%s') ";
-        $sql   .= 'group by artist, title ';
-        $sql   .= 'order by count(*) desc LIMIT 0,' . $this->selecttoplimit . ') prequery';
+        $sql = 'select @rownum:= @rownum + 1 as pos,';
+        $sql .= 'prequery.id, ';
+        $sql .= 'prequery.times, ';
+        $sql .= 'prequery.image, ';
+        $sql .= 'prequery.artist, ';
+        $sql .= 'prequery.title, ';
+        $sql .= 'prequery.album, ';
+        $sql .= 'prequery.releaseyear, ';
+        $sql .= 'prequery.artistlink, ';
+        $sql .= 'prequery.playlistlink, ';
+        $sql .= 'prequery.popularity from(select @rownum := 0 ) sqlvars, ';
+        $sql .= '(SELECT count(*) postCount, ';
+        $sql .= 'id, ';
+        $sql .= 'times, ';
+        $sql .= 'image, ';
+        $sql .= 'artist, ';
+        $sql .= 'title, ';
+        $sql .= 'album, ';
+        $sql .= 'releaseyear, ';
+        $sql .= 'artistlink, ';
+        $sql .= 'playlistlink, ';
+        $sql .= 'popularity FROM ' . $this->db->prefix('spotifyapi_music') . ' ';
+        $sql .= "WHERE STR_TO_DATE(times, '%d-%m-%Y %H:%i:%s') <= STR_TO_DATE('" . $this->lastweek . "', '%d-%m-%Y %H:%i:%s') ";
+        $sql .= 'group by artist, title ';
+        $sql .= 'order by count(*) desc LIMIT 0,' . $this->selecttoplimit . ') prequery';
         $result = $this->db->queryF($sql);
         while ($row = $this->db->fetchArray($result)) {
             $arr[] = $row;
@@ -521,34 +548,34 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
      */
     public function getTopSingleWeek(): array
     {
-        $arr    = [];
-        $sql    = 'select @rownum:= @rownum + 1 as pos,';
-        $sql   .= 'prequery.id, ';
-        $sql   .= 'prequery.times, ';
-        $sql   .= 'prequery.image, ';
-        $sql   .= 'prequery.artist, ';
-        $sql   .= 'prequery.title, ';
-        $sql   .= 'prequery.album, ';
-        $sql   .= 'prequery.releaseyear, ';
-        $sql   .= 'prequery.artistlink, ';
-        $sql   .= 'prequery.playlistlink, ';
-        $sql   .= 'prequery.popularity from(select @rownum := 0 ) sqlvars, ';
-        $sql   .= '(SELECT count(*) postCount, ';
-        $sql   .= 'id, ';
-        $sql   .= 'times, ';
-        $sql   .= 'image, ';
-        $sql   .= 'artist, ';
-        $sql   .= 'title, ';
-        $sql   .= 'album, ';
-        $sql   .= 'releaseyear, ';
-        $sql   .= 'artistlink, ';
-        $sql   .= 'playlistlink, ';
-        $sql   .= 'popularity FROM ' . $this->db->prefix('spotifyapi_music') . ' ';
-        $sql   .= "WHERE STR_TO_DATE(times, '%d-%m-%Y') BETWEEN STR_TO_DATE('" .
+        $arr = [];
+        $sql = 'select @rownum:= @rownum + 1 as pos,';
+        $sql .= 'prequery.id, ';
+        $sql .= 'prequery.times, ';
+        $sql .= 'prequery.image, ';
+        $sql .= 'prequery.artist, ';
+        $sql .= 'prequery.title, ';
+        $sql .= 'prequery.album, ';
+        $sql .= 'prequery.releaseyear, ';
+        $sql .= 'prequery.artistlink, ';
+        $sql .= 'prequery.playlistlink, ';
+        $sql .= 'prequery.popularity from(select @rownum := 0 ) sqlvars, ';
+        $sql .= '(SELECT count(*) postCount, ';
+        $sql .= 'id, ';
+        $sql .= 'times, ';
+        $sql .= 'image, ';
+        $sql .= 'artist, ';
+        $sql .= 'title, ';
+        $sql .= 'album, ';
+        $sql .= 'releaseyear, ';
+        $sql .= 'artistlink, ';
+        $sql .= 'playlistlink, ';
+        $sql .= 'popularity FROM ' . $this->db->prefix('spotifyapi_music') . ' ';
+        $sql .= "WHERE STR_TO_DATE(times, '%d-%m-%Y') BETWEEN STR_TO_DATE('" .
             $this->thisweek_start . "', '%d-%m-%Y') ";
-        $sql   .= "AND STR_TO_DATE('" . $this->thisweek_end . "', '%d-%m-%Y') ";
-        $sql   .= 'group by artist, title ';
-        $sql   .= 'order by count(*) desc LIMIT 0,' . $this->selecttoplimit . ') prequery';
+        $sql .= "AND STR_TO_DATE('" . $this->thisweek_end . "', '%d-%m-%Y') ";
+        $sql .= 'group by artist, title ';
+        $sql .= 'order by count(*) desc LIMIT 0,' . $this->selecttoplimit . ') prequery';
         $result = $this->db->queryF($sql);
 
         while ($row = $this->db->fetchArray($result)) {
@@ -565,8 +592,8 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
      */
     public function getLwTopSingleWeek(): array
     {
-        $arr  = [];
-        $sql  = 'select @rownum:= @rownum + 1 as pos,';
+        $arr = [];
+        $sql = 'select @rownum:= @rownum + 1 as pos,';
         $sql .= 'prequery.id, ';
         $sql .= 'prequery.times, ';
         $sql .= 'prequery.image, ';
@@ -601,18 +628,6 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
     }
 
     /**
-     * calculates gain of 2 numbers
-     *
-     * @param int|string $tw
-     * @param int|string $lw
-     * @return int
-     */
-    public function gain($tw, $lw): int
-    {
-        return ((int) $lw - (int) $tw);
-    }
-
-    /**
      * Method to merge the this week, last week into one
      *
      * @param array $tw
@@ -621,22 +636,22 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
      */
     public function parseArrayDouble($tw, $lw): array
     {
-        $chart            = [];
-        $i                = 0;
-        $greatestgainer   = 0;
+        $chart = [];
+        $i = 0;
+        $greatestgainer = 0;
         $greatestgainerid = 0;
         foreach ($tw as $tv) {
             $chart[$i]['lw'] = _SPOTIFYAPI_NEWCHARTENTRY;
             foreach ($lw as $yv) {
-                $chart[$i]['tw'] = (int) $tv['pos'];
+                $chart[$i]['tw'] = (int)$tv['pos'];
 
                 if ($tv['artist'] == $yv['artist'] and $tv['title'] == $yv['title']) {
-                    $chart[$i]['lw'] = (is_numeric($yv['pos'])) ? (int) $yv['pos'] : '';
+                    $chart[$i]['lw'] = (is_numeric($yv['pos'])) ? (int)$yv['pos'] : '';
                 }
 
                 // $chart[$i]['avg'] = $this->gain($chart[$i]['tw'], $chart[$i]['lw']);
                 if ($this->gain($chart[$i]['tw'], $chart[$i]['lw']) > $greatestgainer) {
-                    $greatestgainer   = $this->gain($chart[$i]['tw'], $chart[$i]['lw']);
+                    $greatestgainer = $this->gain($chart[$i]['tw'], $chart[$i]['lw']);
                     $greatestgainerid = $i;
                 }
 
@@ -652,25 +667,37 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
                     $chart[$i]['dir'] = '&#183;';
                 }
 
-                $chart[$i]['artist']  = $tv['artist'];
-                $chart[$i]['title']   = $tv['title'];
-                $chart[$i]['image']   = $tv['image'];
-                $chart[$i]['album']   = $tv['album'];
-                $chart[$i]['year']    = (int) $tv['releaseyear'];
+                $chart[$i]['artist'] = $tv['artist'];
+                $chart[$i]['title'] = $tv['title'];
+                $chart[$i]['image'] = $tv['image'];
+                $chart[$i]['album'] = $tv['album'];
+                $chart[$i]['year'] = (int)$tv['releaseyear'];
                 $chart[$i]['artlink'] = $tv['artistlink'];
-                $chart[$i]['pop']     = (int) $tv['popularity'];
-                $chart[$i]['ggn']     = $this->gain($chart[$i]['tw'], $chart[$i]['lw']);
+                $chart[$i]['pop'] = (int)$tv['popularity'];
+                $chart[$i]['ggn'] = $this->gain($chart[$i]['tw'], $chart[$i]['lw']);
                 if ($chart[$i]['ggn'] > $greatestgainer) {
-                    $greatestgainer   = $chart[$i]['ggn'];
+                    $greatestgainer = $chart[$i]['ggn'];
                     $greatestgainerid = $i;
                 }
             }
             $chart[$i]['gg'] = false;
-            $i              += 1;
+            $i += 1;
         }
 
         $chart[$greatestgainerid]['gg'] = $chart[$greatestgainerid]['ggn'] > 0;
         return $chart;
+    }
+
+    /**
+     * calculates gain of 2 numbers
+     *
+     * @param int|string $tw
+     * @param int|string $lw
+     * @return int
+     */
+    public function gain($tw, $lw): int
+    {
+        return ((int)$lw - (int)$tw);
     }
 
     /**
@@ -682,17 +709,17 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
     public function parseArraySingle($tw): array
     {
         $chart = [];
-        $i     = 0;
+        $i = 0;
         foreach ($tw as $tv) {
-            $chart[$i]['tw']      = (int) $tv['pos'];
-            $chart[$i]['artist']  = $tv['artist'];
-            $chart[$i]['title']   = $tv['title'];
-            $chart[$i]['image']   = $tv['image'];
-            $chart[$i]['album']   = $tv['album'];
-            $chart[$i]['year']    = (int) $tv['releaseyear'];
+            $chart[$i]['tw'] = (int)$tv['pos'];
+            $chart[$i]['artist'] = $tv['artist'];
+            $chart[$i]['title'] = $tv['title'];
+            $chart[$i]['image'] = $tv['image'];
+            $chart[$i]['album'] = $tv['album'];
+            $chart[$i]['year'] = (int)$tv['releaseyear'];
             $chart[$i]['artlink'] = $tv['artistlink'];
-            $chart[$i]['pop']     = (int) $tv['popularity'];
-            $i                   += 1;
+            $chart[$i]['pop'] = (int)$tv['popularity'];
+            $i += 1;
         }
         return $chart;
     }
@@ -705,8 +732,8 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
      */
     public function getDistinctStartDates(): array
     {
-        $res    = [];
-        $sql    = "SELECT DISTINCT str_to_date(times, '%d-%m-%Y') as dato FROM " . $this->db->prefix('spotifyapi_music') . ' ORDER BY dato ASC ';
+        $res = [];
+        $sql = "SELECT DISTINCT str_to_date(times, '%d-%m-%Y') as dato FROM " . $this->db->prefix('spotifyapi_music') . ' ORDER BY dato ASC ';
         $result = $this->db->queryF($sql);
         while ($row = $this->db->fetchArray($result)) {
             $res[] = $row['dato'];
@@ -722,15 +749,14 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
      */
     public function getDistinctYears(): array
     {
-        $res    = [];
-        $sql    = "SELECT DISTINCT YEAR(str_to_date(times,'%d-%m-%Y')) as dato FROM " . $this->db->prefix('spotifyapi_music') . ' ORDER BY dato ASC ';
+        $res = [];
+        $sql = "SELECT DISTINCT YEAR(str_to_date(times,'%d-%m-%Y')) as dato FROM " . $this->db->prefix('spotifyapi_music') . ' ORDER BY dato ASC ';
         $result = $this->db->queryF($sql);
         while ($row = $this->db->fetchArray($result)) {
             $res[] = $row['dato'];
         }
         return $res;
     }
-
 
     /**
      * Get weekns from specified year
@@ -740,8 +766,8 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
      */
     public function getWeeks($year): array
     {
-        $res    = [];
-        $sql    = "SELECT DISTINCT WEEK(str_to_date(times, '%d-%m-%Y')) as weeks FROM " . $this->db->prefix('spotifyapi_music') . " WHERE YEAR(str_to_date(times, '%d-%m-%Y %H:%i:%s')) = '" . $year . "' ORDER BY weeks ASC";
+        $res = [];
+        $sql = "SELECT DISTINCT WEEK(str_to_date(times, '%d-%m-%Y')) as weeks FROM " . $this->db->prefix('spotifyapi_music') . " WHERE YEAR(str_to_date(times, '%d-%m-%Y %H:%i:%s')) = '" . $year . "' ORDER BY weeks ASC";
         $result = $this->db->queryF($sql);
         while ($row = $this->db->fetchArray($result)) {
             $res[] = $row['weeks'];
@@ -759,32 +785,13 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
      */
     public function getDistinctReducedStartDates($start): array
     {
-        $res    = [];
-        $sql    = "SELECT DISTINCT str_to_date(times, '%d-%m-%Y') as dato FROM " . $this->db->prefix('spotifyapi_music') . " WHERE str_to_date(times, '%d-%m-%Y') > str_to_date('" . $start . "', '%d-%m-%Y') ORDER BY dato ASC";
+        $res = [];
+        $sql = "SELECT DISTINCT str_to_date(times, '%d-%m-%Y') as dato FROM " . $this->db->prefix('spotifyapi_music') . " WHERE str_to_date(times, '%d-%m-%Y') > str_to_date('" . $start . "', '%d-%m-%Y') ORDER BY dato ASC";
         $result = $this->db->queryF($sql);
         while ($row = $this->db->fetchArray($result)) {
             $res[] = $row['dato'];
         }
         return $res;
-    }
-
-    /**
-     * Function to get min / max date stanmp from mysql
-     *
-     * @param string $type
-     * @return string $val
-     */
-    public function getMinMaxDate($type): string
-    {
-        $srt    = ($type == 'min') ? 'ASC' : 'DESC';
-        $res    = [];
-        $sql    = 'SELECT times FROM ' . $this->db->prefix('spotifyapi_music') . ' ORDER BY id ' . $srt . ' LIMIT 1';
-        $result = $this->db->queryF($sql);
-        while ($row = $this->db->fetchArray($result)) {
-            $res[] = $row['times'];
-        }
-
-        return date_create_from_format('d-m-Y H:i:s', $res[0])->format('d-m-Y');
     }
 
     /**
@@ -797,13 +804,14 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
      */
     public function parseDistinctDates($array, $arg = 'start'): array
     {
-        $d    = [];
+        $d = [];
 
         $s = 0;
         foreach ($array as $arr) {
             if ($arg == 'start') {
                 $d[] = date('d-m-Y', strtotime('last ' . $this->chart_day_count . ' - 1 week', strtotime($arr)));
-            } if ($arg == 'year') {
+            }
+            if ($arg == 'year') {
                 $d[] = $arr;
             } else {
                 $d[] = date('d-m-Y', strtotime('last ' . $this->chart_day_count, strtotime($arr)));
@@ -813,27 +821,6 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
         $d = array_unique($d);
         return array_values($d);
     }
-
-
-    /**
-     * Return int weekday to weekday name
-     *
-     * @param int $num
-     * @return string
-     */
-    public function chartdaycounter($num): string
-    {
-        return match ($num) {
-            1 => 'Monday',
-            2 => 'Tuesday',
-            3 => 'Wednesday',
-            4 => 'Thursday',
-            5 => 'Friday',
-            7 => 'Sunday',
-            default => 'Saturday',
-        };
-    }
-
 
     /**
      * Get start and end date of week in specified year.

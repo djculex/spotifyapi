@@ -730,7 +730,7 @@ class SpotifyWebAPI
      * @throws SpotifyWebAPIAuthException
      * @throws SpotifyWebAPIException
      */
-    public function  getAlbums($albumIds, $options = []): object|array
+    public function getAlbums($albumIds, $options = []): object|array
     {
         $albumIds = $this->uriToId($albumIds, 'album');
         $options = array_merge((array)$options, [

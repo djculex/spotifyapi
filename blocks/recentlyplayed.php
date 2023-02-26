@@ -10,13 +10,11 @@
  * @min_xoops  2.5.9
  */
 
-use XoopsModules\Spotifyapi\Session;
-use XoopsModules\Spotifyapi\Spotifyapi_Helper;
-use XoopsModules\Spotifyapi\SpotifyWebAPI;
 use XoopsModules\Spotifyapi\Spotifyapi_db;
+use XoopsModules\Spotifyapi\Spotifyapi_Helper;
 
-require_once dirname(__DIR__).'/include/common.php';
-require_once XOOPS_ROOT_PATH.'/class/template.php';
+require_once dirname(__DIR__) . '/include/common.php';
+require_once XOOPS_ROOT_PATH . '/class/template.php';
 
 
 /**
@@ -25,8 +23,8 @@ require_once XOOPS_ROOT_PATH.'/class/template.php';
 function b_spotifyapi_show_recently_played()
 {
     $helper = Spotifyapi_Helper::getInstance();
-    $timez  = $helper->getConfig('spotifyapitimezones');
+    $timez = $helper->getConfig('spotifyapitimezones');
     date_default_timezone_set($timez);
-    $db    = new Spotifyapi_db();
+    $db = new Spotifyapi_db();
     return $db->getSongs();
 }

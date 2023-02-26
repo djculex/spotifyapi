@@ -9,6 +9,7 @@
  * @since      1.0
  * @min_xoops  2.5.9
  */
+
 namespace XoopsModules\Spotifyapi;
 
 // Extends from SpotifyWebApiException for backwards compatibility

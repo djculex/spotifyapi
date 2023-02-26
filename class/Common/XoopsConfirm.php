@@ -23,8 +23,6 @@ namespace XoopsModules\Spotifyapi\Common;
  * @author         Goffy - Email:<goffy@myxoops.org> - Website:<http://xoops.org>
  */
 
-use XoopsModules\Spotifyapi;
-
 \defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
@@ -33,10 +31,10 @@ use XoopsModules\Spotifyapi;
 class XoopsConfirm
 {
     private $hiddens = [];
-    private $action  = '';
-    private $title   = '';
-    private $label   = '';
-    private $object  = '';
+    private $action = '';
+    private $title = '';
+    private $label = '';
+    private $object = '';
 
     /**
      * @public function constructor class
@@ -49,10 +47,10 @@ class XoopsConfirm
     public function __construct($hiddens, $action, $object, $title = '', $label = '')
     {
         $this->hiddens = $hiddens;
-        $this->action  = $action;
-        $this->object  = $object;
-        $this->title   = $title;
-        $this->label   = $label;
+        $this->action = $action;
+        $this->object = $object;
+        $this->title = $title;
+        $this->label = $label;
     }
 
     /**

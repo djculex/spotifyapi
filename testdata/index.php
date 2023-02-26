@@ -19,10 +19,7 @@ use Xmf\Module\Helper;
 use Xmf\Request;
 use Xmf\Yaml;
 use XoopsModules\Spotifyapi;
-use XoopsModules\Spotifyapi\{
-    Common,
-    Utility
-};
+use XoopsModules\Spotifyapi\{Common, Utility};
 
 require_once dirname(__DIR__, 3) . '/include/cp_header.php';
 require \dirname(__DIR__) . '/preloads/autoloader.php';
@@ -59,10 +56,10 @@ function loadSampleData()
 {
     global $xoopsConfig;
 
-    $moduleDirName      = \basename(\dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
-    $utility      = new Spotifyapi\Utility();
+    $utility = new Spotifyapi\Utility();
     $configurator = new Common\Configurator();
 
     $tables = Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
@@ -80,16 +77,16 @@ function loadSampleData()
     }
 
     // load permissions
-    $table     = 'group_permission';
+    $table = 'group_permission';
     $tabledata = Yaml::readWrapped($language . $table . '.yml');
-    $mid       = Helper::getHelper($moduleDirName)->getModule()->getVar('mid');
+    $mid = Helper::getHelper($moduleDirName)->getModule()->getVar('mid');
     loadTableFromArrayWithReplace($table, $tabledata, 'gperm_modid', $mid);
 
     //  ---  COPY test folder files ---------------
     if (\is_array($configurator->copyTestFolders) && \count($configurator->copyTestFolders) > 0) {
         //        $file = __DIR__ . '/../testdata/images/';
         foreach (\array_keys($configurator->copyTestFolders) as $i) {
-            $src  = $configurator->copyTestFolders[$i][0];
+            $src = $configurator->copyTestFolders[$i][0];
             $dest = $configurator->copyTestFolders[$i][1];
             $utility::rcopy($src, $dest);
         }
@@ -103,7 +100,7 @@ function saveSampleData()
 
     $configurator = new Common\Configurator();
 
-    $moduleDirName      = \basename(\dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
     $tables = Helper::getHelper($moduleDirName)->getModule()->getInfo('tables');
@@ -131,7 +128,7 @@ function saveSampleData()
     //  ---  COPY test folder files ---------------
     if (\is_array($configurator->copyTestFolders) && \count($configurator->copyTestFolders) > 0) {
         foreach (\array_keys($configurator->copyTestFolders) as $i) {
-            $src  = $configurator->copyTestFolders[$i][1];
+            $src = $configurator->copyTestFolders[$i][1];
             $dest = $configurator->copyTestFolders[$i][0];
             Utility::rcopy($src, $dest);
         }
@@ -141,7 +138,7 @@ function saveSampleData()
 
 function exportSchema()
 {
-    $moduleDirName      = \basename(\dirname(__DIR__));
+    $moduleDirName = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 
     try {
@@ -159,9 +156,9 @@ function exportSchema()
 /**
  * loadTableFromArrayWithReplace
  *
- * @param string $table  value with should be used insead of original value of $search
+ * @param string $table value with should be used insead of original value of $search
  *
- * @param array  $data   array of rows to insert
+ * @param array $data array of rows to insert
  *                       Each element of the outer array represents a single table row.
  *                       Each row is an associative array in 'column' => 'value' format.
  * @param string $search name of column for which the value should be replaced

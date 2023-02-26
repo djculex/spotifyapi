@@ -28,9 +28,6 @@ namespace XoopsModules\Spotifyapi\Common;
  * echo $breadcrumb->render();
  */
 
-use XoopsModules\Spotifyapi;
-use XoopsModules\Spotifyapi\Common;
-
 \defined('XOOPS_ROOT_PATH') || exit('XOOPS Root Path not defined');
 
 /**
@@ -38,7 +35,7 @@ use XoopsModules\Spotifyapi\Common;
  */
 class Breadcrumb
 {
-    public  $dirname;
+    public $dirname;
     private $bread = [];
 
     public function __construct()
@@ -55,7 +52,7 @@ class Breadcrumb
     public function addLink($title = '', $link = '')
     {
         $this->bread[] = [
-            'link'  => $link,
+            'link' => $link,
             'title' => $title,
         ];
     }

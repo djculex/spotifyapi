@@ -9,6 +9,7 @@
  * @since      1.0
  * @min_xoops  2.5.9
  */
+
 namespace XoopsModules\Spotifyapi;
 
 class SpotifyWebAPIException extends \Exception
@@ -36,6 +37,18 @@ class SpotifyWebAPIException extends \Exception
     }
 
     /**
+     * Set the reason string.
+     *
+     * @param string $reason
+     *
+     * @return void
+     */
+    public function setReason($reason)
+    {
+        $this->reason = $reason;
+    }
+
+    /**
      * Returns whether the exception was thrown because of an expired access token.
      *
      * @return bool
@@ -53,17 +66,5 @@ class SpotifyWebAPIException extends \Exception
     public function isRateLimited()
     {
         return $this->getCode() === self::RATE_LIMIT_STATUS;
-    }
-
-    /**
-     * Set the reason string.
-     *
-     * @param string $reason
-     *
-     * @return void
-     */
-    public function setReason($reason)
-    {
-        $this->reason = $reason;
     }
 }

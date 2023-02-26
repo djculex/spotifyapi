@@ -12,7 +12,7 @@
 /**
  * Spotifyapi module for xoops
  *
- * @param mixed      $module
+ * @param mixed $module
  * @param null|mixed $prev_version
  * @package        Spotifyapi
  * @since          1.0
@@ -39,7 +39,7 @@ function xoops_module_update_spotifyapi($module, $prev_version = null)
     $ret = spotifyapi_check_db($module);
 
     //check upload directory
-	include_once __DIR__ . '/install.php';
+    include_once __DIR__ . '/install.php';
     $ret = xoops_module_install_spotifyapi($module);
 
     $errors = $module->getErrors();
@@ -68,7 +68,7 @@ function update_spotifyapi_v10($module)
         $tplids[] = $tplid;
     }
     if (\count($tplids) > 0) {
-        $tplfileHandler  = \xoops_getHandler('tplfile');
+        $tplfileHandler = \xoops_getHandler('tplfile');
         $duplicate_files = $tplfileHandler->getObjects(new \Criteria('tpl_id', '(' . \implode(',', $tplids) . ')', 'IN'));
 
         if (\count($duplicate_files) > 0) {

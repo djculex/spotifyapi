@@ -78,7 +78,7 @@ trait FilesManagement
     /**
      * Copy a file, or recursively copy a folder and its contents
      * @param string $source Source path
-     * @param string $dest   Destination path
+     * @param string $dest Destination path
      * @return      bool     Returns true on success, false on failure
      * @author      Aidan Lister <aidan@php.net>
      * @version     1.0.1
@@ -198,7 +198,7 @@ trait FilesManagement
         foreach ($iterator as $fObj) {
             if ($fObj->isFile()) {
                 $filename = $fObj->getPathname();
-                $fObj     = null; // clear this iterator object to close the file
+                $fObj = null; // clear this iterator object to close the file
                 if (!\unlink($filename)) {
                     return false; // couldn't delete the file
                 }
@@ -214,7 +214,7 @@ trait FilesManagement
     /**
      * Recursively move files from one directory to another
      *
-     * @param string $src  - Source of files being moved
+     * @param string $src - Source of files being moved
      * @param string $dest - Destination of files being moved
      *
      * @return bool true on success
@@ -254,7 +254,7 @@ trait FilesManagement
     /**
      * Recursively copy directories and files from one directory to another
      *
-     * @param string $src  - Source of files being moved
+     * @param string $src - Source of files being moved
      * @param string $dest - Destination of files being moved
      *
      * @return bool true on success

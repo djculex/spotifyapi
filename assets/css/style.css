@@ -20,51 +20,51 @@
  * @author         TDM XOOPS - Email:<culex@culex.com> - Website:<http://culex.dk>
  */
 ul.menu {
-	list-style: none;
-	background-color: #f5f5f5;
-	border-radius: 4px;
+    list-style: none;
+    background-color: #f5f5f5;
+    border-radius: 4px;
 }
 
 ul.menu > li {
-	display: inline-block;
+    display: inline-block;
 }
 
-ul.menu > li + li:before {  
+ul.menu > li + li:before {
     content: "|\a0";
 }
 
 .printOnly {
-	display: none;
+    display: none;
 }
 
 img {
-	max-width: 300px;
+    max-width: 300px;
 }
 
 #spotifyapisubmitbutton {
 }
 
 #spotifyalltimechartR {
-	font-size: smaller;
-	color: gold;
-	text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
-	position: relative;
-	left: 1%;
+    font-size: smaller;
+    color: gold;
+    text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
+    position: relative;
+    left: 1%;
 }
 
 #spotifyalltimechartL {
-	font-size: smaller;
-	color: gold;
-	text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
-	position: relative;
-	right: 1%;
+    font-size: smaller;
+    color: gold;
+    text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
+    position: relative;
+    right: 1%;
 }
 
 .spotifyapigg {
-	display: block;
-	margin: 10px 0 0px -40px;
-	text-align: center;
-	text-shadow: 0 0 1px red, 0 0 1px gold;
-	color: black;
-	font-size: x-small;
+    display: block;
+    margin: 10px 0 0px -40px;
+    text-align: center;
+    text-shadow: 0 0 1px red, 0 0 1px gold;
+    color: black;
+    font-size: x-small;
 }
