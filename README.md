@@ -16,7 +16,7 @@ Difference in charts is accumulative and classic view. Accumulative is counting 
 ## How to use
 1) Install as a normale Xoops Module under admin->modules->install spotifyapi
 2) Go to https://developer.spotify.com/dashboard/login and log in using your spotify user and password.
-3) Press the create new app and fill out the form. 
+3) Press the "create new app" and fill out the form. 
 4) Press the edit settings on your newly created app.
 5) Leave the page open and open a new going back to the Xoops Module Spotifyapi settings.
 6) In the Xoops Module spotifyapi settings copy the relocate uri and paste to the spotify app "Redirect URIs" and press "ADD"

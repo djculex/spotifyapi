@@ -143,7 +143,7 @@ $(document).ready(function(){
 			},
 			success: function (data) {
 				//console.log(data);
-				//Data from the server in the in the variable "data"
+				//Data from the server in the variable "data"
 				//In the form of an array
 			}
 
@@ -172,7 +172,7 @@ $(document).ready(function(){
 			},
 			success: function (data) {
 				//console.log(data);
-				//Data from the server in the in the variable "data"
+				//Data from the server in the variable "data"
 				//In the form of an array
 			}
 

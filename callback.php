@@ -44,7 +44,7 @@ $GLOBALS['xoopsLogger']->activated = false;
 		die('State mismatch');
 	}
 
-	// Request a access token using the code from Spotify
+	// Request an access token using the code from Spotify
 	$session->requestAccessToken($_GET['code']);
 	$db->code = $_GET['code'];
 	$db->setConfig('code');
