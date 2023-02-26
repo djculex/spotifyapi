@@ -71,6 +71,7 @@ class Session
      * @param int $length Optional. Code verifier length. Must be between 43 and 128 characters long, default is 128.
      *
      * @return string A code verifier string.
+     * @throws Exception
      */
     public function generateCodeVerifier($length = 128)
     {
