@@ -636,7 +636,7 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
 
                 // $chart[$i]['avg'] = $this->gain($chart[$i]['tw'], $chart[$i]['lw']);
                 if ($this->gain($chart[$i]['tw'], $chart[$i]['lw']) > $greatestgainer) {
-                    $greatestgainer   = (int) $this->gain($chart[$i]['tw'], $chart[$i]['lw']);
+                    $greatestgainer   = $this->gain($chart[$i]['tw'], $chart[$i]['lw']);
                     $greatestgainerid = $i;
                 }
 
@@ -659,7 +659,7 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
                 $chart[$i]['year']    = (int) $tv['releaseyear'];
                 $chart[$i]['artlink'] = $tv['artistlink'];
                 $chart[$i]['pop']     = (int) $tv['popularity'];
-                $chart[$i]['ggn']     = (int) $this->gain($chart[$i]['tw'], $chart[$i]['lw']);
+                $chart[$i]['ggn']     = $this->gain($chart[$i]['tw'], $chart[$i]['lw']);
                 if ($chart[$i]['ggn'] > $greatestgainer) {
                     $greatestgainer   = $chart[$i]['ggn'];
                     $greatestgainerid = $i;
