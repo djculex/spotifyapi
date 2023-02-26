@@ -68,11 +68,11 @@ class Spotifyapi_form
      * @param string $id id
      * @param string $name name
      * @param string $text text
-     * @param $sep (optional)
+     * @param $sep string|(optional)
      * @return string
      *
      */
-    public function radiobutton($id, $name, $text, $sep = '<br>'): string
+    public function radiobutton($id, $name, $text, optional|string $sep = '<br>'): string
     {
         $string  = '<div class="form-check"><input class="form-check-input" type="checkbox" value="" id="' . $id . '">';
         $string .= '<label class="' . $name . '" for="' . $name . '">' . $text . '</label></div>';
