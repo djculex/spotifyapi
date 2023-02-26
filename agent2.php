@@ -137,9 +137,12 @@ $GLOBALS['xoopsLogger']->activated = false;
 		$json = json_decode($json);
 		curl_close($ch);
 		return $json->access_token;
-	}	
-	
-	function getRecentlyPlayed ()
+	}
+
+/**
+ * @throws Exception
+ */
+function getRecentlyPlayed ()
 	{
 		$token = getTokenStat ($clientid, $clientsecret);
 		//print_r($token);

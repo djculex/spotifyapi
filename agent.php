@@ -74,8 +74,11 @@ $GLOBALS['xoopsLogger']->activated = false;
 					//echo $db->image;
 				}
 
-				$dta = new DateTime($value['items'][$i]['played_at'], new DateTimeZone('UTC'));
-				$dta->setTimezone(new DateTimeZone('Europe/Copenhagen'));
+            try {
+                $dta = new DateTime($value['items'][$i]['played_at'], new DateTimeZone('UTC'));
+            } catch (Exception $e) {
+            }
+            $dta->setTimezone(new DateTimeZone('Europe/Copenhagen'));
 				$db->times = $dta->format('d-m-Y H:i:s');
 				
 				$db->artist = $value['items'][$i]['track']["artists"][0]["name"];
@@ -88,9 +91,12 @@ $GLOBALS['xoopsLogger']->activated = false;
 				$db->title = $value['items'][$i]['track']["name"];
 				
 				$db->albumtitle = $value['items'][$i]['track']["album"]["name"];
-				
-				$dt = new DateTime($value['items'][$i]['track']["album"]['release_date']);
-				$dt->format('Y');
+
+            try {
+                $dt = new DateTime($value['items'][$i]['track']["album"]['release_date']);
+            } catch (Exception $e) {
+            }
+            $dt->format('Y');
 				$db->release_year = $dt->format('Y');
 				
 				if (!empty($value['items'][$i]['track']["popularity"])) {
