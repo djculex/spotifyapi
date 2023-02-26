@@ -171,10 +171,10 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
 
         $this->chart_day_count = $this->chartdaycounter($helper->getConfig('spotifyapidaytostartc'));
 
-        $this->today = date('d-m-Y', strtotime('last ' . $this->chart_day_count . ''));
+        $this->today = date('d-m-Y', strtotime('last ' . $this->chart_day_count));
 
         $this->thisweek_start = date('d-m-Y', strtotime('last ' . $this->chart_day_count . ' - 1 week'));
-        $this->thisweek_end   = date('d-m-Y', strtotime('last ' . $this->chart_day_count . ''));
+        $this->thisweek_end   = date('d-m-Y', strtotime('last ' . $this->chart_day_count));
 
         $this->lastweek_start = date('d-m-Y', strtotime($this->thisweek_start . ' -1 week'));
         $this->lastweek_end   = $this->thisweek_start;
@@ -807,7 +807,7 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
             } if ($arg == 'year') {
                 $d[] = $arr;
             } else {
-                $d[] = date('d-m-Y', strtotime('last ' . $this->chart_day_count . '', strtotime($arr)));
+                $d[] = date('d-m-Y', strtotime('last ' . $this->chart_day_count, strtotime($arr)));
             }
         }
 
