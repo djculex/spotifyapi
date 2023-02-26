@@ -36,7 +36,7 @@ class Spotifyapi_Lastfm
 		$this->key = $key; //apikey
 		$this->status = $status; //status
 		$this->number = $number; //number of items to show
-		$this->endpoint = 'https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=' . $user . '&&limit='.$number.'&api_key=' . $key . '&format='.$this->format.'';
+		$this->endpoint = 'https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=' . $user . '&&limit='.$number.'&api_key=' . $key . '&format='.$this->format;
 		//echo $this->endpoint;
     }
 	
