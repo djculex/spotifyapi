@@ -34,7 +34,6 @@ function xoops_module_uninstall_spotifyapi(\XoopsModule $module)
 
     $moduleDirName      = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
-    /** @var Spotifyapi\Spotifyapi_Helper $helper */
     $helper = Spotifyapi\Spotifyapi_Helper::getInstance();
 
     /** @var Spotifyapi\Utility $utility */

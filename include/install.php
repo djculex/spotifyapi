@@ -30,7 +30,6 @@ use XoopsModules\Spotifyapi\Common;
 function xoops_module_pre_install_spotifyapi(\XoopsModule $module)
 {
     require \dirname(__DIR__) . '/preloads/autoloader.php';
-    /** @var Spotifyapi\Spotifyapi_Utility $utility */
     $utility = new Spotifyapi\Spotifyapi_Utility();
 
     //check for minimum XOOPS version
