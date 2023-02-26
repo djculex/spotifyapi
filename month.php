@@ -9,12 +9,8 @@
  * @since      1.0
  * @min_xoops  2.5.9
  */
-use XoopsModules\Spotifyapi\{
-	Session,
-	SpotifyWebAPI,
-	Spotifyapi_db,
-	Spotifyapi_form
-};
+
+use XoopsModules\Spotifyapi\{Session, Spotifyapi_Helper, SpotifyWebAPI, Spotifyapi_db, Spotifyapi_form};
 
 use XoopsModules\Spotifyapi;
 use XoopsModules\Spotifyapi\Constants;
@@ -30,7 +26,7 @@ $GLOBALS['xoopsLogger']->activated = true;
 include __DIR__ . '/header.php';
 include XOOPS_ROOT_PATH.'/header.php';
 
-$helper = \XoopsModules\Spotifyapi\Spotifyapi_Helper::getInstance();
+$helper = Spotifyapi_Helper::getInstance();
 $timez = $helper->getConfig('spotifyapitimezones');
 
 $GLOBALS['xoTheme']->addScript('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js');

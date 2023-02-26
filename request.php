@@ -9,10 +9,8 @@
  * @since      1.0
  * @min_xoops  2.5.9
  */
-use XoopsModules\Spotifyapi\{
-	Session,
-	SpotifyWebAPI
-};
+
+use XoopsModules\Spotifyapi\{Session, Spotifyapi_Helper, SpotifyWebAPI};
 
 use XoopsModules\Spotifyapi;
 use XoopsModules\Spotifyapi\Constants;
@@ -23,7 +21,7 @@ require_once __DIR__ . '/include/common.php';
 require_once __DIR__ . '/include/functions.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
 require_once XOOPS_ROOT_PATH . '/modules/spotifyapi/blocks/recentlyplayed.php';
-$helper = \XoopsModules\Spotifyapi\Spotifyapi_Helper::getInstance();
+$helper = Spotifyapi_Helper::getInstance();
 
 	$tpl = new \XoopsTpl();
 	$tpl->caching = 0;

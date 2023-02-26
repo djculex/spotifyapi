@@ -23,6 +23,8 @@ declare(strict_types=1);
  * @author         TDM XOOPS - Email:<culex@culex.com> - Website:<http://culex.dk>
  */
 
+use XoopsModules\Spotifyapi\Helper;
+
 /**
  * Add content as meta tag to template
  * @param $content
@@ -70,7 +72,7 @@ function spotifyapiMetaDescription($content)
 function spotifyapi_RewriteUrl($module, $array, $type = 'content')
 {
     $comment = '';
-    $helper = \XoopsModules\Spotifyapi\Helper::getInstance();
+    $helper = Spotifyapi_Helper::getInstance();
     $Handler = $helper->getHandler('');
     $lenght_id = $helper->getConfig('lenght_id');
     $rewrite_url = $helper->getConfig('rewrite_url');
@@ -158,7 +160,7 @@ function spotifyapi_RewriteUrl($module, $array, $type = 'content')
 function spotifyapi_Filter($url, $type = '') {
 
     // Get regular expression from module setting. default setting is : `[^a-z0-9]`i
-    $helper = \XoopsModules\Spotifyapi\Helper::getInstance();
+    $helper = Helper::getInstance();
     $Handler = $helper->getHandler('');
     $regular_expression = $helper->getConfig('regular_expression');
 

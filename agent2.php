@@ -23,7 +23,6 @@ require_once dirname(__DIR__,2) . '/mainfile.php';
 include __DIR__ . '/preloads/autoloader.php';
 require_once __DIR__ . '/include/common.php';
 require_once XOOPS_ROOT_PATH . '/class/template.php';
-$helper = \XoopsModules\Spotifyapi\Helper::getInstance();
 $GLOBALS['xoopsLogger']->activated = false;
 	$block = [];
 	
