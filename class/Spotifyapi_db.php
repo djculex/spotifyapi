@@ -784,8 +784,7 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
             $res[] = $row['times'];
         }
 
-        $val = date_create_from_format('d-m-Y H:i:s', $res[0])->format('d-m-Y');
-        return $val;
+        return date_create_from_format('d-m-Y H:i:s', $res[0])->format('d-m-Y');
     }
 
     /**

@@ -112,8 +112,7 @@ function update_spotifyapi_v10($module)
  */
 function spotifyapi_check_db($module)
 {
-    $ret = true;
-	//insert here code for database check
+    //insert here code for database check
 
     /*
     // Example: update table (add new field)
@@ -150,5 +149,5 @@ function spotifyapi_check_db($module)
         }
     }
     */
-    return $ret;
+    return true;
 }

@@ -27,6 +27,5 @@ function b_spotifyapi_show_recently_played()
     $timez  = $helper->getConfig('spotifyapitimezones');
     date_default_timezone_set($timez);
     $db    = new Spotifyapi_db();
-    $block = $db->getSongs();
-    return $block;
+    return $db->getSongs();
 }

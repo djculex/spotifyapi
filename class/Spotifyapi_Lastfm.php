@@ -44,8 +44,7 @@ class Spotifyapi_Lastfm
 	{
 		$result      = file_get_contents($this->endpoint);
 		$json = json_decode($result, true);
-		$tracks = $json['recenttracks']['track'];
-		return $tracks;
+        return $json['recenttracks']['track'];
 	}
 	
 	public function parseArray($obj)

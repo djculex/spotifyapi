@@ -62,9 +62,7 @@ class Session
         $challenge = hash($hashAlgo, $codeVerifier, true);
         $challenge = base64_encode($challenge);
         $challenge = strtr($challenge, '+/', '-_');
-        $challenge = rtrim($challenge, '=');
-
-        return $challenge;
+        return rtrim($challenge, '=');
     }
 
     /**
