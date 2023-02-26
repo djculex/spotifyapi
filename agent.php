@@ -59,8 +59,8 @@ $GLOBALS['xoopsLogger']->activated = false;
 		];
 		//$GLOBALS['xoopsLogger']->activated = true;
 		//$calansarki = $api->getMyCurrentPlaybackInfo($options);
-		//$calansarki = $api->getMyRecentTracks($options,array('limit'=>$helper->getConfig('spotifyapinumbertoshow')));
-		$calansarki = $api->getMyRecentTracks($options,array('limit'=>50));
+		$calansarki = $api->getMyRecentTracks($options,array('limit'=>$helper->getConfig('spotifyapinumbertoshow')));
+		//$calansarki = $api->getMyRecentTracks($options,array('limit'=>50));
 		
 		//$value = json_encode($calansarki);
 		$value = json_decode(json_encode($calansarki), true);
