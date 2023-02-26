@@ -40,9 +40,9 @@ $timez = $helper->getConfig('spotifyapitimezones');
 
 $GLOBALS['xoTheme']->addScript('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js');
 
-$weekParam = isset($_GET['week']) ? $_GET['week'] : '';
-$yearParam = isset($_GET['year']) ? $_GET['year'] : '';
-$charttype = isset($_GET['type']) ? $_GET['type'] : '';
+$weekParam = $_GET['week'] ?? '';
+$yearParam = $_GET['year'] ?? '';
+$charttype = $_GET['type'] ?? '';
 
 $d = new Spotifyapi_db();
 $form = new Spotifyapi_form();
