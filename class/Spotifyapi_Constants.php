@@ -29,7 +29,7 @@ namespace XoopsModules\Spotifyapi;
 /**
  * Interface  Constants
  */
-interface Constants
+interface Spotifyapi_Constants
 {
 	// Constants for tables
 

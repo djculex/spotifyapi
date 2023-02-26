@@ -1,12 +1,13 @@
 <?php
-/*
- You may not change or alter any portion of this comment or credits
- of supporting developers from this source code or any supporting source code
- which is considered copyrighted (c) material of the original comment or credit authors.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+/**
+ * Spotify Api module for xoops
+ *
+ * @package    spotifyapi
+ * @subpackage page-level
+ * @author     Squiz Pty Ltd <products@squiz.net>
+ * @copyright  2023 Michael Albertsen (www.culex.dk)
+ * @since      1.0
+ * @min_xoops  2.5.9
  */
 
 /**

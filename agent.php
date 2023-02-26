@@ -1,8 +1,18 @@
 <?php
+/**
+ * Spotify Api module for xoops
+ *
+ * @package    spotifyapi
+ * @subpackage page-level
+ * @author     Squiz Pty Ltd <products@squiz.net>
+ * @copyright  2023 Michael Albertsen (www.culex.dk)
+ * @since      1.0
+ * @min_xoops  2.5.9
+ */
 use XoopsModules\Spotifyapi\{
 	Session,
 	SpotifyWebAPI,
-	db
+	Spotifyapi_db
 };
 
 use XoopsModules\Spotifyapi;
@@ -17,7 +27,7 @@ $GLOBALS['xoopsLogger']->activated = false;
 	$block = [];
 	
 	/** @var Spotifyapi\Helper $helper */
-    $helper = Spotifyapi\Helper::getInstance();
+    $helper = Spotifyapi\Spotifyapi_Helper::getInstance();
 	$clientid = $helper->getConfig('spotifyapiclientid');
 	$clientsecret = $helper->getConfig('spotifyapiclientsecret');
 	$clientredirecturi = $helper->getConfig('spotifyapiredirecturi');
@@ -35,7 +45,7 @@ $GLOBALS['xoopsLogger']->activated = false;
 	$api = new XoopsModules\Spotifyapi\SpotifyWebAPI($sessionOptions, $session);
 
 	if (isset($_GET['code'])) {
-		$db = new db();
+		$db = new Spotifyapi_db();
 		$session->requestAccessToken($_GET['code']);
 		$api->setAccessToken($session->getAccessToken());
 

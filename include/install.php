@@ -30,8 +30,8 @@ use XoopsModules\Spotifyapi\Common;
 function xoops_module_pre_install_spotifyapi(\XoopsModule $module)
 {
     require \dirname(__DIR__) . '/preloads/autoloader.php';
-    /** @var Spotifyapi\Utility $utility */
-    $utility = new Spotifyapi\Utility();
+    /** @var Spotifyapi\Spotifyapi_Utility $utility */
+    $utility = new Spotifyapi\Spotifyapi_Utility();
 
     //check for minimum XOOPS version
     $xoopsSuccess = $utility::checkVerXoops($module);
@@ -57,11 +57,11 @@ function xoops_module_install_spotifyapi(\XoopsModule $module)
 {
     require \dirname(__DIR__) . '/preloads/autoloader.php';
 
-    /** @var Spotifyapi\Helper $helper */ 
-    /** @var Spotifyapi\Utility $utility */
+    /** @var Spotifyapi\Spotifyapi_Helper $helper */
+    /** @var Spotifyapi\Spotifyapi_Utility $utility */
     /** @var Common\Configurator $configurator */
-    $helper       = Spotifyapi\Helper::getInstance();
-    $utility      = new Spotifyapi\Utility();
+    $helper       = Spotifyapi\Spotifyapi_Helper::getInstance();
+    $utility      = new Spotifyapi\Spotifyapi_Utility();
     $configurator = new Common\Configurator();
 
     // Load language files

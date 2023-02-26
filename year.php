@@ -1,10 +1,19 @@
 <?php
-
+/**
+ * Spotify Api module for xoops
+ *
+ * @package    spotifyapi
+ * @subpackage page-level
+ * @author     Squiz Pty Ltd <products@squiz.net>
+ * @copyright  2023 Michael Albertsen (www.culex.dk)
+ * @since      1.0
+ * @min_xoops  2.5.9
+ */
 use XoopsModules\Spotifyapi\{
 	Session,
 	SpotifyWebAPI,
-	db,
-	form
+	Spotifyapi_db,
+	Spotifyapi_form
 };
 
 use XoopsModules\Spotifyapi;
@@ -19,11 +28,11 @@ $GLOBALS['xoopsLogger']->activated = false;
 //include __DIR__ . '/header.php';
 include XOOPS_ROOT_PATH.'/header.php';
 
-$helper = \XoopsModules\Spotifyapi\Helper::getInstance();
+$helper = \XoopsModules\Spotifyapi\Spotifyapi_Helper::getInstance();
 $timez = $helper->getConfig('spotifyapitimezones');
 
-$d = new db();
-$form = new form();
+$d = new Spotifyapi_db();
+$form = new Spotifyapi_form();
 date_default_timezone_set($timez);
 
 $year = (isset($_POST['year'])) ? $_POST['year'] : '';

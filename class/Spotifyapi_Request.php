@@ -1,16 +1,30 @@
 <?php
 
+/**
+ * Spotify Api module for xoops
+ *
+ * @package    spotifyapi
+ * @subpackage page-level
+ * @author     Squiz Pty Ltd <products@squiz.net>
+ * @copyright  2023 Michael Albertsen (www.culex.dk)
+ * @since      1.0
+ * @min_xoops  2.5.9
+ */
+
 declare(strict_types=1);
 
 namespace XoopsModules\Spotifyapi;
 
+/**
+ *
+ */
 class Request
 {
     public const ACCOUNT_URL = 'https://accounts.spotify.com';
     public const API_URL = 'https://api.spotify.com';
 
-    protected $lastResponse = [];
-    protected $options = [
+    protected array $lastResponse = [];
+    protected array $options = [
         'curl_options' => [],
         'return_assoc' => false,
     ];
@@ -19,9 +33,9 @@ class Request
      * Constructor
      * Set options.
      *
-     * @param array|object $options Optional. Options to set.
+     * @param object|array $options Optional. Options to set.
      */
-    public function __construct($options = [])
+    public function __construct(object|array $options = [])
     {
         $this->setOptions($options);
     }
@@ -37,7 +51,7 @@ class Request
      *
      * @return void
      */
-    protected function handleResponseError($body, $status)
+    protected function handleResponseError($body, $status): void
     {
         $parsedBody = json_decode($body);
         $error = $parsedBody->error ?? null;
@@ -70,7 +84,7 @@ class Request
      *
      * @return array Headers as key–value pairs.
      */
-    protected function parseHeaders($headers)
+    protected function parseHeaders($headers): array
     {
         $headers = str_replace("\r\n", "\n", $headers);
         $headers = explode("\n", $headers);
@@ -105,7 +119,7 @@ class Request
      * - int status HTTP status code.
      * - string url The requested URL.
      */
-    public function account($method, $uri, $parameters = [], $headers = [])
+    public function account($method, $uri, $parameters = [], $headers = []): array
     {
         return $this->send($method, self::ACCOUNT_URL . $uri, $parameters, $headers);
     }
@@ -127,7 +141,7 @@ class Request
      * - int status HTTP status code.
      * - string url The requested URL.
      */
-    public function api($method, $uri, $parameters = [], $headers = [])
+    public function api($method, $uri, $parameters = [], $headers = []): array
     {
         return $this->send($method, self::API_URL . $uri, $parameters, $headers);
     }
@@ -141,7 +155,7 @@ class Request
      * - int status HTTP status code.
      * - string url The requested URL.
      */
-    public function getLastResponse()
+    public function getLastResponse(): array
     {
         return $this->lastResponse;
     }
@@ -164,7 +178,7 @@ class Request
      * - int status HTTP status code.
      * - string url The requested URL.
      */
-    public function send($method, $url, $parameters = [], $headers = [])
+    public function send($method, $url, $parameters = [], $headers = []): array
     {
         // Reset any old responses
         $this->lastResponse = [];
@@ -254,7 +268,7 @@ class Request
      *
      * @return void
      */
-    public function setOptions($options)
+    public function setOptions($options): void
     {
         $this->options = array_merge($this->options, (array) $options);
     }
@@ -266,7 +280,7 @@ class Request
      *
      * @return array An array consisting of two elements, headers and body.
      */
-    protected function splitResponse($response)
+    protected function splitResponse($response): array
     {
         $parts = explode("\r\n\r\n", $response, 3);
 

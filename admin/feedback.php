@@ -1,39 +1,41 @@
 <?php
-/*
- You may not change or alter any portion of this comment or credits
- of supporting developers from this source code or any supporting source code
- which is considered copyrighted (c) material of the original comment or credit authors.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-*/
 
 /**
- * Feedback plugin for xoops modules
+ * Spotify Api module for xoops
  *
- * @copyright      XOOPS Project  (https://xoops.org)
- * @license        GNU GPL 2 or later (http://www.gnu.org/licenses/gpl-2.0.html)
- * @author         Michael Beck <mambax7@gmailc.com>
- * @author         Wedega - Email:<webmaster@wedega.com>
- * @author         Fernando Santos (topet05) <fernando@mastop.com.br>
+ * @package    spotifyapi
+ * @subpackage page-level
+ * @author     Squiz Pty Ltd <products@squiz.net>
+ * @copyright  2023 Squiz Pty Ltd (ABN 77 084 670 600)
+ * @since      1.0
+ * @min_xoops  2.5.9
  */
 
+use Xmf\Module\Admin;
 use Xmf\Request;
+use XoopsModules\Spotifyapi\Common\ModuleFeedback;
 
-include __DIR__ . '/header.php';
+require __DIR__ . '/header.php';
 
-$adminObject = \Xmf\Module\Admin::getInstance();
+/*
+ * Vars defined by inclusion of ./admin_header.php
+ *
+ * @var \XoopsModules\Spotifyapi\Admin $admin
+ * @var \Xmf\Module\Admin $adminObject
+ * @var \XoopsModules\Spotifyapi\Spotifyapi_Helper $helper
+ * @var string $moduleDirName
+ * @var string $moduleDirNameUpper
+ */
 
-$feedback = new \XoopsModules\Spotifyapi\Common\ModuleFeedback();
+$adminObject = Admin::getInstance();
 
-// It recovered the value of argument op in URL$
+$feedback = new ModuleFeedback();
+
+// It recovered the value of argument op in URL$.
 $op                 = Request::getString('op', 'list');
 $moduleDirName      = $GLOBALS['xoopsModule']->getVar('dirname');
 $moduleDirNameUpper = \mb_strtoupper($moduleDirName);
 \xoops_loadLanguage('feedback', $moduleDirName);
-
-//xoops_cp_header();
 
 switch ($op) {
     case 'list':
@@ -45,6 +47,7 @@ switch ($op) {
         $form            = $feedback->getFormFeedback();
         $form->display();
         break;
+
     case 'send':
         // Security Check
         if (!$GLOBALS['xoopsSecurity']->check()) {
@@ -58,15 +61,15 @@ switch ($op) {
         $your_mail  = Request::getString('your_mail', '');
         $fb_type    = Request::getString('fb_type', '');
         $fb_content = Request::getText('fb_content', '');
-        $fb_content = \str_replace(["\r\n", "\n", "\r"], '<br>', $fb_content); //clean line break from dhtmltextarea
-
+        $fb_content = \str_replace(["\r\n", "\n", "\r"], '<br>', $fb_content);
+        // clean line break from dhtmltextarea
         $title       = \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_SEND_FOR') . $GLOBALS['xoopsModule']->getVar('dirname');
         $body        = \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_NAME') . ': ' . $your_name . '<br>';
-        $body        .= \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_MAIL') . ': ' . $your_mail . '<br>';
-        $body        .= \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_SITE') . ': ' . $your_site . '<br>';
-        $body        .= \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE') . ': ' . $fb_type . '<br><br>';
-        $body        .= \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_CONTENT') . ':<br>';
-        $body        .= $fb_content;
+        $body       .= \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_MAIL') . ': ' . $your_mail . '<br>';
+        $body       .= \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_SITE') . ': ' . $your_site . '<br>';
+        $body       .= \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE') . ': ' . $fb_type . '<br><br>';
+        $body       .= \constant('CO_' . $moduleDirNameUpper . '_' . 'FB_TYPE_CONTENT') . ':<br>';
+        $body       .= $fb_content;
         $xoopsMailer = xoops_getMailer();
         $xoopsMailer->useMail();
         $xoopsMailer->setToEmails($GLOBALS['xoopsModule']->getInfo('author_mail'));
@@ -93,5 +96,6 @@ switch ($op) {
         $form->display();
 
         break;
-}
+}//end switch
+
 require __DIR__ . '/footer.php';

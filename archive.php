@@ -1,10 +1,20 @@
 <?php
+/**
+ * Spotify Api module for xoops
+ *
+ * @package    spotifyapi
+ * @subpackage page-level
+ * @author     Squiz Pty Ltd <products@squiz.net>
+ * @copyright  2023 Michael Albertsen (www.culex.dk)
+ * @since      1.0
+ * @min_xoops  2.5.9
+ */
 
 use XoopsModules\Spotifyapi\{
 	Session,
 	SpotifyWebAPI,
-	db,
-	form
+	Spotifyapi_db,
+	Spotifyapi_form
 };
 
 use XoopsModules\Spotifyapi;
@@ -19,9 +29,18 @@ $GLOBALS['xoopsOption']['template_main'] = 'spotifyapi_indexfile.tpl';
 $GLOBALS['xoopsLogger']->activated = true;
 
 include __DIR__ . '/header.php';
+/*
+ * Vars defined by inclusion of ./admin_header.php
+ *
+ * @var \XoopsModules\SpotifyapiAdmin $admin
+ * @var \Xmf\Module\Admin $adminObject
+ * @var \XoopsModules\Spotifyapi\Helper $helper
+ * @var string $moduleDirName
+ * @var string $moduleDirNameUpper
+ */
 include XOOPS_ROOT_PATH.'/header.php';
 
-$helper = \XoopsModules\Spotifyapi\Helper::getInstance();
+$helper = \XoopsModules\Spotifyapi\Spotifyapi_Helper::getInstance();
 $timez = $helper->getConfig('spotifyapitimezones');
 
 $GLOBALS['xoTheme']->addScript('https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js');
@@ -30,8 +49,8 @@ $weekParam = isset($_GET['week']) ? $_GET['week'] : '';
 $yearParam = isset($_GET['year']) ? $_GET['year'] : '';
 $charttype = isset($_GET['type']) ? $_GET['type'] : '';
 
-$d = new db();
-$form = new form();
+$d = new Spotifyapi_db();
+$form = new Spotifyapi_form();
 date_default_timezone_set($timez);
 $weekly = 0;
 

@@ -154,7 +154,7 @@ $(document).ready(function(){
 	{
 		return $.ajax({
 			url: spotifyagenturl,
-			dataType: 'json',
+			dataType: 'jsonp',
 			async: true,
 			cache: false,
 			xhrFields: {
