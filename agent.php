@@ -107,7 +107,7 @@ $GLOBALS['xoopsLogger']->activated = false;
 				}
 				//$db->updateurls();
 				
-				if ($db->songexists() == false){
+				if (!$db->songexists()){
 					$db->loadSave($type='save');
 				}
 		}
