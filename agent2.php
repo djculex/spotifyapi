@@ -48,7 +48,7 @@ switch ($op) {
         break;
 }
 
-function getOAuth($clientid, $clientsecret, $clientredirecturi)
+function getOAuth($clientid, $clientsecret, $clientredirecturi): void
 {
     $session = new XoopsModules\Spotifyapi\Session(
         $clientid,
