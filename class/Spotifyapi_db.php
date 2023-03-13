@@ -218,7 +218,7 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
      * @param string $value
      * @return array
      */
-    public function getConfig($value): array
+    public function getConfig($value): array|string
     {
         $arr = [];
         $t = '';
