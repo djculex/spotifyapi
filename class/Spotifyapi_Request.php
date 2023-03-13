@@ -18,7 +18,7 @@ namespace XoopsModules\Spotifyapi;
 /**
  *
  */
-class Request
+class Spotifyapi_Request
 {
     public const ACCOUNT_URL = 'https://accounts.spotify.com';
     public const API_URL = 'https://api.spotify.com';
