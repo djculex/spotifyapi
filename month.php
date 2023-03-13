@@ -11,7 +11,6 @@
  */
 
 use XoopsModules\Spotifyapi\{Spotifyapi_db, Spotifyapi_form, Spotifyapi_Helper};
-use XoopsModules\Spotifyapi\Spotifyapi_Constants;
 
 require_once dirname(__DIR__, 2) . '/mainfile.php';
 include __DIR__ . '/preloads/autoloader.php';

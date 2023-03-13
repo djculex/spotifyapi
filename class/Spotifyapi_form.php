@@ -14,7 +14,6 @@
 namespace XoopsModules\Spotifyapi;
 
 use XoopsDatabase;
-use XoopsModules\Spotifyapi\Spotifyapi_Constants;
 
 class Spotifyapi_form
 {

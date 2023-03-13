@@ -10,8 +10,7 @@
  * @min_xoops  2.5.9
  */
 
-use XoopsModules\Spotifyapi\{Spotifyapi_db, Spotifyapi_Helper};
-use XoopsModules\Spotifyapi\Spotifyapi_Constants;
+use XoopsModules\Spotifyapi\{Spotifyapi_Helper};
 
 require_once dirname(__DIR__, 2) . '/mainfile.php';
 include __DIR__ . '/preloads/autoloader.php';
