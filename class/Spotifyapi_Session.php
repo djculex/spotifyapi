@@ -38,7 +38,7 @@ class Spotifyapi_Session
      * @param string $clientId The client ID.
      * @param string $clientSecret Optional. The client secret.
      * @param string $redirectUri Optional. The redirect URI.
-     * @param Request $request Optional. The Request object to use.
+     * @param Spotifyapi_Request $request Optional. The Request object to use.
      */
     public function __construct($clientId, $clientSecret = '', $redirectUri = '', $request = null)
     {

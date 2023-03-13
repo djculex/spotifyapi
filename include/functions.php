@@ -23,7 +23,7 @@ declare(strict_types=1);
  * @author         TDM XOOPS - Email:<culex@culex.com> - Website:<http://culex.dk>
  */
 
-use XoopsModules\Spotifyapi\Helper;
+use XoopsModules\Spotifyapi\Spotifyapi_Helper;
 
 /**
  * Add content as meta tag to template
@@ -162,7 +162,7 @@ function spotifyapi_Filter($url, $type = '')
 {
 
     // Get regular expression from module setting. default setting is : `[^a-z0-9]`i
-    $helper = Helper::getInstance();
+    $helper = Spotifyapi_Helper::getInstance();
     $Handler = $helper->getHandler('');
     $regular_expression = $helper->getConfig('regular_expression');
 

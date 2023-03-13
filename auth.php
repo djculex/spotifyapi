@@ -11,7 +11,7 @@
  */
 
 use XoopsModules\Spotifyapi;
-use XoopsModules\Spotifyapi\Constants;
+use XoopsModules\Spotifyapi\Spotifyapi_Constants;
 
 require_once dirname(__DIR__, 2) . '/mainfile.php';
 include __DIR__ . '/preloads/autoloader.php';
@@ -20,7 +20,6 @@ require_once XOOPS_ROOT_PATH . '/class/template.php';
 $GLOBALS['xoopsLogger']->activated = false;
 $block = [];
 
-/** @var Spotifyapi\Helper $helper */
 $helper = Spotifyapi\Spotifyapi_Helper::getInstance();
 $clientid = $helper->getConfig('spotifyapiclientid');
 $clientsecret = $helper->getConfig('spotifyapiclientsecret');

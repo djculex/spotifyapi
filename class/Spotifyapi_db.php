@@ -14,7 +14,7 @@
 namespace XoopsModules\Spotifyapi;
 
 use XoopsDatabase;
-use XoopsModules\Spotifyapi\Constants;
+use XoopsModules\Spotifyapi\Spotifyapi_Constants;
 
 /**
  *
@@ -37,7 +37,7 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
     public string|int $configvalue;
 
     /**
-     * @var mixed|Helper|null $helper
+     * @var mixed|Spotifyapi_Helper|null $helper
      */
     public mixed $helper;
 

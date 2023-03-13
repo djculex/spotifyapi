@@ -168,7 +168,7 @@ class Spotifyapi_Utility
      */
     public static function getEditor($helper = null, $options = null)
     {
-        /** @var Spotifyapi\Helper $helper */
+        /** @var Spotifyapi\Spotifyapi_Helper $helper */
         if (null === $options) {
             $options = [];
             $options['name'] = 'Editor';
