@@ -26,10 +26,10 @@ class Spotifyapi_Lastfm
      * Constructor
      * Set up client credentials.
      *
-     * @param string $clientId The client ID.
-     * @param string $clientSecret Optional. The client secret.
-     * @param string $redirectUri Optional. The redirect URI.
-     * @param Request $request Optional. The Request object to use.
+     * @param $user
+     * @param $key
+     * @param $status
+     * @param $number
      */
     public function __construct($user, $key, $status, $number)
     {

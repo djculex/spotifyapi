@@ -752,7 +752,7 @@ class SpotifyWebAPI
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-albums-tracks
      *
      * @param string $albumId ID or URI of the album.
-     * @param array|object $options Optional. Options for the tracks.
+     * @param array $options Optional. Options for the tracks.
      * - int limit Optional. Limit the number of tracks.
      * - int offset Optional. Number of tracks to skip.
      * - string market Optional. An ISO 3166-1 alpha-2 country code, provide this if you wish to apply Track Relinking.
@@ -846,7 +846,7 @@ class SpotifyWebAPI
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-artists-albums
      *
      * @param string $artistId ID or URI of the artist.
-     * @param array|object $options Optional. Options for the albums.
+     * @param array $options Optional. Options for the albums.
      * - string country Optional. Limit the results to items that are playable in this country, for example SE.
      * - string|array include_groups Optional. Album types to return. If omitted, all album types will be returned.
      * - int limit Optional. Limit the number of albums.
@@ -972,7 +972,7 @@ class SpotifyWebAPI
      * Get a list of categories used to tag items in Spotify (on, for example, the Spotify player’s "Discover" tab).
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-categories
      *
-     * @param array|object $options Optional. Options for the categories.
+     * @param array $options Optional. Options for the categories.
      * - string locale Optional. Language to show categories in, for example 'sv_SE'.
      * - string country Optional. An ISO 3166-1 alpha-2 country code. Show categories from this country.
      * - int limit Optional. Limit the number of categories.
@@ -998,7 +998,7 @@ class SpotifyWebAPI
      *
      * @param string $categoryId ID of the category.
      *
-     * @param array|object $options Optional. Options for the category.
+     * @param array $options Optional. Options for the category.
      * - string locale Optional. Language to show category in, for example 'sv_SE'.
      * - string country Optional. An ISO 3166-1 alpha-2 country code. Show category from this country.
      *
@@ -1022,7 +1022,7 @@ class SpotifyWebAPI
      *
      * @param string $categoryId ID of the category.
      *
-     * @param array|object $options Optional. Options for the category's playlists.
+     * @param array $options Optional. Options for the category's playlists.
      * - string country Optional. An ISO 3166-1 alpha-2 country code. Show category playlists from this country.
      * - int limit Optional. Limit the number of playlists.
      * - int offset Optional. Number of playlists to skip.
@@ -1046,7 +1046,7 @@ class SpotifyWebAPI
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-an-episode
      *
      * @param string $episodeId ID or URI of the episode.
-     * @param array|object $options Optional. Options for the episode.
+     * @param array $options Optional. Options for the episode.
      * - string market Optional. An ISO 3166-1 alpha-2 country code, limit results to episodes available in that market.
      *
      * @return array|object The requested episode. Type is controlled by the `return_assoc` option.
@@ -1069,7 +1069,7 @@ class SpotifyWebAPI
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-multiple-episodes
      *
      * @param array $episodeIds IDs or URIs of the episodes.
-     * @param array|object $options Optional. Options for the episodes.
+     * @param array $options Optional. Options for the episodes.
      * - string market Optional. An ISO 3166-1 alpha-2 country code, limit results to episodes available in that market.
      *
      * @return array|object The requested episodes. Type is controlled by the `return_assoc` option.
@@ -1095,7 +1095,7 @@ class SpotifyWebAPI
      * Get Spotify featured playlists.
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-featured-playlists
      *
-     * @param array|object $options Optional. Options for the playlists.
+     * @param array $options Optional. Options for the playlists.
      * - string locale Optional. Language to show playlists in, for example 'sv_SE'.
      * - string country Optional. An ISO 3166-1 alpha-2 country code. Show playlists from this country.
      * - string timestamp Optional. A ISO 8601 timestamp. Show playlists relevant to this date and time.
@@ -1159,7 +1159,7 @@ class SpotifyWebAPI
      * Get the current user’s currently playing track.
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recently-played
      *
-     * @param array|object $options Optional. Options for the track.
+     * @param array $options Optional. Options for the track.
      * - string market Optional. An ISO 3166-1 alpha-2 country code, provide this if you wish to apply Track Relinking.
      * - string|array additional_types Optional. Types of media to return info about.
      *
@@ -1206,7 +1206,7 @@ class SpotifyWebAPI
      * Get the current user’s current playback information.
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-information-about-the-users-current-playback
      *
-     * @param array|object $options Optional. Options for the info.
+     * @param array $options Optional. Options for the info.
      * - string market Optional. An ISO 3166-1 alpha-2 country code, provide this if you wish to apply Track Relinking.
      * - string|array additional_types Optional. Types of media to return info about.
      *
@@ -1234,7 +1234,7 @@ class SpotifyWebAPI
      * Get the current user’s playlists.
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-list-of-current-users-playlists
      *
-     * @param array|object $options Optional. Options for the playlists.
+     * @param array $options Optional. Options for the playlists.
      * - int limit Optional. Limit the number of playlists.
      * - int offset Optional. Number of playlists to skip.
      *
@@ -1257,7 +1257,7 @@ class SpotifyWebAPI
      * Get the current user’s recently played tracks.
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-the-users-currently-playing-track
      *
-     * @param array|object $options Optional. Options for the tracks.
+     * @param array $options Optional. Options for the tracks.
      * - int limit Optional. Number of tracks to return.
      * - string after Optional. Unix timestamp in ms (13 digits). Returns all items after this position.
      * - string before Optional. Unix timestamp in ms (13 digits). Returns all items before this position.
@@ -1281,7 +1281,7 @@ class SpotifyWebAPI
      * Get the current user’s saved albums.
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-albums
      *
-     * @param array|object $options Optional. Options for the albums.
+     * @param array $options Optional. Options for the albums.
      * - int limit Optional. Number of albums to return.
      * - int offset Optional. Number of albums to skip.
      * - string market Optional. An ISO 3166-1 alpha-2 country code, provide this if you wish to apply Track Relinking.
@@ -1305,7 +1305,7 @@ class SpotifyWebAPI
      * Get the current user’s saved episodes.
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-episodes
      *
-     * @param array|object $options Optional. Options for the episodes.
+     * @param array $options Optional. Options for the episodes.
      * - int limit Optional. Number of episodes to return.
      * - int offset Optional. Number of episodes to skip.
      * - string market Optional. An ISO 3166-1 alpha-2 country code, limit results to episodes available in that market.
@@ -1329,7 +1329,7 @@ class SpotifyWebAPI
      * Get the current user’s saved tracks.
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-tracks
      *
-     * @param array|object $options Optional. Options for the tracks.
+     * @param array $options Optional. Options for the tracks.
      * - int limit Optional. Limit the number of tracks.
      * - int offset Optional. Number of tracks to skip.
      * - string market Optional. An ISO 3166-1 alpha-2 country code, provide this if you wish to apply Track Relinking.
@@ -1353,7 +1353,7 @@ class SpotifyWebAPI
      * Get the current user’s saved shows.
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-saved-shows
      *
-     * @param array|object $options Optional. Options for the shows.
+     * @param array $options Optional. Options for the shows.
      * - int limit Optional. Limit the number of shows.
      * - int offset Optional. Number of shows to skip.
      *
@@ -1401,7 +1401,7 @@ class SpotifyWebAPI
      * Get new releases.
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-new-releases
      *
-     * @param array|object $options Optional. Options for the items.
+     * @param array $options Optional. Options for the items.
      * - string country Optional. An ISO 3166-1 alpha-2 country code. Show items relevant to this country.
      * - int limit Optional. Limit the number of items.
      * - int offset Optional. Number of items to skip.
@@ -1426,7 +1426,7 @@ class SpotifyWebAPI
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlist
      *
      * @param string $playlistId ID or URI of the playlist.
-     * @param array|object $options Optional. Options for the playlist.
+     * @param array $options Optional. Options for the playlist.
      * - string|array fields Optional. A list of fields to return. See Spotify docs for more info.
      * - string market Optional. An ISO 3166-1 alpha-2 country code, provide this if you wish to apply Track Relinking.
      *
@@ -1481,7 +1481,7 @@ class SpotifyWebAPI
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-playlists-tracks
      *
      * @param string $playlistId ID or URI of the playlist.
-     * @param array|object $options Optional. Options for the tracks.
+     * @param array $options Optional. Options for the tracks.
      * - string|array fields Optional. A list of fields to return. See Spotify docs for more info.
      * - int limit Optional. Limit the number of tracks.
      * - int offset Optional. Number of tracks to skip.
@@ -1514,7 +1514,7 @@ class SpotifyWebAPI
      * Get recommendations based on artists, tracks, or genres.
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-recommendations
      *
-     * @param array|object $options Optional. Options for the recommendations.
+     * @param array $options Optional. Options for the recommendations.
      * - int limit Optional. Limit the number of recommendations.
      * - string market Optional. An ISO 3166-1 alpha-2 country code, provide this if you wish to apply Track Relinking.
      * - mixed max_* Optional. Max value for one of the tunable track attributes.
@@ -1562,7 +1562,7 @@ class SpotifyWebAPI
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-show
      *
      * @param string $showId ID or URI of the show.
-     * @param array|object $options Optional. Options for the show.
+     * @param array $options Optional. Options for the show.
      * - string market Optional. An ISO 3166-1 alpha-2 country code, limit results to shows available in that market.
      *
      * @return array|object The requested show. Type is controlled by the `return_assoc` option.
@@ -1585,8 +1585,8 @@ class SpotifyWebAPI
      * Get a show's episodes.
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-a-shows-episodes
      *
-     * @param string $albumId ID or URI of the album.
-     * @param array|object $options Optional. Options for the episodes.
+     * @param $showId
+     * @param array $options Optional. Options for the episodes.
      * - int limit Optional. Limit the number of episodes.
      * - int offset Optional. Number of episodes to skip.
      * - string market Optional. An ISO 3166-1 alpha-2 country code, limit results to episodes available in that market.
@@ -1612,7 +1612,7 @@ class SpotifyWebAPI
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-multiple-shows
      *
      * @param array $showIds IDs or URIs of the shows.
-     * @param array|object $options Optional. Options for the shows.
+     * @param array $options Optional. Options for the shows.
      * - string market Optional. An ISO 3166-1 alpha-2 country code, limit results to shows available in that market.
      *
      * @return array|object The requested shows. Type is controlled by the `return_assoc` option.
@@ -1640,7 +1640,7 @@ class SpotifyWebAPI
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-track
      *
      * @param string $trackId ID or URI of the track.
-     * @param array|object $options Optional. Options for the track.
+     * @param array $options Optional. Options for the track.
      * - string market Optional. An ISO 3166-1 alpha-2 country code, provide this if you wish to apply Track Relinking.
      *
      * @return array|object The requested track. Type is controlled by the `return_assoc` option.
@@ -1664,7 +1664,7 @@ class SpotifyWebAPI
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-several-tracks
      *
      * @param array $trackIds IDs or URIs of the tracks.
-     * @param array|object $options Optional. Options for the tracks.
+     * @param array $options Optional. Options for the tracks.
      * - string market Optional. An ISO 3166-1 alpha-2 country code, provide this if you wish to apply Track Relinking.
      *
      * @return array|object The requested tracks. Type is controlled by the `return_assoc` option.
@@ -1713,7 +1713,7 @@ class SpotifyWebAPI
      * Get the artists followed by the current user.
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-followed
      *
-     * @param array|object $options Optional. Options for the artists.
+     * @param array $options Optional. Options for the artists.
      * - int limit Optional. Limit the number of artists returned.
      * - string after Optional. The last artist ID retrieved from the previous request.
      *
@@ -1743,7 +1743,7 @@ class SpotifyWebAPI
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/get-list-users-playlists
      *
      * @param string $userId ID or URI of the user.
-     * @param array|object $options Optional. Options for the tracks.
+     * @param array $options Optional. Options for the tracks.
      * - int limit Optional. Limit the number of tracks.
      * - int offset Optional. Number of tracks to skip.
      *
@@ -1842,8 +1842,7 @@ class SpotifyWebAPI
      * Check if shows are saved in the current user's Spotify library.
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/check-users-saved-shows
      *
-     * @param string|array $albums Show IDs or URIs to check for.
-     *
+     * @param $shows
      * @return array Whether each show is saved.
      */
     public function myShowsContains($shows)
@@ -1870,8 +1869,7 @@ class SpotifyWebAPI
      * Check if tracks are saved in the current user's Spotify library.
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/check-users-saved-tracks
      *
-     * @param string|array $albums Track IDs or URIs to check for.
-     *
+     * @param $tracks
      * @return array Whether each track is saved.
      */
     public function myTracksContains($tracks)
@@ -1951,7 +1949,7 @@ class SpotifyWebAPI
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/start-a-users-playback
      *
      * @param string $deviceId Optional. ID of the device to play on.
-     * @param array|object $options Optional. Options for the playback.
+     * @param array $options Optional. Options for the playback.
      * - string context_uri Optional. URI of the context to play, for example an album.
      * - array uris Optional. Spotify track URIs to play.
      * - object offset Optional. Indicates from where in the context playback should start.
@@ -2135,7 +2133,7 @@ class SpotifyWebAPI
      *
      * @param string $query The term to search for.
      * @param string|array $type The type of item to search for.
-     * @param array|object $options Optional. Options for the search.
+     * @param array $options Optional. Options for the search.
      * - string market Optional. Limit the results to items that are playable in this market, for example SE.
      * - int limit Optional. Limit the number of items.
      * - int offset Optional. Number of items to skip.

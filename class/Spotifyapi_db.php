@@ -216,7 +216,7 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
      * Get configs from database
      *
      * @param string $value
-     * @return array
+     * @return array|string
      */
     public function getConfig($value): array|string
     {
