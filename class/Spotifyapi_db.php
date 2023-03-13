@@ -150,6 +150,7 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
      * @var
      */
     public $RefreshToken;
+    public string $AccessToken;
     private $refreshToken;
     private $accessToken;
 
