@@ -32,7 +32,10 @@ $session = new XoopsModules\Spotifyapi\Spotifyapi_Session(
     $clientredirecturi
 );
 
-$state = $session->generateState();
+try {
+    $state = $session->generateState();
+} catch (Exception $e) {
+}
 $_SESSION['state'] = $state;
 $options = [
     'scope' => [

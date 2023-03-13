@@ -43,7 +43,11 @@ if ($state !== $storedState) {
 }
 
 // Request an access token using the code from Spotify
-$session->requestAccessToken($_GET['code']);
+try {
+    $session->requestAccessToken($_GET['code']);
+} catch (\XoopsModules\Spotifyapi\SpotifyWebAPIAuthException $e) {
+} catch (\XoopsModules\Spotifyapi\SpotifyWebAPIException $e) {
+}
 $db->code = $_GET['code'];
 $db->setConfig('code');
 

@@ -41,7 +41,10 @@ switch ($op) {
         getToken($clientid, $clientsecret);
         break;
     case 'getList':
-        getRecentlyPlayed();
+        try {
+            getRecentlyPlayed();
+        } catch (Exception $e) {
+        }
         break;
     case 'getOAuth':
         getOAuth($clientid, $clientsecret, $clientredirecturi);

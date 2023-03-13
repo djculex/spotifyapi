@@ -89,7 +89,10 @@ class SpotifyWebAPI
 
         $uri = '/v1/me/albums';
 
-        $this->lastResponse = $this->sendRequest('PUT', $uri, $albums, $headers);
+        try {
+            $this->lastResponse = $this->sendRequest('PUT', $uri, $albums, $headers);
+        } catch (SpotifyWebAPIAuthException|SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['status'] == 200;
     }
@@ -761,7 +764,10 @@ class SpotifyWebAPI
         $albumId = $this->uriToId($albumId, 'album');
         $uri = '/v1/albums/' . $albumId . '/tracks';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException|SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -779,7 +785,10 @@ class SpotifyWebAPI
         $artistId = $this->uriToId($artistId, 'artist');
         $uri = '/v1/artists/' . $artistId;
 
-        $this->lastResponse = $this->sendRequest('GET', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri);
+        } catch (SpotifyWebAPIAuthException|SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -803,7 +812,10 @@ class SpotifyWebAPI
 
         $uri = '/v1/artists/';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException|SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -821,7 +833,10 @@ class SpotifyWebAPI
         $artistId = $this->uriToId($artistId, 'artist');
         $uri = '/v1/artists/' . $artistId . '/related-artists';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri);
+        } catch (SpotifyWebAPIAuthException|SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -850,7 +865,10 @@ class SpotifyWebAPI
         $artistId = $this->uriToId($artistId, 'artist');
         $uri = '/v1/artists/' . $artistId . '/albums';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException|SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -870,7 +888,10 @@ class SpotifyWebAPI
         $artistId = $this->uriToId($artistId, 'artist');
         $uri = '/v1/artists/' . $artistId . '/top-tracks';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException|SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -888,7 +909,10 @@ class SpotifyWebAPI
         $trackId = $this->uriToId($trackId, 'track');
         $uri = '/v1/audio-analysis/' . $trackId;
 
-        $this->lastResponse = $this->sendRequest('GET', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri);
+        } catch (SpotifyWebAPIAuthException|SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -911,7 +935,10 @@ class SpotifyWebAPI
         $trackId = $this->uriToId($trackId, 'track');
         $uri = '/v1/audio-features/' . $trackId;
 
-        $this->lastResponse = $this->sendRequest('GET', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri);
+        } catch (SpotifyWebAPIAuthException|SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -933,7 +960,10 @@ class SpotifyWebAPI
 
         $uri = '/v1/audio-features';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException|SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -954,7 +984,10 @@ class SpotifyWebAPI
     {
         $uri = '/v1/browse/categories';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException|SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -975,7 +1008,10 @@ class SpotifyWebAPI
     {
         $uri = '/v1/browse/categories/' . $categoryId;
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException|SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -997,7 +1033,10 @@ class SpotifyWebAPI
     {
         $uri = '/v1/browse/categories/' . $categoryId . '/playlists';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException|SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1017,7 +1056,10 @@ class SpotifyWebAPI
         $episodeId = $this->uriToId($episodeId, 'episode');
         $uri = '/v1/episodes/' . $episodeId;
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException|SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1041,7 +1083,10 @@ class SpotifyWebAPI
 
         $uri = '/v1/episodes/';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException|SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1063,7 +1108,11 @@ class SpotifyWebAPI
     {
         $uri = '/v1/browse/featured-playlists';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1078,7 +1127,11 @@ class SpotifyWebAPI
     {
         $uri = '/v1/recommendations/available-genre-seeds';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1093,7 +1146,11 @@ class SpotifyWebAPI
     {
         $uri = '/v1/markets';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1117,7 +1174,11 @@ class SpotifyWebAPI
             $options['additional_types'] = $this->toCommaString($options['additional_types']);
         }
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1132,7 +1193,11 @@ class SpotifyWebAPI
     {
         $uri = '/v1/me/player/devices';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1156,7 +1221,11 @@ class SpotifyWebAPI
             $options['additional_types'] = $this->toCommaString($options['additional_types']);
         }
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1175,7 +1244,11 @@ class SpotifyWebAPI
     {
         $uri = '/v1/me/playlists';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1195,7 +1268,11 @@ class SpotifyWebAPI
     {
         $uri = '/v1/me/player/recently-played';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1215,7 +1292,11 @@ class SpotifyWebAPI
     {
         $uri = '/v1/me/albums';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1235,7 +1316,11 @@ class SpotifyWebAPI
     {
         $uri = '/v1/me/episodes';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1255,7 +1340,11 @@ class SpotifyWebAPI
     {
         $uri = '/v1/me/tracks';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1274,7 +1363,11 @@ class SpotifyWebAPI
     {
         $uri = '/v1/me/shows';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1295,7 +1388,11 @@ class SpotifyWebAPI
     {
         $uri = '/v1/me/top/' . $type;
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1315,7 +1412,11 @@ class SpotifyWebAPI
     {
         $uri = '/v1/browse/new-releases';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1343,7 +1444,11 @@ class SpotifyWebAPI
 
         $uri = '/v1/playlists/' . $playlistId;
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1362,7 +1467,11 @@ class SpotifyWebAPI
 
         $uri = '/v1/playlists/' . $playlistId . '/images';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1392,7 +1501,11 @@ class SpotifyWebAPI
 
         $uri = '/v1/playlists/' . $playlistId . '/tracks';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1425,7 +1538,11 @@ class SpotifyWebAPI
 
         $uri = '/v1/recommendations';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1455,7 +1572,11 @@ class SpotifyWebAPI
         $showId = $this->uriToId($showId, 'show');
         $uri = '/v1/shows/' . $showId;
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1477,7 +1598,11 @@ class SpotifyWebAPI
         $showId = $this->uriToId($showId, 'show');
         $uri = '/v1/shows/' . $showId . '/episodes';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1501,7 +1626,11 @@ class SpotifyWebAPI
 
         $uri = '/v1/shows/';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1521,7 +1650,11 @@ class SpotifyWebAPI
         $trackId = $this->uriToId($trackId, 'track');
         $uri = '/v1/tracks/' . $trackId;
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1545,7 +1678,11 @@ class SpotifyWebAPI
 
         $uri = '/v1/tracks/';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1563,7 +1700,11 @@ class SpotifyWebAPI
         $userId = $this->uriToId($userId, 'user');
         $uri = '/v1/users/' . $userId;
 
-        $this->lastResponse = $this->sendRequest('GET', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1588,7 +1729,11 @@ class SpotifyWebAPI
 
         $uri = '/v1/me/following';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1609,7 +1754,11 @@ class SpotifyWebAPI
         $userId = $this->uriToId($userId, 'user');
         $uri = '/v1/users/' . $userId . '/playlists';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1624,7 +1773,11 @@ class SpotifyWebAPI
     {
         $uri = '/v1/me';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1648,7 +1801,11 @@ class SpotifyWebAPI
 
         $uri = '/v1/me/albums/contains';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1672,7 +1829,11 @@ class SpotifyWebAPI
 
         $uri = '/v1/me/episodes/contains';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1696,7 +1857,11 @@ class SpotifyWebAPI
 
         $uri = '/v1/me/shows/contains';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1720,7 +1885,11 @@ class SpotifyWebAPI
 
         $uri = '/v1/me/tracks/contains';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1742,7 +1911,11 @@ class SpotifyWebAPI
             $uri = $uri . '?device_id=' . $deviceId;
         }
 
-        $this->lastResponse = $this->sendRequest('POST', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('POST', $uri);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['status'] == 204;
     }
@@ -1764,7 +1937,11 @@ class SpotifyWebAPI
             $uri = $uri . '?device_id=' . $deviceId;
         }
 
-        $this->lastResponse = $this->sendRequest('PUT', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('PUT', $uri);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['status'] == 204;
     }
@@ -1797,7 +1974,11 @@ class SpotifyWebAPI
             $uri = $uri . '?device_id=' . $deviceId;
         }
 
-        $this->lastResponse = $this->sendRequest('PUT', $uri, $options, $headers);
+        try {
+            $this->lastResponse = $this->sendRequest('PUT', $uri, $options, $headers);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['status'] == 204;
     }
@@ -1819,7 +2000,11 @@ class SpotifyWebAPI
             $uri = $uri . '?device_id=' . $deviceId;
         }
 
-        $this->lastResponse = $this->sendRequest('POST', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('POST', $uri);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['status'] == 204;
     }
@@ -1842,7 +2027,11 @@ class SpotifyWebAPI
             $uri = $uri . '&device_id=' . $deviceId;
         }
 
-        $this->lastResponse = $this->sendRequest('POST', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('POST', $uri);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['status'] == 204;
     }
@@ -1872,7 +2061,11 @@ class SpotifyWebAPI
 
         $uri = '/v1/playlists/' . $playlistId . '/tracks';
 
-        $this->lastResponse = $this->sendRequest('PUT', $uri, $options, $headers);
+        try {
+            $this->lastResponse = $this->sendRequest('PUT', $uri, $options, $headers);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->getSnapshotId($this->lastResponse['body']);
     }
@@ -1894,7 +2087,11 @@ class SpotifyWebAPI
         // We need to manually append data to the URI since it's a PUT request
         $uri = '/v1/me/player/repeat?' . $options;
 
-        $this->lastResponse = $this->sendRequest('PUT', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('PUT', $uri);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['status'] == 204;
     }
@@ -1923,7 +2120,11 @@ class SpotifyWebAPI
 
         $uri = '/v1/playlists/' . $playlistId . '/tracks';
 
-        $this->lastResponse = $this->sendRequest('PUT', $uri, $tracks, $headers);
+        try {
+            $this->lastResponse = $this->sendRequest('PUT', $uri, $tracks, $headers);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['status'] == 201;
     }
@@ -1950,7 +2151,11 @@ class SpotifyWebAPI
 
         $uri = '/v1/search';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
@@ -1972,7 +2177,11 @@ class SpotifyWebAPI
         // We need to manually append data to the URI since it's a PUT request
         $uri = '/v1/me/player/seek?' . $options;
 
-        $this->lastResponse = $this->sendRequest('PUT', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('PUT', $uri);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['status'] == 204;
     }
@@ -2010,7 +2219,11 @@ class SpotifyWebAPI
         // We need to manually append data to the URI since it's a PUT request
         $uri = '/v1/me/player/shuffle?' . $options;
 
-        $this->lastResponse = $this->sendRequest('PUT', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('PUT', $uri);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['status'] == 204;
     }
@@ -2038,7 +2251,11 @@ class SpotifyWebAPI
         // We need to manually append data to the URI since it's a DELETE request
         $uri = '/v1/me/following?type=' . $type;
 
-        $this->lastResponse = $this->sendRequest('DELETE', $uri, $ids, $headers);
+        try {
+            $this->lastResponse = $this->sendRequest('DELETE', $uri, $ids, $headers);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['status'] == 204;
     }
@@ -2056,7 +2273,11 @@ class SpotifyWebAPI
         $playlistId = $this->uriToId($playlistId, 'playlist');
         $uri = '/v1/playlists/' . $playlistId . '/followers';
 
-        $this->lastResponse = $this->sendRequest('DELETE', $uri);
+        try {
+            $this->lastResponse = $this->sendRequest('DELETE', $uri);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['status'] == 200;
     }
@@ -2086,7 +2307,11 @@ class SpotifyWebAPI
 
         $uri = '/v1/playlists/' . $playlistId;
 
-        $this->lastResponse = $this->sendRequest('PUT', $uri, $options, $headers);
+        try {
+            $this->lastResponse = $this->sendRequest('PUT', $uri, $options, $headers);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['status'] == 200;
     }
@@ -2106,7 +2331,11 @@ class SpotifyWebAPI
 
         $uri = '/v1/playlists/' . $playlistId . '/images';
 
-        $this->lastResponse = $this->sendRequest('PUT', $uri, $imageData);
+        try {
+            $this->lastResponse = $this->sendRequest('PUT', $uri, $imageData);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['status'] == 202;
     }
@@ -2134,7 +2363,11 @@ class SpotifyWebAPI
 
         $uri = '/v1/playlists/' . $playlistId . '/followers/contains';
 
-        $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        try {
+            $this->lastResponse = $this->sendRequest('GET', $uri, $options);
+        } catch (SpotifyWebAPIAuthException $e) {
+        } catch (SpotifyWebAPIException $e) {
+        }
 
         return $this->lastResponse['body'];
     }
