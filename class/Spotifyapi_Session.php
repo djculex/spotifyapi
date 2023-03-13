@@ -20,7 +20,7 @@ use Exception;
 /**
  *
  */
-class Session
+class Spotifyapi_Session
 {
     protected string $accessToken = '';
     protected string $clientId = '';
@@ -46,7 +46,7 @@ class Session
         $this->setClientSecret($clientSecret);
         $this->setRedirectUri($redirectUri);
 
-        $this->request = $request ?? new Request();
+        $this->request = $request ?? new Spotifyapi_Request();
     }
 
     /**
@@ -124,7 +124,7 @@ class Session
             $parameters['code_challenge_method'] = $options['code_challenge_method'] ?? 'S256';
         }
 
-        return Request::ACCOUNT_URL . '/authorize?' . http_build_query($parameters, '', '&');
+        return Spotifyapi_Request::ACCOUNT_URL . '/authorize?' . http_build_query($parameters, '', '&');
     }
 
     /**

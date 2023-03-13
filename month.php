@@ -65,6 +65,7 @@ $GLOBALS['xoopsTpl']->assign('dropend', $dropend);
 $GLOBALS['xoopsTpl']->assign('radiobutton', $radiobtn);
 $GLOBALS['xoopsTpl']->assign('sbmit', $form->submitBtn('spotifyapisubmitbutton', _SPOTIFYAPI_FILTER_TITLE, $sep = '<br>'));
 $GLOBALS['xoopsTpl']->assign('chart', $d->parseArrayDouble($td, $yd));
+$GLOBALS['xoopsTpl']->assign('charttype', "classic");
 $GLOBALS['xoopsTpl']->assign('lastweek_text', _SPOTIFYAPI_STARTTIME);
 $GLOBALS['xoopsTpl']->assign('weeklyLink', XOOPS_URL . "/modules/spotifyapi/week.php");
 $GLOBALS['xoopsTpl']->assign('weekly', $weekly);

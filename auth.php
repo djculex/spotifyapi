@@ -26,7 +26,7 @@ $clientid = $helper->getConfig('spotifyapiclientid');
 $clientsecret = $helper->getConfig('spotifyapiclientsecret');
 $clientredirecturi = $helper->getConfig('spotifyapiredirecturi');
 
-$session = new XoopsModules\Spotifyapi\Session(
+$session = new XoopsModules\Spotifyapi\Spotifyapi_Session(
     $clientid,
     $clientsecret,
     $clientredirecturi

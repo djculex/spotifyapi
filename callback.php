@@ -23,9 +23,9 @@ $block = [];
 $clientid = $helper->getConfig('spotifyapiclientid');
 $clientsecret = $helper->getConfig('spotifyapiclientsecret');
 $clientredirecturi = $helper->getConfig('spotifyapiredirecturi');
-$db = new Spotifyapi_db();
+$db = new XoopsModules\Spotifyapi\Spotifyapi_db();
 
-$session = new XoopsModules\Spotifyapi\Session(
+$session = new XoopsModules\Spotifyapi\Spotifyapi_Session(
     $clientid,
     $clientsecret,
     $clientredirecturi
@@ -52,8 +52,8 @@ $accessToken = $session->getAccessToken();
 $refreshToken = $session->getRefreshToken();
 
 // Store the access and refresh tokens somewhere. In a session for example
-$db->accessToken = $accessToken;
-$db->refreshToken = $refreshToken;
+$db->AccessToken = $accessToken;
+$db->RefreshToken = $refreshToken;
 $db->setConfig('accessToken');
 $db->setConfig('refreshToken');
 

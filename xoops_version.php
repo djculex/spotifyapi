@@ -39,7 +39,7 @@ require_once XOOPS_ROOT_PATH . '/modules/spotifyapi/include/functions.php';
 // ------------------- Informations ------------------- //
 $modversion = [
     'name' => _MI_SPOTIFYAPI_NAME,
-    'version' => 1.07,
+    'version' => 1.08,
     'description' => _MI_SPOTIFYAPI_DESC,
     'author' => 'TDM XOOPS',
     'author_mail' => 'culex@culex.com',
@@ -51,7 +51,7 @@ $modversion = [
     'help' => 'page=help',
     'release_info' => 'release_info',
     'release_file' => XOOPS_URL . '/modules/spotifyapi/docs/release_info file',
-    'release_date' => '2021/03/10',
+    'release_date' => '2021/03/13',
     'manual' => 'link to manual file',
     'manual_file' => XOOPS_URL . '/modules/spotifyapi/docs/install.txt',
     'min_php' => '7.0',
@@ -79,7 +79,7 @@ $modversion = [
     'module_website_url' => 'www.xoops.org',
     'module_website_name' => 'XOOPS Project',
     'release' => '05/25/2020',
-    'module_status' => 'Beta 3',
+    'module_status' => 'Beta 4',
     'system_menu' => 1,
     'hasAdmin' => 1,
     'hasMain' => 1,

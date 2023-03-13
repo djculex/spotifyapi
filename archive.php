@@ -46,6 +46,7 @@ $d = new Spotifyapi_db();
 $form = new Spotifyapi_form();
 date_default_timezone_set($timez);
 $weekly = 0;
+$monthly = false;
 
 if ($weekParam != "" && $yearParam != "") {
     if ($charttype == 'accumulated') {
@@ -102,6 +103,7 @@ $GLOBALS['xoopsTpl']->assign('charttype', $charttype);
 $GLOBALS['xoopsTpl']->assign('lastweek_text', _SPOTIFYAPI_STARTTIME);
 $GLOBALS['xoopsTpl']->assign('weeklyLink', XOOPS_URL . "/modules/spotifyapi/week.php");
 $GLOBALS['xoopsTpl']->assign('weekly', $weekly);
+$GLOBALS['xoopsTpl']->assign('monthly', $monthly);
 
 $GLOBALS['xoopsTpl']->assign('alltime', _SPOTIFYAPI_ALLTIME_TOP);
 $GLOBALS['xoopsTpl']->assign('alltimeLink', XOOPS_URL . "/modules/spotifyapi/alltime.php");
