@@ -205,7 +205,7 @@ class SpotifyWebAPI
      *
      * @param string|array $episodes Episode IDs or URIs to add.
      *
-     * @return bool Whether the episodes was successfully added.
+     * @return bool Whether the episodes were successfully added.
      * @throws SpotifyWebAPIAuthException
      * @throws SpotifyWebAPIException
      */
@@ -231,7 +231,7 @@ class SpotifyWebAPI
      *
      * @param string|array $shows Show IDs or URIs to add.
      *
-     * @return bool Whether the shows was successfully added.
+     * @return bool Whether the shows were successfully added.
      * @throws SpotifyWebAPIAuthException
      * @throws SpotifyWebAPIException
      */
@@ -257,7 +257,7 @@ class SpotifyWebAPI
      *
      * @param string|array $tracks Track IDs or URIs to add.
      *
-     * @return bool Whether the tracks was successfully added.
+     * @return bool Whether the tracks were successfully added.
      * @throws SpotifyWebAPIAuthException
      * @throws SpotifyWebAPIException
      */
@@ -486,7 +486,7 @@ class SpotifyWebAPI
      *
      * @param string|array $albums Album IDs or URIs to delete.
      *
-     * @return bool Whether the albums was successfully deleted.
+     * @return bool Whether the albums were successfully deleted.
      * @throws SpotifyWebAPIAuthException
      * @throws SpotifyWebAPIException
      */
@@ -512,7 +512,7 @@ class SpotifyWebAPI
      *
      * @param string|array $episodes Episode IDs or URIs to delete.
      *
-     * @return bool Whether the episodes was successfully deleted.
+     * @return bool Whether the episodes were successfully deleted.
      * @throws SpotifyWebAPIAuthException
      * @throws SpotifyWebAPIException
      */
@@ -538,7 +538,7 @@ class SpotifyWebAPI
      *
      * @param string|array $shows Show IDs or URIs to delete.
      *
-     * @return bool Whether the shows was successfully deleted.
+     * @return bool Whether the shows were successfully deleted.
      * @throws SpotifyWebAPIAuthException
      * @throws SpotifyWebAPIException
      */
@@ -564,7 +564,7 @@ class SpotifyWebAPI
      *
      * @param string|array $tracks Track IDs or URIs to delete.
      *
-     * @return bool Whether the tracks was successfully deleted.
+     * @return bool Whether the tracks were successfully deleted.
      * @throws SpotifyWebAPIAuthException
      * @throws SpotifyWebAPIException
      */
@@ -1893,7 +1893,7 @@ class SpotifyWebAPI
     }
 
     /**
-     * Play the next track in the current users's queue.
+     * Play the next track in the current user's queue.
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/skip-users-playback-to-next-track
      *
      * @param string $deviceId Optional. ID of the device to target.
@@ -1982,7 +1982,7 @@ class SpotifyWebAPI
     }
 
     /**
-     * Play the previous track in the current users's queue.
+     * Play the previous track in the current user's queue.
      * https://developer.spotify.com/documentation/web-api/reference/#/operations/skip-users-playback-to-previous-track
      *
      * @param string $deviceId Optional. ID of the device to target.

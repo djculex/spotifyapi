@@ -629,7 +629,7 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
     }
 
     /**
-     * Method to merge the this week, last week into one
+     * Method to merge this week, last week into one
      *
      * @param array $tw
      * @param array $lw
@@ -702,7 +702,7 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
     }
 
     /**
-     * Method to merge the this week, last week into one
+     * Method to merge this week, last week into one
      *
      * @param array $tw
      * @return array $chart
