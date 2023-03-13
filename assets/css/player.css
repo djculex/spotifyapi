@@ -48,7 +48,7 @@
 
 .spotifycounter {
     text-align: right;
-    margin: 0% 1%;
+    margin: 0 1%;
     font-size: 0.8em;
     color: #ab9e845c;
 }
@@ -83,7 +83,7 @@ p.spotify-artist-text {
 }
 
 .spotify-albumname {
-    margin: 0 10% 0% 10%;
+    margin: 0 10% 0 10%;
     font-size: 0.84em;
     font-style: italic;
     text-align: center;
