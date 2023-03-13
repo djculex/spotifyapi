@@ -12,7 +12,7 @@
 
 use XoopsModules\Spotifyapi\{Spotifyapi_db};
 use XoopsModules\Spotifyapi;
-use XoopsModules\Spotifyapi\Constants;
+use XoopsModules\Spotifyapi\Spotifyapi_Constants;
 
 require_once dirname(__DIR__, 2) . '/mainfile.php';
 include __DIR__ . '/preloads/autoloader.php';
@@ -21,13 +21,12 @@ require_once XOOPS_ROOT_PATH . '/class/template.php';
 $GLOBALS['xoopsLogger']->activated = false;
 $block = [];
 
-/** @var Spotifyapi\Helper $helper */
 $helper = Spotifyapi\Spotifyapi_Helper::getInstance();
 $clientid = $helper->getConfig('spotifyapiclientid');
 $clientsecret = $helper->getConfig('spotifyapiclientsecret');
 $clientredirecturi = $helper->getConfig('spotifyapiredirecturi');
 
-$session = new XoopsModules\Spotifyapi\Session(
+$session = new XoopsModules\Spotifyapi\Spotifyapi_Session(
     $clientid,
     $clientsecret,
     $clientredirecturi
@@ -41,7 +40,10 @@ $api = new XoopsModules\Spotifyapi\SpotifyWebAPI($sessionOptions, $session);
 
 if (isset($_GET['code'])) {
     $db = new Spotifyapi_db();
-    $session->requestAccessToken($_GET['code']);
+    try {
+        $session->requestAccessToken($_GET['code']);
+    } catch (Spotifyapi\SpotifyWebAPIAuthException|Spotifyapi\SpotifyWebAPIException $e) {
+    }
     $api->setAccessToken($session->getAccessToken());
 
     $options = [
