@@ -55,8 +55,8 @@ $accessToken = $session->getAccessToken();
 $refreshToken = $session->getRefreshToken();
 
 // Store the access and refresh tokens somewhere. In a session for example
-$db->AccessToken = $accessToken;
-$db->RefreshToken = $refreshToken;
+$db->accessToken = $accessToken;
+$db->refreshToken = $refreshToken;
 $db->setConfig('accessToken');
 $db->setConfig('refreshToken');
 
