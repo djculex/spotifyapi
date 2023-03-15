@@ -150,8 +150,8 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
      */
     public $RefreshToken;
     public string $AccessToken;
-    private $refreshToken;
-    private $accessToken;
+    public $refreshToken;
+    public $accessToken;
 
 
     /**
@@ -422,6 +422,7 @@ class Spotifyapi_db extends \XoopsPersistableObjectHandler
                 $this->db->prefix('spotifyapi_config') .
                 ' SET ' . $t . " = '" . $v . "' where id = 1";
         }
+        $result = $this->db->queryF($sql);
     }
 
     /**
